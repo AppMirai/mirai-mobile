@@ -8,20 +8,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DetailProduct extends StatelessWidget {
   const DetailProduct({Key? key}) : super(key: key);
 
-  void launchURL(String _url) async {
-    if (!await launchUrl(Uri.parse(_url))) throw 'Could not launch $_url';
+  // void launchURL(String _url) async {
+  //   if (!await launchUrl(Uri.parse(_url))) throw 'Could not launch $_url';
+  // }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final item = ModalRoute.of(context)?.settings.arguments as DocumentSnapshot;
+    // final item = ModalRoute.of(context)?.settings.arguments as DocumentSnapshot;
+    final item = ModalRoute.of(context)?.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(color: kBlackColor),
         title: Text(
-          item['name'],
+          // item['name'],
+          item.name,
           style: TextStyle(color: kBlackColor),
         ),
       ),
@@ -35,12 +45,12 @@ class DetailProduct extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Image.network(
-                    item['images'][index],
+                    item.images[index],
                     fit: BoxFit.cover,
                   ),
                 );
               },
-              itemCount: item['images'].length,
+              itemCount: item.images.length,
             ),
           ),
           Container(
@@ -48,7 +58,7 @@ class DetailProduct extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text(
-                    item['price'],
+                    item.price,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -85,7 +95,7 @@ class DetailProduct extends StatelessWidget {
                     padding:
                         const EdgeInsets.only(left: 24, right: 24, top: 10),
                     child: Text(
-                      item['name'],
+                      item.name,
                     )),
               ],
             ),
@@ -121,7 +131,7 @@ class DetailProduct extends StatelessWidget {
               ),
               onPressed: () {},
               child: Text(
-                item['shade'],
+                item.shade,
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -148,7 +158,7 @@ class DetailProduct extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(left: 24, right: 24),
             child: Text(
-              item['description'],
+              item.description,
               textAlign: TextAlign.justify,
               style: const TextStyle(fontSize: 16),
             ),
@@ -171,7 +181,7 @@ class DetailProduct extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  launchURL(item['tokopedia']);
+                  launchURL(item.tokopedia);
                 },
                 child: Text(
                   "TOKOPEDIA",
@@ -182,7 +192,7 @@ class DetailProduct extends StatelessWidget {
               ),
             ),
             onTap: () async {
-              final url = item['tokopedia'];
+              final url = item.tokopedia;
 
               if (await canLaunch(url)) {
                 await launch(url);
@@ -207,7 +217,7 @@ class DetailProduct extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  launchURL(item['shopee']);
+                  launchURL(item.shopee);
                 },
                 child: Text(
                   "SHOPEE",
@@ -218,7 +228,7 @@ class DetailProduct extends StatelessWidget {
               ),
             ),
             onTap: () async {
-              final url = item['shopee'];
+              final url = item.shopee;
 
               if (await canLaunch(url)) {
                 await launch(url);

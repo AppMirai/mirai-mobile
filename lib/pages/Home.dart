@@ -14,63 +14,102 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
               children: [
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Padding(
-                      padding: EdgeInsets.only(
-                          left: 24, top: 20, right: 24, bottom: 20),
-                      child: Text(
-                        'Hi, Budi',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    )),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 24, top: 20, right: 24, bottom: 20),
-                      child: Icon(
-                        Icons.favorite_border,
-                        color: kPrimaryColor,
-                      ),
-                    )
-                  ],
+                Container(
+                  color: kPrimaryColor,
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 24, right: 24, bottom: 20),
-                  child: CupertinoSearchTextField(
-                    
+                SafeArea(
+                  child: Container(
+                    color: kWhiteColor,
                   ),
                 ),
+                Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30)),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 24, top: 30, right: 24, bottom: 20),
+                        child: Text(
+                          'Hi, Budi',
+                          style: TextStyle(
+                            color: kWhiteColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      )),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 24, top: 30, right: 24, bottom: 20),
+                        child: Icon(
+                          Icons.favorite_border,
+                          color: kWhiteColor,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional.topCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      top: 100,
+                      bottom: 24,
+                      left: 24,
+                      right: 24,
+                    ),
+                    child: CupertinoSearchTextField(
+                      decoration: BoxDecoration(
+                        color: kWhiteColor,
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 0,
+                            blurRadius: 8,
+                            offset: const Offset(
+                                0, 0), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 const CarouselBanner(),
                 const CarouselBrand(),
                 const CarouselCategory(),
                 const ProductsTile(),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 30, bottom: 30),
-                    child: Center(
-                      child: Text(
-                        "Mirai Dev @2022",
-                        style: TextStyle(
-                          color: kGreyColor,
-                        ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30, bottom: 30),
+                  child: Center(
+                    child: Text(
+                      "Mirai Dev @2022",
+                      style: TextStyle(
+                        color: kGreyColor,
                       ),
                     ),
                   ),
                 )
               ],
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirai_app/cubit/page_cubit.dart';
 import 'package:mirai_app/pages/AR.dart';
 import 'package:mirai_app/pages/Explore.dart';
+import 'package:mirai_app/pages/Upload_Photo.dart';
 import 'package:mirai_app/shared/theme.dart';
 import 'package:mirai_app/widget/custom_navbar_items.dart';
 import '../Home.dart';
@@ -19,7 +20,7 @@ class BottomNavigation extends StatelessWidget {
         // case 1:
         //   return Explore();
         case 1:
-          return ARfilter();
+          return UploadPhoto();
         default:
           return Home();
       }
