@@ -6,7 +6,7 @@ class Explore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('ini Explore Page'),
+      child: Text('ini Explore Page ya ges ya'),
     );
   }
 }
