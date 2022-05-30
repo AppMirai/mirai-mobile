@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirai_app/cubit/page_cubit.dart';
 import 'package:mirai_app/pages/AR_Camera.dart';
+import 'package:mirai_app/pages/Brand_List.dart';
+import 'package:mirai_app/pages/Category_List.dart';
 import 'package:mirai_app/pages/Detail_Product.dart';
 import 'package:mirai_app/pages/Home.dart';
 import 'package:mirai_app/pages/Login.dart';
+import 'package:mirai_app/pages/Onboarding.dart';
 import 'package:mirai_app/pages/Register.dart';
 import 'package:mirai_app/pages/Splash.dart';
 import 'package:mirai_app/pages/Upload_Photo.dart';
@@ -40,6 +43,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(fontFamily: 'Poppins'),
         routes: {
           '/': (context) => Splash(),
+          '/onboarding':(context) => Onboarding(),
           '/navbar': (context) => BottomNavigation(),
           '/home': (context) => Home(),
           '/detail': (context) => DetailProduct(),
@@ -47,6 +51,8 @@ class MyApp extends StatelessWidget {
           '/login': (context) => Login(),
           '/register': (context) => Register(),
           '/upphoto': (context) => UploadPhoto(),
+          '/brand':(context) => BrandListScreen(),
+          '/category':(context) => CategoryListScreen(),
         },
       ),
     );

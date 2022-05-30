@@ -20,7 +20,7 @@ class BottomNavigation extends StatelessWidget {
         // case 1:
         //   return Explore();
         case 1:
-          return UploadPhoto();
+          return ARfilter();
         default:
           return Home();
       }
@@ -33,8 +33,14 @@ class BottomNavigation extends StatelessWidget {
           width: double.infinity,
           height: 60,
           margin: const EdgeInsets.only(bottom: 30, left: 24, right: 24),
-          decoration: BoxDecoration(
-              color: kWhiteColor, borderRadius: BorderRadius.circular(18)),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 0,
+              blurRadius: 8,
+              offset: const Offset(0, 0), // changes position of shadow
+            ),
+          ], color: kWhiteColor, borderRadius: BorderRadius.circular(18)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
