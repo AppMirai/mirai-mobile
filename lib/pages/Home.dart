@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             left: 24, top: 30, right: 24, bottom: 20),
                         child: Text(
-                          'MiraiApp',
+                          'HEllo, MiraiApp',
                           style: TextStyle(
                             color: kWhiteColor,
                             fontSize: 20,
