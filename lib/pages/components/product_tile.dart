@@ -8,20 +8,21 @@ class ProductsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: <Widget>[
-              Expanded(
-                  child: Padding(
-                padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
-                child: Text(
-                  'Recommendations',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                ),
-              )),
-              Padding(
-                padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: <Widget>[
+            Expanded(
+                child: Padding(
+              padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
+              child: Text(
+                'Recommendations',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+            )),
+            Padding(
+              padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
+              child: TextButton(
                 child: Text(
                   'See all',
                   style: TextStyle(
@@ -29,11 +30,13 @@ class ProductsTile extends StatelessWidget {
                     color: kPrimaryColor,
                   ),
                 ),
-              )
-            ],
-          ),
-          ProductTileItems(),
-        ],
-      );
+                onPressed: () {},
+              ),
+            )
+          ],
+        ),
+        ProductTileItems(),
+      ],
+    );
   }
 }
