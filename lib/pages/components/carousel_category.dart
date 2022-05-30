@@ -23,12 +23,17 @@ class CarouselCategory extends StatelessWidget {
               )),
               Padding(
                 padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
-                child: Text(
-                  'See all',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: kPrimaryColor,
+                child: TextButton(
+                  child: Text(
+                    'See all',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: kPrimaryColor,
+                    ),
                   ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/category');
+                  },
                 ),
               )
             ],

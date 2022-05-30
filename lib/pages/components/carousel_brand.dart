@@ -11,7 +11,7 @@ class CarouselBrand extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const <Widget>[
+            children: <Widget>[
               Expanded(
                   child: Padding(
                 padding:
@@ -24,12 +24,17 @@ class CarouselBrand extends StatelessWidget {
               Padding(
                 padding:
                     EdgeInsets.only(left: 24, top: 20, right: 24, bottom: 20),
-                child: Text(
-                  'See all',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFFE66099),
+                child: TextButton(
+                  child: Text(
+                    'See all',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFFE66099),
+                    ),
                   ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/brand');
+                  },
                 ),
               )
             ],
