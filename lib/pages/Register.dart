@@ -45,6 +45,7 @@ class _RegisterState extends State<Register> {
             //   height: 6,
             // ),
             TextFormField(
+              cursorColor: kPrimaryColor,
               decoration: InputDecoration(
                 hintText: 'Full Name',
                 border: OutlineInputBorder(
@@ -68,6 +69,7 @@ class _RegisterState extends State<Register> {
             //   height: 6,
             // ),
             TextFormField(
+              cursorColor: kPrimaryColor,
               decoration: InputDecoration(
                 hintText: 'Email',
                 border: OutlineInputBorder(

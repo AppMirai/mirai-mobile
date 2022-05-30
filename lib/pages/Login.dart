@@ -45,6 +45,7 @@ class _LoginState extends State<Login> {
             //   height: 6,
             // ),
             TextFormField(
+              cursorColor: kPrimaryColor,
               decoration: InputDecoration(
                 hintText: 'Email',
                 border: OutlineInputBorder(
