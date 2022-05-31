@@ -9,13 +9,17 @@ class OnboardingContent {
 
 List<OnboardingContent> contents = [
   OnboardingContent(
-      title: 'Welcome to MiraiApp',
+      title: 'Welcome',
       image: 'assets/images/onboarding_illustration1.png',
       description:
-          'Ini merupakan versi pertama pengembangan Aplikasi Mirai,\njadi mungkin ini masih belum bisa memenuhi sepenuhnya ekspektasi anda.'),
+          'Mirai merupakan Aplikasi yang memiliki fitur yang bisa mengaplikasikan produk Makeup secara virtual'),
   OnboardingContent(
-      title: 'Support Us!',
+      title: 'Explore',
       image: 'assets/images/onboarding_illustration2.png',
+      description: 'Tersedia berbagai produk Makeup yang bisa anda cari'),
+  OnboardingContent(
+      title: 'Augmented Reality',
+      image: 'assets/images/onboarding_illustration3.png',
       description:
-          'Terima Kasih sudah ingin mencoba Aplikasi kami,\nmohon bantuannya untuk memberikan Rating dan Feedbacknya'),
+          'Fitur mengaplikasikan produk Makeup secara virtual dengan AR'),
 ];
