@@ -1,18 +1,30 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:mirai_app/model/product.dart';
+import 'package:mirai_app/api/api_service.dart';
+import 'package:mirai_app/model/Products.dart';
 import 'package:mirai_app/pages/components/list_item.dart';
 import 'package:mirai_app/shared/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProductTileItems extends StatelessWidget {
+class ProductTileItems extends StatefulWidget {
   ProductTileItems({Key? key}) : super(key: key);
 
-  // final CollectionReference products =
-  //     FirebaseFirestore.instance.collection('Products');
-
   @override
+  State<ProductTileItems> createState() => _ProductTileItemsState();
+}
+
+class _ProductTileItemsState extends State<ProductTileItems> {
+  late Future<Products> _products;
+
+  // final CollectionReference products =
+  @override
+  void initState() {
+    super.initState();
+    _products = ApiService().GetProduct();
+  }
+
   Widget build(BuildContext context) {
     // return Container(
     //   child: StreamBuilder(
@@ -49,8 +61,32 @@ class ProductTileItems extends StatelessWidget {
     //         }
     //       }),
     // );
-    return Column(
-      children: productList.map((item) => ListItem(item: item)).toList(),
+    return FutureBuilder(
+      future: _products,
+      builder: (context, AsyncSnapshot<Products> snapshot) {
+        var state = snapshot.connectionState;
+        if (state != ConnectionState.done) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshot.data?.data.length,
+              itemBuilder: (context, index) {
+                var _product = snapshot.data?.data[index];
+
+                return ListItem(item: _product!);
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          } else {
+            return Text('');
+          }
+        }
+      },
     );
 
     // return ListView.builder(
@@ -76,51 +112,4 @@ class ProductTileItems extends StatelessWidget {
     //   itemCount: productList.length,
     // );
   }
-
-  // Widget listItem(Product item) {
-  //   //   return Container(
-  //   //     margin: EdgeInsets.only(left: 24, right: 24, bottom: 10),
-  //   //     padding: EdgeInsets.all(10),
-  //   //     decoration: BoxDecoration(
-  //   //         color: kWhiteColor, borderRadius: BorderRadius.circular(10)),
-  //   //     child: Row(
-  //   //       children: [
-  //   //         Container(
-  //   //           width: 70,
-  //   //           height: 70,
-  //   //           margin: EdgeInsets.only(right: 16),
-  //   //           decoration: BoxDecoration(
-  //   //             borderRadius: BorderRadius.circular(10),
-  //   //             image: DecorationImage(
-  //   //               fit: BoxFit.cover,
-  //   //               image: NetworkImage(item['image']),
-  //   //             ),
-  //   //           ),
-  //   //         ),
-  //   //         Expanded(
-  //   //           child: Column(
-  //   //             crossAxisAlignment: CrossAxisAlignment.start,
-  //   //             children: [
-  //   //               Text(
-  //   //                 item['name'],
-  //   //                 style: TextStyle(fontSize: 16),
-  //   //                 overflow: TextOverflow.ellipsis,
-  //   //               ),
-  //   //               SizedBox(
-  //   //                 height: 5,
-  //   //               ),
-  //   //               Text(
-  //   //                 item['price'],
-  //   //                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-  //   //               )
-  //   //             ],
-  //   //           ),
-  //   //         ),
-  //   //       ],
-  //   //     ),
-  //   //   );
-  //   // }
-  //   return
-  // }
-
 }

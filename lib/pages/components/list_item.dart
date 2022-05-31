@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mirai_app/model/product.dart';
+import 'package:mirai_app/model/Products.dart';
 import 'package:mirai_app/shared/theme.dart';
 
 class ListItem extends StatelessWidget {

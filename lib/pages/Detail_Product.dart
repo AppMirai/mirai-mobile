@@ -1,8 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:mirai_app/model/Products.dart';
 import 'package:mirai_app/shared/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:mirai_app/model/product.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailProduct extends StatelessWidget {
@@ -45,7 +45,7 @@ class DetailProduct extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Image.network(
-                    item.images[index],
+                    item.images[index].images,
                     fit: BoxFit.cover,
                   ),
                 );
