@@ -12,10 +12,9 @@ import 'package:mirai_app/pages/Register.dart';
 import 'package:mirai_app/pages/Splash.dart';
 import 'package:mirai_app/pages/Upload_Photo.dart';
 import 'package:mirai_app/pages/components/navbar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -31,30 +30,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => PageCubit(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Mirai App',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'Poppins'),
-        routes: {
-          '/': (context) => Splash(),
-          '/onboarding':(context) => Onboarding(),
-          '/navbar': (context) => BottomNavigation(),
-          '/home': (context) => Home(),
-          '/detail': (context) => DetailProduct(),
-          '/ar': (context) => ARCamera(),
-          '/login': (context) => Login(),
-          '/register': (context) => Register(),
-          '/upphoto': (context) => UploadPhoto(),
-          '/brand':(context) => BrandListScreen(),
-          '/category':(context) => CategoryListScreen(),
-        },
-      ),
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => PageCubit(),
+            ),
+          ],
+          child: MaterialApp(
+            title: 'Mirai',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(fontFamily: 'Poppins'),
+            routes: {
+              '/': (context) => Splash(),
+              '/onboarding': (context) => Onboarding(),
+              '/navbar': (context) => BottomNavigation(),
+              '/home': (context) => Home(),
+              '/detail': (context) => DetailProduct(),
+              '/ar': (context) => ARCamera(),
+              '/login': (context) => Login(),
+              '/register': (context) => Register(),
+              '/upphoto': (context) => UploadPhoto(),
+              '/brand': (context) => BrandListScreen(),
+              '/category': (context) => CategoryListScreen(),
+            },
+          ),
+        );
+      },
     );
   }
 }
