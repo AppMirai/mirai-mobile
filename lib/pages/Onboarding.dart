@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mirai_app/model/content_onboarding.dart';
 import 'package:mirai_app/shared/theme.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -40,37 +41,40 @@ class _OnboardingState extends State<Onboarding> {
                   });
                 },
                 itemBuilder: (_, i) {
-                  return Padding(
-                    padding: EdgeInsets.all(40),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          contents[i].image,
-                          height: 300,
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Text(
-                          contents[i].title,
-                          style: TextStyle(
-                            color: kPrimaryColor,
-                            fontSize: 24,
-                            fontWeight: semiBold,
+                  return Container(
+                    margin: EdgeInsets.only(top: 10.h),
+                    child: Padding(
+                      padding: EdgeInsets.all(40),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            contents[i].image,
+                            height: 300,
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          contents[i].description,
-                          style: TextStyle(
-                              color: kGreyColor,
-                              fontSize: 16,
-                              fontWeight: regular),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Text(
+                            contents[i].title,
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                              fontSize: 24,
+                              fontWeight: semiBold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            contents[i].description,
+                            style: TextStyle(
+                                color: kGreyColor,
+                                fontSize: 16,
+                                fontWeight: regular),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }),
