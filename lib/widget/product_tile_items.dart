@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:mirai_app/model/product.dart';
 import 'package:mirai_app/pages/components/list_item.dart';
-import 'package:mirai_app/shared/theme.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProductTileItems extends StatelessWidget {
   ProductTileItems({Key? key}) : super(key: key);
@@ -49,9 +45,39 @@ class ProductTileItems extends StatelessWidget {
     //         }
     //       }),
     // );
-    return Column(
-      children: productList.map((item) => ListItem(item: item)).toList(),
+    return FutureBuilder(
+      future: _products,
+      builder: (context, AsyncSnapshot<Products> snapshot) {
+        var state = snapshot.connectionState;
+        if (state != ConnectionState.done) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );  
+        } else {
+          if (snapshot.hasData) {
+            return Column(
+              children: snapshot.data!.data
+                  .map((item) => ListItem(item: item))
+                  .toList(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          } else {
+            return Text('');
+          }
+        }
+      },
     );
+
+    // ListView.builder(
+    //           shrinkWrap: true,
+    //           itemCount: snapshot.data?.data.length,
+    //           itemBuilder: (context, index) {
+    //             var _product = snapshot.data?.data[index];
+
+    //             return ListItem(item: _product!);
+    //           },
+    //         );
 
     // return ListView.builder(
     //   shrinkWrap: true,

@@ -31,9 +31,7 @@ class CarouselCategory extends StatelessWidget {
                       color: kPrimaryColor,
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/category');
-                  },
+                  onPressed: () {},
                 ),
               )
             ],
