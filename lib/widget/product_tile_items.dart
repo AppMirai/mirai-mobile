@@ -1,12 +1,7 @@
-import 'dart:developer';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:mirai_app/api/api_service.dart';
 import 'package:mirai_app/model/Products.dart';
 import 'package:mirai_app/pages/components/list_item.dart';
-import 'package:mirai_app/shared/theme.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProductTileItems extends StatefulWidget {
   ProductTileItems({Key? key}) : super(key: key);
@@ -68,17 +63,13 @@ class _ProductTileItemsState extends State<ProductTileItems> {
         if (state != ConnectionState.done) {
           return Center(
             child: CircularProgressIndicator(),
-          );
+          );  
         } else {
           if (snapshot.hasData) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: snapshot.data?.data.length,
-              itemBuilder: (context, index) {
-                var _product = snapshot.data?.data[index];
-
-                return ListItem(item: _product!);
-              },
+            return Column(
+              children: snapshot.data!.data
+                  .map((item) => ListItem(item: item))
+                  .toList(),
             );
           } else if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
@@ -88,6 +79,16 @@ class _ProductTileItemsState extends State<ProductTileItems> {
         }
       },
     );
+
+    // ListView.builder(
+    //           shrinkWrap: true,
+    //           itemCount: snapshot.data?.data.length,
+    //           itemBuilder: (context, index) {
+    //             var _product = snapshot.data?.data[index];
+
+    //             return ListItem(item: _product!);
+    //           },
+    //         );
 
     // return ListView.builder(
     //   shrinkWrap: true,

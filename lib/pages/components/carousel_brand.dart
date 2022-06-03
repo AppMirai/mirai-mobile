@@ -32,9 +32,7 @@ class CarouselBrand extends StatelessWidget {
                       color: Color(0xFFE66099),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/brand');
-                  },
+                  onPressed: () {},
                 ),
               )
             ],
