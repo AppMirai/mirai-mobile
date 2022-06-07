@@ -179,22 +179,6 @@ class _LoginState extends State<Login> {
               ],
             ),
           ),
-        );
-      }
-
-      return Container(
-        margin: EdgeInsets.only(top: 20),
-        child: Column(
-          children: [
-            emailInput(),
-            passwordInput(),
-            submitButton(),
-            SizedBox(
-              height: 20,
-            ),
-            forgotPasswordButton(),
-            toRegisterButton(),
-          ],
         ),
       ),
     );
