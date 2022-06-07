@@ -46,6 +46,7 @@ dependencies:
   google_ml_kit: ^0.11.0
   image_picker: ^0.8.5
   responsive_sizer: ^3.0.8
+  shared_preferences: ^2.0.15
 
 flutter_icons:
   android: true
