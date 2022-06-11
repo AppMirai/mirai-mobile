@@ -5,6 +5,7 @@ Color kPrimaryColor = Color(0xffE66099);
 Color kBlackColor = Color(0xff343A40);
 Color kWhiteColor = Color(0xffFFFFFF);
 Color kGreyColor = Color(0xffAEB0B3);
+Color kRedColor = Color(0xffF15050);
 Color kBackgroundColor = Color(0xffFAFAFA);
 Color kInactiveColor = Color(0xffCCCECF);
 Color kTransparentColor = Colors.transparent;
