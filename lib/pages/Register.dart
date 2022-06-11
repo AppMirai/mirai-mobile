@@ -27,6 +27,7 @@ class _RegisterState extends State<Register> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.only(top: 20),
@@ -38,11 +39,13 @@ class _RegisterState extends State<Register> {
                             color: kPrimaryColor),
                       ),
                     ),
-                    Container(
-                      child: Image.asset(
-                        'assets/images/register_illustration.png',
-                        height: 184,
-                        width: 184,
+                    Center(
+                      child: Container(
+                        child: Image.asset(
+                          'assets/images/register_illustration.png',
+                          height: 184,
+                          width: 184,
+                        ),
                       ),
                     ),
                     Container(
@@ -54,6 +57,8 @@ class _RegisterState extends State<Register> {
                               cursorColor: kPrimaryColor,
                               controller: nameTextController,
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 16),
                                 hintText: 'Full Name',
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0)),
@@ -74,6 +79,8 @@ class _RegisterState extends State<Register> {
                               cursorColor: kPrimaryColor,
                               controller: emailTextController,
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 16),
                                 hintText: 'Email',
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0)),
@@ -86,7 +93,7 @@ class _RegisterState extends State<Register> {
                           ]),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin: EdgeInsets.only(bottom: 30),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -95,6 +102,8 @@ class _RegisterState extends State<Register> {
                                 controller: passwordTextController,
                                 obscureText: visible,
                                 decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 16),
                                   hintText: 'Password',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0)),
@@ -118,7 +127,7 @@ class _RegisterState extends State<Register> {
                     ),
                     Container(
                       width: double.infinity,
-                      height: 55,
+                      height: 48,
                       child: TextButton(
                           onPressed: () {
                             var data = <String, dynamic>{
@@ -148,7 +157,7 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
                 SizedBox(
-                  height: 19.h,
+                  height: 25.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -33,7 +33,7 @@ class ARfilter extends StatelessWidget {
         return Container(
           margin: EdgeInsets.only(bottom: 20),
           width: double.infinity,
-          height: 55,
+          height: 48,
           child: OutlinedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/ar');

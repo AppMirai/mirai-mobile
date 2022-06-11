@@ -57,6 +57,8 @@ class _LoginState extends State<Login> {
                               cursorColor: kPrimaryColor,
                               controller: emailTextController,
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 16),
                                 hintText: 'Email',
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0)),
@@ -69,7 +71,7 @@ class _LoginState extends State<Login> {
                           ]),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin: EdgeInsets.only(bottom: 30),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -78,6 +80,8 @@ class _LoginState extends State<Login> {
                                 controller: passwordTextController,
                                 obscureText: visible,
                                 decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 16),
                                   hintText: 'Password',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0)),
@@ -101,7 +105,7 @@ class _LoginState extends State<Login> {
                     ),
                     Container(
                       width: double.infinity,
-                      height: 55,
+                      height: 48,
                       child: TextButton(
                           onPressed: () {
                             var data = <String, dynamic>{
@@ -155,7 +159,7 @@ class _LoginState extends State<Login> {
                   ],
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 28.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

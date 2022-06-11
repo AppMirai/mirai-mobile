@@ -50,17 +50,17 @@ class UserService {
     }
   }
 
-  Future<UserModel> userProfile() async {
+  Future<UserProfileModel> userProfile() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
 
-    var response = await http.get(Uri.parse(baseURLAPI + "profile"), headers: {
+    var response = await http.get(Uri.parse(baseURLAPI + "user"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': "bearer $token",
+      'Authorization': "Bearer $token",
     });
 
     if (response.statusCode == 200) {
-      return UserModel.fromJson(jsonDecode(response.body)['data']);
+      return UserProfileModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response);
     }

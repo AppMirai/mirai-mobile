@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirai_app/cubit/page_cubit.dart';
 import 'package:mirai_app/pages/AR.dart';
 import 'package:mirai_app/pages/Explore.dart';
+import 'package:mirai_app/pages/Profile.dart';
 import 'package:mirai_app/pages/Upload_Photo.dart';
 import 'package:mirai_app/shared/theme.dart';
 import 'package:mirai_app/widget/custom_navbar_items.dart';
@@ -17,10 +18,12 @@ class BottomNavigation extends StatelessWidget {
       switch (currentIndex) {
         case 0:
           return Home();
-        // case 1:
-        //   return Explore();
         case 1:
+          return Explore();
+        case 2:
           return ARfilter();
+        case 3:
+          return Profile();
         default:
           return Home();
       }
@@ -45,8 +48,9 @@ class BottomNavigation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomNavbarItems(index: 0, imageUrl: 'assets/ic_home.png'),
-              // CustomNavbarItems(index: 1, imageUrl: 'assets/ic_explore.png'),
-              CustomNavbarItems(index: 1, imageUrl: 'assets/ic_ar.png'),
+              CustomNavbarItems(index: 1, imageUrl: 'assets/ic_explore.png'),
+              CustomNavbarItems(index: 2, imageUrl: 'assets/ic_ar.png'),
+              CustomNavbarItems(index: 3, imageUrl: 'assets/ic_profile.png'),
             ],
           ),
         ),
