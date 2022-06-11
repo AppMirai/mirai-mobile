@@ -29,6 +29,9 @@ class CarouselCategory extends StatelessWidget {
                     fontSize: 16,
                     color: kPrimaryColor,
                   ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/category');
+                  },
                 ),
               )
             ],
@@ -40,7 +43,7 @@ class CarouselCategory extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 6,
               separatorBuilder: (context, _) => SizedBox(width: 10),
-              itemBuilder: (context, index) => categoryCard(item: items[index]),
+              itemBuilder: (context, index) => CategoryCard(index: index),
             ),
           ),
         ],
