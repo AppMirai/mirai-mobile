@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mirai_app/pages/Home.dart';
+import 'package:mirai_app/pages/home.dart';
 import 'package:mirai_app/pages/components/navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

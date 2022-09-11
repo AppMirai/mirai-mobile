@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:mirai_app/pages/AR_Camera.dart';
 import 'package:mirai_app/shared/theme.dart';
 
-class ARfilter extends StatelessWidget {
-  const ARfilter({Key? key}) : super(key: key);
+class ArFilter extends StatelessWidget {
+  const ArFilter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget title() {
       return Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 20),
         child: Text(
           'Coba AR',
           style: blackTextStyle.copyWith(
-              fontSize: 24, fontWeight: semiBold, color: kPrimaryColor),
+              fontSize: 24, fontWeight: semiBold, color: primaryColor),
         ),
       );
     }
 
     Widget imageHero() {
-      return Container(
-        child: Image.asset(
-          'assets/images/up_photo_illustration.png',
-          height: 329,
-          width: 329,
-        ),
+      return Image.asset(
+        'assets/images/up_photo_illustration.png',
+        height: 329,
+        width: 329,
       );
     }
 
@@ -39,7 +36,7 @@ class ARfilter extends StatelessWidget {
                 Navigator.pushNamed(context, '/ar');
               },
               style: OutlinedButton.styleFrom(
-                  backgroundColor: kPrimaryColor,
+                  backgroundColor: primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0))),
               child: Text('COBA AR',
@@ -59,15 +56,13 @@ class ARfilter extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            children: [
-              title(),
-              imageHero(),
-              inputSection(),
-            ],
-          ),
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          children: [
+            title(),
+            imageHero(),
+            inputSection(),
+          ],
         ),
       ),
     );

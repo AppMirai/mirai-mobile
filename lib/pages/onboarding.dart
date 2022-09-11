@@ -57,7 +57,7 @@ class _OnboardingState extends State<Onboarding> {
                           Text(
                             contents[i].title,
                             style: TextStyle(
-                              color: kPrimaryColor,
+                              color: primaryColor,
                               fontSize: 24,
                               fontWeight: semiBold,
                             ),
@@ -68,7 +68,7 @@ class _OnboardingState extends State<Onboarding> {
                           Text(
                             contents[i].description,
                             style: TextStyle(
-                                color: kGreyColor,
+                                color: greyColor,
                                 fontSize: 16,
                                 fontWeight: regular),
                             textAlign: TextAlign.center,
@@ -79,13 +79,11 @@ class _OnboardingState extends State<Onboarding> {
                   );
                 }),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                contents.length,
-                (index) => buildDot(index, context),
-              ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              contents.length,
+              (index) => buildDot(index, context),
             ),
           ),
           Container(
@@ -102,7 +100,7 @@ class _OnboardingState extends State<Onboarding> {
                       curve: Curves.bounceIn);
                 },
                 style: TextButton.styleFrom(
-                    backgroundColor: kPrimaryColor,
+                    backgroundColor: primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0))),
                 child: Text(
@@ -126,7 +124,7 @@ class _OnboardingState extends State<Onboarding> {
       margin: EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: kPrimaryColor,
+        color: primaryColor,
       ),
     );
   }

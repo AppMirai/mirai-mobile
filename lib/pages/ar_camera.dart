@@ -5,14 +5,14 @@ import 'components/camera_view.dart';
 import 'painters/face_detector_painter.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
-class ARCamera extends StatefulWidget {
-  const ARCamera({ Key? key }) : super(key: key);
+class ArCamera extends StatefulWidget {
+  const ArCamera({Key? key}) : super(key: key);
 
   @override
-  State<ARCamera> createState() => _ARCameraState();
+  State<ArCamera> createState() => _ArCameraState();
 }
 
-class _ARCameraState extends State<ARCamera> {
+class _ArCameraState extends State<ArCamera> {
   final FaceDetector _faceDetector = FaceDetector(
     options: FaceDetectorOptions(
       enableContours: true,
@@ -35,16 +35,14 @@ class _ARCameraState extends State<ARCamera> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          child: CameraView(
-            title: 'Face Detector',
-            customPaint: _customPaint,
-            text: _text,
-            onImage: (inputImage) {
-              processImage(inputImage);
-            },
-            initialDirection: CameraLensDirection.front,
-          ),
+        child: CameraView(
+          title: 'Face Detector',
+          customPaint: _customPaint,
+          text: _text,
+          onImage: (inputImage) {
+            processImage(inputImage);
+          },
+          initialDirection: CameraLensDirection.front,
         ),
       ),
     );
@@ -64,8 +62,7 @@ class _ARCameraState extends State<ARCamera> {
           faces,
           inputImage.inputImageData!.size,
           inputImage.inputImageData!.imageRotation,
-          Colors.pinkAccent
-      );
+          Colors.pinkAccent);
       _customPaint = CustomPaint(painter: painter);
     } else {
       String text = 'Faces found: ${faces.length}\n\n';
@@ -73,7 +70,6 @@ class _ARCameraState extends State<ARCamera> {
         text += 'face: ${face.boundingBox}\n\n';
       }
       _text = text;
-      // TODO: set _customPaint to draw boundingRect on top of image
       _customPaint = null;
     }
     _isBusy = false;

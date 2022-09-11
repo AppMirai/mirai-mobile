@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:mirai_app/model/Products.dart';
+import 'package:mirai_app/model/products.dart';
 import 'package:mirai_app/shared/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,16 +28,15 @@ class DetailProduct extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(color: kBlackColor),
+        iconTheme: IconThemeData(color: blackColor),
         title: Text(
-          // item['name'],
           item.name,
-          style: TextStyle(color: kBlackColor),
+          style: TextStyle(color: blackColor),
         ),
       ),
       body: ListView(
         children: <Widget>[
-          Container(
+          SizedBox(
             height: 280,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -53,52 +52,49 @@ class DetailProduct extends StatelessWidget {
               itemCount: item.images.length,
             ),
           ),
-          Container(
-            child: Column(
-              children: [
-                ListTile(
-                  title: Text(
-                    item.price,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.favorite,
-                          color: Colors.pink,
-                          size: 24.0,
-                        ),
-                        // icon: const Icon(Icons.search),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      ElevatedButton(
-                        child: Text("COBA AR"),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/ar');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.pink,
-                        ),
-                      ),
-                    ],
+          Column(
+            children: [
+              ListTile(
+                title: Text(
+                  item.price,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                Container(
-                    padding:
-                        const EdgeInsets.only(left: 24, right: 24, top: 10),
-                    child: Text(
-                      item.name,
-                    )),
-              ],
-            ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.favorite,
+                        color: Colors.pink,
+                        size: 24.0,
+                      ),
+                      // icon: const Icon(Icons.search),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      child: Text("COBA AR"),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/ar');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.pink,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                  padding: const EdgeInsets.only(left: 24, right: 24, top: 10),
+                  child: Text(
+                    item.name,
+                  )),
+            ],
           ),
           Divider(
             height: 23,
@@ -126,7 +122,7 @@ class DetailProduct extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                    side: BorderSide(color: kGreyColor, width: 1),
+                    side: BorderSide(color: greyColor, width: 1),
                     borderRadius: BorderRadius.circular(8)),
               ),
               onPressed: () {},

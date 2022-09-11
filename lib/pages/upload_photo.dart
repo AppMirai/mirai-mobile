@@ -17,7 +17,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
         child: Text(
           'Upload Photo',
           style: blackTextStyle.copyWith(
-              fontSize: 24, fontWeight: semiBold, color: kPrimaryColor),
+              fontSize: 24, fontWeight: semiBold, color: primaryColor),
         ),
       );
     }
@@ -41,7 +41,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
           child: OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 2.0, color: kPrimaryColor),
+                  side: BorderSide(width: 2.0, color: primaryColor),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0))),
               child: Text('ADD PHOTO',
@@ -53,13 +53,13 @@ class _UploadPhotoState extends State<UploadPhoto> {
       }
 
       Widget capturePhotoButton() {
-        return Container(
+        return SizedBox(
           width: double.infinity,
           height: 55,
           child: TextButton(
               onPressed: () {},
               style: TextButton.styleFrom(
-                  backgroundColor: kPrimaryColor,
+                  backgroundColor: primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0))),
               child: Text('CAPTURE PHOTO',
@@ -79,15 +79,13 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            children: [
-              title(),
-              imageHero(),
-              inputSection(),
-            ],
-          ),
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          children: [
+            title(),
+            imageHero(),
+            inputSection(),
+          ],
         ),
       ),
     );

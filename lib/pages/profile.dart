@@ -52,17 +52,17 @@ class _ProfileState extends State<Profile> {
             Stack(
               children: [
                 Container(
-                  color: kPrimaryColor,
+                  color: primaryColor,
                 ),
                 SafeArea(
                   child: Container(
-                    color: kWhiteColor,
+                    color: whiteColor,
                   ),
                 ),
                 Container(
                   height: 160,
                   decoration: BoxDecoration(
-                    color: kPrimaryColor,
+                    color: primaryColor,
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30)),
@@ -75,7 +75,7 @@ class _ProfileState extends State<Profile> {
                     child: Text(
                       'Profile',
                       style: TextStyle(
-                        color: kWhiteColor,
+                        color: whiteColor,
                         fontSize: 20,
                         fontWeight: medium,
                       ),
@@ -120,7 +120,7 @@ class _ProfileState extends State<Profile> {
                     : Text(
                         '${user.name}',
                         style: TextStyle(
-                          color: kBlackColor,
+                          color: blackColor,
                           fontSize: 24,
                           fontWeight: semiBold,
                         ),
@@ -143,7 +143,7 @@ class _ProfileState extends State<Profile> {
                     : Text(
                         '${user.email}',
                         style: TextStyle(
-                          color: kGreyColor,
+                          color: greyColor,
                           fontSize: 16,
                           fontWeight: regular,
                         ),
@@ -167,7 +167,7 @@ class _ProfileState extends State<Profile> {
                         context, '/login', (route) => false);
                   },
                   style: TextButton.styleFrom(
-                      backgroundColor: kRedColor,
+                      backgroundColor: redColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0))),
                   child: Text(

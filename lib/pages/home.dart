@@ -57,17 +57,17 @@ class _HomeState extends State<Home> {
             Stack(
               children: [
                 Container(
-                  color: kPrimaryColor,
+                  color: primaryColor,
                 ),
                 SafeArea(
                   child: Container(
-                    color: kWhiteColor,
+                    color: whiteColor,
                   ),
                 ),
                 Container(
                   height: 120,
                   decoration: BoxDecoration(
-                    color: kPrimaryColor,
+                    color: primaryColor,
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30)),
@@ -96,7 +96,7 @@ class _HomeState extends State<Home> {
                             : Text(
                                 'Hello, ${user.name}',
                                 style: TextStyle(
-                                  color: kWhiteColor,
+                                  color: whiteColor,
                                   fontSize: 20,
                                   fontWeight: medium,
                                 ),
@@ -105,9 +105,12 @@ class _HomeState extends State<Home> {
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 24, top: 30, right: 24, bottom: 20),
-                        child: Icon(
-                          Icons.favorite_border,
-                          color: kWhiteColor,
+                        child: IconButton(
+                          icon: Icon(Icons.favorite_border),
+                          color: whiteColor,
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/like');
+                          },
                         ),
                       )
                     ],
@@ -118,7 +121,7 @@ class _HomeState extends State<Home> {
                   child: Container(
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
-                        color: kGreyColor,
+                        color: greyColor,
                         blurRadius: 4,
                         offset: Offset(0, 2),
                       )
@@ -132,13 +135,13 @@ class _HomeState extends State<Home> {
                       right: 24,
                     ),
                     child: TextField(
-                      cursorColor: kPrimaryColor,
+                      cursorColor: primaryColor,
                       decoration: InputDecoration(
-                        fillColor: kWhiteColor,
+                        fillColor: whiteColor,
                         filled: true,
                         prefixIcon: Icon(
                           Icons.search,
-                          color: kGreyColor,
+                          color: greyColor,
                         ),
                         hintText: 'Search...',
                         border: OutlineInputBorder(
@@ -167,7 +170,7 @@ class _HomeState extends State<Home> {
                     child: Text(
                       "Mirai Dev @2022",
                       style: TextStyle(
-                        color: kGreyColor,
+                        color: greyColor,
                       ),
                     ),
                   ),

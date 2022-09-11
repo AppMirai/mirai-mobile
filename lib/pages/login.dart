@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mirai_app/services/user_service.dart';
 import 'package:mirai_app/shared/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Login> createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
-  final TextEditingController nameTextController = TextEditingController();
+class _LoginState extends State<Login> {
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
   bool visible = true;
@@ -24,25 +24,25 @@ class _RegisterState extends State<Register> {
           child: Container(
             margin: EdgeInsets.only(left: 24, right: 24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 20, bottom: 20),
                       child: Text(
-                        'Register',
+                        'Login',
                         style: blackTextStyle.copyWith(
                             fontSize: 24,
                             fontWeight: semiBold,
-                            color: kPrimaryColor),
+                            color: primaryColor),
                       ),
                     ),
                     Center(
                       child: Container(
+                        margin: EdgeInsets.only(bottom: 20),
                         child: Image.asset(
-                          'assets/images/register_illustration.png',
+                          'assets/images/login_illustration.png',
                           height: 184,
                           width: 184,
                         ),
@@ -54,29 +54,7 @@ class _RegisterState extends State<Register> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextFormField(
-                              cursorColor: kPrimaryColor,
-                              controller: nameTextController,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 16),
-                                hintText: 'Full Name',
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide:
-                                        BorderSide(color: kPrimaryColor)),
-                              ),
-                            ),
-                          ]),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextFormField(
-                              cursorColor: kPrimaryColor,
+                              cursorColor: primaryColor,
                               controller: emailTextController,
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
@@ -87,7 +65,7 @@ class _RegisterState extends State<Register> {
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
                                     borderSide:
-                                        BorderSide(color: kPrimaryColor)),
+                                        BorderSide(color: primaryColor)),
                               ),
                             ),
                           ]),
@@ -98,7 +76,7 @@ class _RegisterState extends State<Register> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextFormField(
-                                cursorColor: kPrimaryColor,
+                                cursorColor: primaryColor,
                                 controller: passwordTextController,
                                 obscureText: visible,
                                 decoration: InputDecoration(
@@ -110,11 +88,11 @@ class _RegisterState extends State<Register> {
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
                                       borderSide:
-                                          BorderSide(color: kPrimaryColor)),
+                                          BorderSide(color: primaryColor)),
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                       Icons.remove_red_eye,
-                                      color: kPrimaryColor,
+                                      color: primaryColor,
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -131,49 +109,73 @@ class _RegisterState extends State<Register> {
                       child: TextButton(
                           onPressed: () {
                             var data = <String, dynamic>{
-                              'name': nameTextController.text,
                               'email': emailTextController.text,
-                              'password': passwordTextController.text,
+                              'password': passwordTextController.text
                             };
 
                             try {
-                              UserService().userRegister(data);
-
-                              Navigator.pushReplacementNamed(context, '/login');
+                              UserService()
+                                  .userLogin(data)
+                                  .then((response) async {
+                                // if (response.success == true) {
+                                if (response.token != null) {
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.setString(
+                                      'token', response.token);
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    '/navbar',
+                                    (route) => false,
+                                  );
+                                }
+                              });
                             } catch (e) {
                               print(e);
                             }
                           },
                           style: TextButton.styleFrom(
-                              backgroundColor: kPrimaryColor,
+                              backgroundColor: primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0))),
-                          child: Text('REGISTER',
+                          child: Text('LOGIN',
                               style: whiteTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: semiBold,
                               ))),
                     ),
+                    // Center(
+                    //   child: Container(
+                    //     child: TextButton(
+                    //       child: Text('Forgot Password ?',
+                    //           style: pinkTextStyle.copyWith(
+                    //             fontSize: 14,
+                    //             fontWeight: regular,
+                    //           )),
+                    //       onPressed: () {},
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 28.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("already have account?"),
+                    Text("don't have account?"),
                     SizedBox(
                       width: 0.2.h,
                     ),
                     TextButton(
-                      child: Text('Login',
+                      child: Text('Register',
                           style: pinkTextStyle.copyWith(
                             fontSize: 14,
                             fontWeight: regular,
                           )),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/login');
+                        Navigator.pushNamed(context, '/register');
                       },
                     ),
                   ],
