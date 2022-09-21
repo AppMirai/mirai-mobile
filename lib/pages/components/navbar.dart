@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirai_app/cubit/page_cubit.dart';
-import 'package:mirai_app/pages/ar.dart';
+import 'package:mirai_app/pages/ar_filter.dart';
 import 'package:mirai_app/pages/explore.dart';
 import 'package:mirai_app/pages/profile.dart';
 import 'package:mirai_app/pages/upload_photo.dart';

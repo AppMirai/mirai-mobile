@@ -27,22 +27,24 @@ class UserService {
     return true;
   }
 
-  Future<UserModel> userLogin(Map<String, dynamic> data) async {
-    var dataLogin = <String, String>{
-      'email': data['email'],
-      'password': data['password'],
-    };
+  Future<UserModel?> userLogin(Map<String, dynamic> data) async {
+    try {
+      var dataLogin = <String, String>{
+        'email': data['email'],
+        'password': data['password'],
+      };
 
-    var response = await http.post(Uri.parse(baseURLAPI + "login"),
-        body: jsonEncode(dataLogin),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        });
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(jsonDecode(response.body));
-    } else {
-      return UserModel.fromJson(jsonDecode(response.body));
+      var response = await http.post(Uri.parse(baseURLAPI + "login"),
+          body: jsonEncode(dataLogin),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          });
+      if (response.statusCode == 200) {
+        return UserModel.fromJson(jsonDecode(response.body));
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -54,6 +56,28 @@ class UserService {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': "Bearer $token",
     });
+
+    if (response.statusCode == 200) {
+      return UserProfileModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception(response);
+    }
+  }
+
+  Future<UserProfileModel> updateProfile(Map<String, dynamic> data) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token");
+    var updateUser = <String, String>{
+      'name': data['name'],
+    };
+
+    var response = await http.post(Uri.parse(baseURLAPI + "update-profile"),
+        body: jsonEncode(updateUser),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': "Bearer $token",
+        });
 
     if (response.statusCode == 200) {
       return UserProfileModel.fromJson(jsonDecode(response.body));

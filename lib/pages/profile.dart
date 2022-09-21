@@ -83,21 +83,65 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional.topCenter,
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                      top: 100,
-                      bottom: 24,
-                      left: 24,
-                      right: 24,
-                    ),
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/profile.jpg'),
-                      maxRadius: 60,
-                      minRadius: 60,
+                    child: Container(
+                  margin: const EdgeInsets.only(
+                    top: 100,
+                    bottom: 24,
+                    left: 24,
+                    right: 24,
+                  ),
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: 130,
+                          height: 130,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 4,
+                                  color: Theme.of(context)
+                                      .scaffoldBackgroundColor),
+                              boxShadow: [
+                                BoxShadow(
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    color: Colors.black.withOpacity(0.1),
+                                    offset: Offset(0, 10))
+                              ],
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image:
+                                      AssetImage('assets/images/profile.jpg'))),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 4,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                              ),
+                              color: primaryColor,
+                            ),
+                            child: IconButton(
+                              icon: Icon(Icons.edit),
+                              color: Colors.white,
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/editprofile');
+                              },
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
+                )),
               ],
             ),
             Column(

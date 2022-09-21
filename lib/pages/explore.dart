@@ -15,33 +15,43 @@ class Explore extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: whiteColor,
-        title: Container(
-          width: double.infinity,
-          height: 40,
-          decoration: BoxDecoration(
-            color: whiteColor,
-            borderRadius: BorderRadius.circular(8),
+        // title: Container(
+        //   width: double.infinity,
+        //   height: 40,
+        //   decoration: BoxDecoration(
+        //     color: whiteColor,
+        //     borderRadius: BorderRadius.circular(8),
+        //   ),
+        //   child: Center(
+        //       child: TextField(
+        //     cursorColor: primaryColor,
+        //     decoration: InputDecoration(
+        //         prefixIcon: Icon(
+        //           Icons.search,
+        //           color: greyColor,
+        //         ),
+        //         hintText: 'Search...',
+        //         border: InputBorder.none),
+        //   )),
+        // ),
+        title: Text(
+          "Explore",
+          style: TextStyle(
+            color: blackColor,
+            fontWeight: semiBold,
           ),
-          child: Center(
-              child: TextField(
-            cursorColor: primaryColor,
-            decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: greyColor,
-                ),
-                hintText: 'Search...',
-                border: InputBorder.none),
-          )),
         ),
         actions: [
           Padding(
               padding: EdgeInsets.only(right: 24),
               child: GestureDetector(
                 onTap: () {},
-                child: Icon(
-                  Icons.favorite_outline,
+                child: IconButton(
+                  icon: Icon(Icons.favorite_border),
                   color: primaryColor,
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/like');
+                  },
                 ),
               ))
         ],
@@ -51,13 +61,13 @@ class Explore extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: EdgeInsets.only(left: 24, top: 20),
-                child: Text(
-                  'Explore',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.only(left: 24, top: 20),
+              //   child: Text(
+              //     'Explore',
+              //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              //   ),
+              // ),
               GridView.count(
                   padding: EdgeInsets.only(right: 24, left: 24, bottom: 60),
                   shrinkWrap: true,

@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Container(
-                  height: 120,
+                  height: 140,
                   decoration: BoxDecoration(
                     color: primaryColor,
                     borderRadius: const BorderRadius.only(
@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                       Expanded(
                           child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 24, top: 30, right: 24, bottom: 20),
+                            left: 24, top: 30, right: 24, bottom: 30),
                         child: isLoading
                             ? SkeletonAnimation(
                                 shimmerColor: Colors.pink[100]!,
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
                       )),
                       Padding(
                         padding: const EdgeInsets.only(
-                            left: 24, top: 30, right: 24, bottom: 20),
+                            left: 24, top: 30, right: 24, bottom: 30),
                         child: IconButton(
                           icon: Icon(Icons.favorite_border),
                           color: whiteColor,
@@ -119,48 +119,53 @@ class _HomeState extends State<Home> {
                 Align(
                   alignment: AlignmentDirectional.topCenter,
                   child: Container(
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        color: greyColor,
-                        blurRadius: 4,
-                        offset: Offset(0, 2),
-                      )
-                    ]),
-                    width: double.infinity,
-                    height: 48,
+                    child: const CarouselBanner(),
                     margin: const EdgeInsets.only(
                       top: 100,
-                      bottom: 24,
-                      left: 24,
-                      right: 24,
-                    ),
-                    child: TextField(
-                      cursorColor: primaryColor,
-                      decoration: InputDecoration(
-                        fillColor: whiteColor,
-                        filled: true,
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: greyColor,
-                        ),
-                        hintText: 'Search...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                      ),
                     ),
                   ),
+                  //     decoration: BoxDecoration(boxShadow: [
+                  //       BoxShadow(
+                  //         color: greyColor,
+                  //         blurRadius: 4,
+                  //         offset: Offset(0, 2),
+                  //       )
+                  //     ]),
+                  //     width: double.infinity,
+                  //     height: 48,
+                  //     margin: const EdgeInsets.only(
+                  //       top: 100,
+                  //       bottom: 24,
+                  //       left: 24,
+                  //       right: 24,
+                  //     ),
+                  //     child: TextField(
+                  //       cursorColor: primaryColor,
+                  //       decoration: InputDecoration(
+                  //         fillColor: whiteColor,
+                  //         filled: true,
+                  //         prefixIcon: Icon(
+                  //           Icons.search,
+                  //           color: greyColor,
+                  //         ),
+                  //         hintText: 'Search...',
+                  //         border: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(8),
+                  //           borderSide: BorderSide(
+                  //             width: 0,
+                  //             style: BorderStyle.none,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
                 ),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CarouselBanner(),
+                // const CarouselBanner(),
                 const CarouselBrand(),
                 const CarouselCategory(),
                 const ProductsTile(),

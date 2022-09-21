@@ -108,17 +108,17 @@ class _LoginState extends State<Login> {
                       height: 48,
                       child: TextButton(
                           onPressed: () {
-                            var data = <String, dynamic>{
-                              'email': emailTextController.text,
-                              'password': passwordTextController.text
-                            };
-
                             try {
+                              var data = <String, dynamic>{
+                                'email': emailTextController.text,
+                                'password': passwordTextController.text
+                              };
+
                               UserService()
                                   .userLogin(data)
                                   .then((response) async {
                                 // if (response.success == true) {
-                                if (response.token != null) {
+                                if (response!.token != null) {
                                   final prefs =
                                       await SharedPreferences.getInstance();
                                   await prefs.setString(
@@ -129,8 +129,20 @@ class _LoginState extends State<Login> {
                                     (route) => false,
                                   );
                                 }
+                              }).catchError((error) {
+                                const snackBar = SnackBar(
+                                  content:
+                                      Text('Email atau Password anda salah'),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               });
                             } catch (e) {
+                              const snackBar = SnackBar(
+                                content: Text('Email atau Password anda salah'),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                               print(e);
                             }
                           },
