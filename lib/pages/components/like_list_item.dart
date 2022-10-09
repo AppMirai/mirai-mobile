@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mirai_app/api/strings.dart';
-import 'package:mirai_app/model/product_model.dart';
-import 'package:mirai_app/shared/theme.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
+import '../../api/strings.dart';
+import '../../model/product_model.dart';
 import '../../routes/route_name.dart';
+import '../../shared/theme.dart';
 
-class ListItem extends StatelessWidget {
-  const ListItem({Key? key, required this.item}) : super(key: key);
+class LikeListItem extends StatelessWidget {
+  const LikeListItem({Key? key, required this.item}) : super(key: key);
 
   final ProductData item;
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 import '../model/profile_user_model.dart';
+import '../routes/route_name.dart';
 import '../services/user_service.dart';
 import '../shared/theme.dart';
 
@@ -19,12 +21,15 @@ class _EditProfileState extends State<EditProfile> {
   bool showPassword = false;
 
   UserProfileModel user = UserProfileModel(
-      id: 0,
-      name: "",
-      email: "",
-      emailVerifiedAt: DateTime.now(),
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now());
+    message: "",
+    data: Data(
+        id: 0,
+        fullName: "",
+        email: "",
+        photoUserUrl: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now()),
+  );
 
   @override
   void initState() {
@@ -130,7 +135,7 @@ class _EditProfileState extends State<EditProfile> {
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                           labelText: "Full Name",
-                          hintText: '${user.name}',
+                          hintText: '${user.data.fullName}',
                           hintStyle: blackTextStyle.copyWith(
                             fontSize: 14,
                             fontWeight: semiBold,
@@ -153,7 +158,7 @@ class _EditProfileState extends State<EditProfile> {
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                           labelText: "Email",
-                          hintText: '${user.email}',
+                          hintText: '${user.data.email}',
                           hintStyle: greyTextStyle.copyWith(
                             fontSize: 14,
                             fontWeight: semiBold,
@@ -181,7 +186,8 @@ class _EditProfileState extends State<EditProfile> {
                         try {
                           UserService().updateProfile(data);
 
-                          Navigator.pushReplacementNamed(context, '/navbar');
+                          Get.offNamed(RouteName.navbar);
+                          // Navigator.pushReplacementNamed(context, '/navbar');
                         } catch (e) {
                           print(e);
                         }

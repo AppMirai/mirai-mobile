@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mirai_app/cubit/page_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:camera/camera.dart';
+import 'package:mirai_app/routes/page_route.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:get/get.dart';
+
 import 'package:mirai_app/pages/ar_camera.dart';
 import 'package:mirai_app/pages/brand_list.dart';
 import 'package:mirai_app/pages/category_list.dart';
@@ -15,9 +21,6 @@ import 'package:mirai_app/pages/register.dart';
 import 'package:mirai_app/pages/splash.dart';
 import 'package:mirai_app/pages/upload_photo.dart';
 import 'package:mirai_app/pages/components/navbar.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:camera/camera.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -41,25 +44,26 @@ class MyApp extends StatelessWidget {
               create: (context) => PageCubit(),
             ),
           ],
-          child: MaterialApp(
+          child: GetMaterialApp(
             title: 'Mirai',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(fontFamily: 'Poppins'),
-            routes: {
-              '/': (context) => Splash(),
-              '/onboarding': (context) => const Onboarding(),
-              '/navbar': (context) => const BottomNavigation(),
-              '/home': (context) => const Home(),
-              '/detail': (context) => const DetailProduct(),
-              '/ar': (context) => const ArCamera(),
-              '/login': (context) => const Login(),
-              '/register': (context) => const Register(),
-              '/upphoto': (context) => const UploadPhoto(),
-              '/brand': (context) => const BrandListScreen(),
-              '/category': (context) => const CategoryListScreen(),
-              '/like': ((context) => const LikeScreen()),
-              '/editprofile': ((context) => const EditProfile()),
-            },
+            getPages: RoutePage.pages,
+            // routes: {
+            //   '/': (context) => Splash(),
+            //   '/onboarding': (context) => const Onboarding(),
+            //   '/navbar': (context) => const BottomNavigation(),
+            //   '/home': (context) => const Home(),
+            //   '/detail': (context) => const DetailProduct(),
+            //   '/ar': (context) => const ArCamera(),
+            //   '/login': (context) => const Login(),
+            //   '/register': (context) => const Register(),
+            //   '/upphoto': (context) => const UploadPhoto(),
+            //   '/brand': (context) => const BrandListScreen(),
+            //   '/category': (context) => const CategoryListScreen(),
+            //   '/like': ((context) => const LikeScreen()),
+            //   '/editprofile': ((context) => const EditProfile()),
+            // },
           ),
         );
       },

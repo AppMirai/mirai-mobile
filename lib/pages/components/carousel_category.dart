@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mirai_app/shared/theme.dart';
+import '../../routes/route_name.dart';
 import '../../widget/category_card_image.dart';
+import 'package:get/get.dart';
 
 class CarouselCategory extends StatelessWidget {
   const CarouselCategory({Key? key}) : super(key: key);
@@ -32,7 +34,8 @@ class CarouselCategory extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/category');
+                    Get.toNamed(RouteName.category);
+                    // Navigator.pushNamed(context, '/category');
                   },
                 ),
               )

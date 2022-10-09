@@ -1,29 +1,86 @@
+// To parse this JSON data, do
+//
+//     final loginUserModel = loginUserModelFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-LoginModel loginFromJson(String str) => LoginModel.fromJson(json.decode(str));
+LoginUserModel loginUserModelFromJson(String str) => LoginUserModel.fromJson(json.decode(str));
 
-String loginToJson(LoginModel data) => json.encode(data.toJson());
+String loginUserModelToJson(LoginUserModel data) => json.encode(data.toJson());
 
-class LoginModel {
-  LoginModel({
-    this.success,
-    this.message,
-    this.data,
-  });
+class LoginUserModel {
+    LoginUserModel({
+        required this.message,
+        required this.data,
+    });
 
-  bool? success;
-  String? message;
-  String? data;
+    String message;
+    Data data;
 
-  factory LoginModel.fromJson(Map<dynamic, dynamic> json) => LoginModel(
-        success: json["success"],
+    factory LoginUserModel.fromJson(Map<String, dynamic> json) => LoginUserModel(
         message: json["message"],
-        data: json["data"],
-      );
+        data: Data.fromJson(json["data"]),
+    );
 
-  Map<String, dynamic> toJson() => {
-        "success": success,
+    Map<String, dynamic> toJson() => {
         "message": message,
-        "data": data,
-      };
+        "data": data.toJson(),
+    };
+}
+
+class Data {
+    Data({
+        required this.user,
+        required this.accessToken,
+    });
+
+    User user;
+    String accessToken;
+
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        user: User.fromJson(json["user"]),
+        accessToken: json["access_token"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "user": user.toJson(),
+        "access_token": accessToken,
+    };
+}
+
+class User {
+    User({
+        required this.id,
+        required this.fullName,
+        required this.email,
+        required this.photoUserUrl,
+        required this.createdAt,
+        required this.updatedAt,
+    });
+
+    int id;
+    String fullName;
+    String email;
+    String photoUserUrl;
+    DateTime createdAt;
+    DateTime updatedAt;
+
+    factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        fullName: json["full_name"],
+        email: json["email"],
+        photoUserUrl: json["photo_user_url"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "full_name": fullName,
+        "email": email,
+        "photo_user_url": photoUserUrl,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+    };
 }

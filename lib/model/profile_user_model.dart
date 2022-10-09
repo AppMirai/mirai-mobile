@@ -1,71 +1,66 @@
 // To parse this JSON data, do
 //
-//     final userModel = userModelFromJson(jsonString);
+//     final userProfileModel = userProfileModelFromJson(jsonString);
 
-// import 'package:meta/meta.dart';
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+UserProfileModel userProfileModelFromJson(String str) => UserProfileModel.fromJson(json.decode(str));
 
-String userModelToJson(UserModel data) => json.encode(data.toJson());
-
-class UserModel {
-  UserModel({
-    required this.user,
-    required this.token,
-    required this.tokenType,
-  });
-
-  UserProfileModel user;
-  String token;
-  String tokenType;
-
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        user: UserProfileModel.fromJson(json["user"]),
-        token: json["token"],
-        tokenType: json["token_type"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "user": user.toJson(),
-        "token": token,
-        "token_type": tokenType,
-      };
-}
+String userProfileModelToJson(UserProfileModel data) => json.encode(data.toJson());
 
 class UserProfileModel {
-  UserProfileModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.emailVerifiedAt,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+    UserProfileModel({
+        required this.message,
+        required this.data,
+    });
 
-  int id;
-  String name;
-  String email;
-  dynamic emailVerifiedAt;
-  DateTime createdAt;
-  DateTime updatedAt;
+    String message;
+    Data data;
 
-  factory UserProfileModel.fromJson(Map<String, dynamic> json) =>
-      UserProfileModel(
+    factory UserProfileModel.fromJson(Map<String, dynamic> json) => UserProfileModel(
+        message: json["message"],
+        data: Data.fromJson(json["data"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "message": message,
+        "data": data.toJson(),
+    };
+}
+
+class Data {
+    Data({
+        required this.id,
+        required this.fullName,
+        required this.email,
+        required this.photoUserUrl,
+        required this.createdAt,
+        required this.updatedAt,
+    });
+
+    int id;
+    String fullName;
+    String email;
+    String photoUserUrl;
+    DateTime createdAt;
+    DateTime updatedAt;
+
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
-        name: json["name"],
+        fullName: json["full_name"],
         email: json["email"],
-        emailVerifiedAt: json["email_verified_at"],
+        photoUserUrl: json["photo_user_url"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
+        "full_name": fullName,
         "email": email,
-        "email_verified_at": emailVerifiedAt,
+        "photo_user_url": photoUserUrl,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-      };
+    };
 }

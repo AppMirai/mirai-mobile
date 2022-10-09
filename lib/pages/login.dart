@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:mirai_app/services/user_service.dart';
-import 'package:mirai_app/shared/theme.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../routes/route_name.dart';
+import '../services/user_service.dart';
+import '../shared/theme.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -57,8 +62,11 @@ class _LoginState extends State<Login> {
                               cursorColor: primaryColor,
                               controller: emailTextController,
                               decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 16),
+                                labelText: "Email",
                                 hintText: 'Email',
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0)),
@@ -80,8 +88,11 @@ class _LoginState extends State<Login> {
                                 controller: passwordTextController,
                                 obscureText: visible,
                                 decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 16),
+                                  labelText: "Password",
                                   hintText: 'Password',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0)),
@@ -118,16 +129,13 @@ class _LoginState extends State<Login> {
                                   .userLogin(data)
                                   .then((response) async {
                                 // if (response.success == true) {
-                                if (response!.token != null) {
+                                if (response!.accessToken != null) {
                                   final prefs =
                                       await SharedPreferences.getInstance();
                                   await prefs.setString(
-                                      'token', response.token);
-                                  Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    '/navbar',
-                                    (route) => false,
-                                  );
+                                      'token', response.accessToken);
+                                  Get.offNamedUntil(
+                                      RouteName.navbar, (route) => false);
                                 }
                               }).catchError((error) {
                                 const snackBar = SnackBar(
@@ -187,7 +195,8 @@ class _LoginState extends State<Login> {
                             fontWeight: regular,
                           )),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/register');
+                        Get.toNamed(RouteName.register);
+                        // Navigator.pushNamed(context, '/register');
                       },
                     ),
                   ],

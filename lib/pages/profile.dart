@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:mirai_app/model/profile_user_model.dart';
-import 'package:mirai_app/shared/theme.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mirai_app/services/user_service.dart';
 import 'package:skeleton_text/skeleton_text.dart';
+
+import '../model/profile_user_model.dart';
+import '../routes/route_name.dart';
+import '../shared/theme.dart';
+import '../services/user_service.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -17,12 +20,15 @@ class _ProfileState extends State<Profile> {
   bool isLoading = true;
 
   UserProfileModel user = UserProfileModel(
-      id: 0,
-      name: "",
-      email: "",
-      emailVerifiedAt: DateTime.now(),
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now());
+      message: "",
+      data: Data(
+        id: 0,
+          fullName: "",
+          email: "",
+          photoUserUrl: "",
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now()
+      ),);
 
   @override
   void initState() {
@@ -40,7 +46,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    if (user.name != "") {
+    if (user.data.fullName != "") {
       setState(() {
         isLoading = false;
       });
@@ -133,7 +139,8 @@ class _ProfileState extends State<Profile> {
                               icon: Icon(Icons.edit),
                               color: Colors.white,
                               onPressed: () {
-                                Navigator.pushNamed(context, '/editprofile');
+                                Get.toNamed(RouteName.editprofile);
+                                // Navigator.pushNamed(context, '/editprofile');
                               },
                             ),
                           ),
@@ -162,7 +169,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       )
                     : Text(
-                        '${user.name}',
+                        '${user.data.fullName}',
                         style: TextStyle(
                           color: blackColor,
                           fontSize: 24,
@@ -185,7 +192,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       )
                     : Text(
-                        '${user.email}',
+                        '${user.data.email}',
                         style: TextStyle(
                           color: greyColor,
                           fontSize: 16,
@@ -207,8 +214,9 @@ class _ProfileState extends State<Profile> {
                     final prefs = await SharedPreferences.getInstance();
 
                     prefs.remove("token");
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/login', (route) => false);
+                    Get.offNamedUntil(RouteName.login, (route) => false);
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //     context, '/login', (route) => false);
                   },
                   style: TextButton.styleFrom(
                       backgroundColor: redColor,

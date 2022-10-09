@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../routes/route_name.dart';
 import '../../widget/brand_card_image.dart';
+import 'package:get/get.dart';
 
 class CarouselBrand extends StatelessWidget {
   const CarouselBrand({Key? key}) : super(key: key);
@@ -33,7 +35,8 @@ class CarouselBrand extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/brand');
+                    Get.toNamed(RouteName.brand);
+                    // Navigator.pushNamed(context, '/brand');
                   },
                 ),
               )

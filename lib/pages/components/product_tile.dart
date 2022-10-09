@@ -11,27 +11,27 @@ class ProductsTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: <Widget>[
+          children: const <Widget>[
             Expanded(
                 child: Padding(
               padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
               child: Text(
-                'Recommendations',
+                'Products',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
             )),
             Padding(
               padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
-              child: TextButton(
-                child: Text(
-                  'See all',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: primaryColor,
-                  ),
-                ),
-                onPressed: () {},
-              ),
+              // child: TextButton(
+              //   child: Text(
+              //     'See all',
+              //     style: TextStyle(
+              //       fontSize: 16,
+              //       color: primaryColor,
+              //     ),
+              //   ),
+              //   onPressed: () {},
+              // ),
             )
           ],
         ),

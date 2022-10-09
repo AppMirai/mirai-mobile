@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mirai_app/pages/components/like_list_item.dart';
+import 'package:mirai_app/widget/brand_card_image.dart';
 
+import '../model/like_list_model.dart';
+import '../services/like_product_service.dart';
 import '../shared/theme.dart';
 import '../widget/product_tile_items.dart';
 
@@ -11,7 +15,14 @@ class LikeScreen extends StatefulWidget {
 }
 
 class _LikeScreenState extends State<LikeScreen> {
+  late Future<LikeProductModel> _products;
+
   @override
+  void initState() {
+    super.initState();
+    _products = LikeProductService().getProduct();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -51,6 +62,29 @@ class _LikeScreenState extends State<LikeScreen> {
                 )
               ],
             ),
+    //         FutureBuilder(
+    //   future: _products,
+    //   builder: (context, AsyncSnapshot<LikeProductModel> snapshot) {
+    //     var state = snapshot.connectionState;
+    //     if (state != ConnectionState.done) {
+    //       return Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     } else {
+    //       if (snapshot.hasData) {
+    //         return Column(
+    //           children: snapshot.data!.data
+    //               .map((item) => LikeListItem(item: item))
+    //               .toList(),
+    //         );
+    //       } else if (snapshot.hasError) {
+    //         return Center(child: Text(snapshot.error.toString()));
+    //       } else {
+    //         return Text('');
+    //       }
+    //     }
+    //   },
+    // ),
             // Container(
             //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 10),
             //   padding: EdgeInsets.all(10),

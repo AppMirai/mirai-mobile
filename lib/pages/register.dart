@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mirai_app/services/user_service.dart';
-import 'package:mirai_app/shared/theme.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../routes/route_name.dart';
+import '../services/user_service.dart';
+import '../shared/theme.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -55,8 +58,11 @@ class _RegisterState extends State<Register> {
                               cursorColor: primaryColor,
                               controller: nameTextController,
                               decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 16),
+                                labelText: "Full Name",
                                 hintText: 'Full Name',
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0)),
@@ -77,8 +83,11 @@ class _RegisterState extends State<Register> {
                               cursorColor: primaryColor,
                               controller: emailTextController,
                               decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 16),
+                                labelText: "Email",
                                 hintText: 'Email',
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0)),
@@ -100,8 +109,11 @@ class _RegisterState extends State<Register> {
                                 controller: passwordTextController,
                                 obscureText: visible,
                                 decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 16),
+                                  labelText: "Password",
                                   hintText: 'Password',
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0)),
@@ -137,7 +149,8 @@ class _RegisterState extends State<Register> {
                             try {
                               UserService().userRegister(data);
 
-                              Navigator.pushReplacementNamed(context, '/login');
+                              Get.offNamed(RouteName.login);
+                              // Navigator.pushReplacementNamed(context, '/login');
                             } catch (e) {
                               print(e);
                             }
@@ -171,7 +184,8 @@ class _RegisterState extends State<Register> {
                             fontWeight: regular,
                           )),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/login');
+                        Get.toNamed(RouteName.login);
+                        // Navigator.pushNamed(context, '/login');
                       },
                     ),
                   ],

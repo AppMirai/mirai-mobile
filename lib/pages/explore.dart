@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mirai_app/shared/theme.dart';
+import 'package:get/get.dart';
 
+import '../routes/route_name.dart';
+import '../shared/theme.dart';
 import '../widget/category_image.dart';
 
 class Explore extends StatelessWidget {
@@ -15,6 +17,7 @@ class Explore extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: whiteColor,
+        automaticallyImplyLeading: false,
         // title: Container(
         //   width: double.infinity,
         //   height: 40,
@@ -50,7 +53,8 @@ class Explore extends StatelessWidget {
                   icon: Icon(Icons.favorite_border),
                   color: primaryColor,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/like');
+                    Get.toNamed(RouteName.like);
+                    // Navigator.pushNamed(context, '/like');
                   },
                 ),
               ))
@@ -78,7 +82,9 @@ class Explore extends StatelessWidget {
                   childAspectRatio: (itemWidth / itemHeight),
                   children: List.generate(imageItem.length, (index) {
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(RouteName.productspage);
+                      },
                       child: Container(
                         margin: EdgeInsets.only(right: 8, top: 16),
                         decoration: BoxDecoration(

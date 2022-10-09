@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mirai_app/model/profile_user_model.dart';
-import 'package:mirai_app/pages/components/carousel_banner.dart';
-import 'package:mirai_app/pages/components/carousel_brand.dart';
-import 'package:mirai_app/pages/components/navbar.dart';
-import 'package:mirai_app/pages/components/product_tile.dart';
-import 'package:mirai_app/services/user_service.dart';
-import 'package:mirai_app/shared/theme.dart';
 import 'package:skeleton_text/skeleton_text.dart';
+import 'package:get/get.dart';
 
-import 'components/carousel_category.dart';
+import '../model/profile_user_model.dart';
+import '../pages/components/carousel_banner.dart';
+import '../pages/components/carousel_brand.dart';
+import '../pages/components/carousel_category.dart';
+import '../pages/components/navbar.dart';
+import '../pages/components/product_tile.dart';
+import '../services/user_service.dart';
+import '../shared/theme.dart';
+import '../routes/route_name.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -22,12 +24,15 @@ class _HomeState extends State<Home> {
   bool isLoading = true;
 
   UserProfileModel user = UserProfileModel(
+    message: "",
+    data: Data(
       id: 0,
-      name: "",
-      email: "",
-      emailVerifiedAt: DateTime.now(),
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now());
+          fullName: "",
+          email: "",
+          photoUserUrl: "",
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now()
+    ),);
 
   @override
   void initState() {
@@ -45,7 +50,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    if (user.name != "") {
+    if (user.data.fullName != "") {
       setState(() {
         isLoading = false;
       });
@@ -94,7 +99,7 @@ class _HomeState extends State<Home> {
                                 ),
                               )
                             : Text(
-                                'Hello, ${user.name}',
+                                'Hello, ${user.data.fullName}',
                                 style: TextStyle(
                                   color: whiteColor,
                                   fontSize: 20,
@@ -109,7 +114,8 @@ class _HomeState extends State<Home> {
                           icon: Icon(Icons.favorite_border),
                           color: whiteColor,
                           onPressed: () {
-                            Navigator.pushNamed(context, '/like');
+                            Get.toNamed(RouteName.like);
+                            // Navigator.pushNamed(context, '/like');
                           },
                         ),
                       )

@@ -1,16 +1,24 @@
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:mirai_app/model/products.dart';
-import 'package:mirai_app/shared/theme.dart';
+import 'package:mirai_app/api/strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DetailProduct extends StatelessWidget {
+import '../model/product_model.dart';
+import '../routes/route_name.dart';
+import '../shared/theme.dart';
+
+class DetailProduct extends StatefulWidget {
   const DetailProduct({Key? key}) : super(key: key);
 
+  @override
+  State<DetailProduct> createState() => _DetailProductState();
+}
+
+class _DetailProductState extends State<DetailProduct> {
   // void launchURL(String _url) async {
-  //   if (!await launchUrl(Uri.parse(_url))) throw 'Could not launch $_url';
-  // }
+  bool isPressed = false;
 
   launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -23,7 +31,7 @@ class DetailProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final item = ModalRoute.of(context)?.settings.arguments as DocumentSnapshot;
-    final item = ModalRoute.of(context)?.settings.arguments as Product;
+    final item = ModalRoute.of(context)?.settings.arguments as ProductData;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -44,19 +52,20 @@ class DetailProduct extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Image.network(
-                    item.images[index].images,
+                    baseURLHOST +
+                        item.productImagesDetail[index].photoProductUrl,
                     fit: BoxFit.cover,
                   ),
                 );
               },
-              itemCount: item.images.length,
+              itemCount: item.productImagesDetail.length,
             ),
           ),
           Column(
             children: [
               ListTile(
                 title: Text(
-                  item.price,
+                  item.price.toString(),
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -66,10 +75,14 @@ class DetailProduct extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          isPressed = !isPressed;
+                        });
+                      },
                       icon: Icon(
                         Icons.favorite,
-                        color: Colors.pink,
+                        color: (isPressed) ? primaryColor : Color(0xff9A9A9A),
                         size: 24.0,
                       ),
                       // icon: const Icon(Icons.search),
@@ -80,7 +93,8 @@ class DetailProduct extends StatelessWidget {
                     ElevatedButton(
                       child: Text("COBA AR"),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/ar');
+                        Get.toNamed(RouteName.ar);
+                        // Navigator.pushNamed(context, '/ar');
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink,
@@ -127,7 +141,7 @@ class DetailProduct extends StatelessWidget {
               ),
               onPressed: () {},
               child: Text(
-                item.shade,
+                item.productShades[0].nameShade,
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -177,7 +191,7 @@ class DetailProduct extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  launchURL(item.tokopedia);
+                  launchURL(item.linkTokopedia);
                 },
                 child: Text(
                   "TOKOPEDIA",
@@ -188,7 +202,7 @@ class DetailProduct extends StatelessWidget {
               ),
             ),
             onTap: () async {
-              final url = item.tokopedia;
+              final url = item.linkTokopedia;
 
               if (await canLaunch(url)) {
                 await launch(url);
@@ -213,7 +227,7 @@ class DetailProduct extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  launchURL(item.shopee);
+                  launchURL(item.linkShopee);
                 },
                 child: Text(
                   "SHOPEE",
@@ -224,7 +238,7 @@ class DetailProduct extends StatelessWidget {
               ),
             ),
             onTap: () async {
-              final url = item.shopee;
+              final url = item.linkShopee;
 
               if (await canLaunch(url)) {
                 await launch(url);

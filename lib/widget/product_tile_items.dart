@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mirai_app/api/api_service.dart';
-import 'package:mirai_app/model/products.dart';
+import 'package:mirai_app/model/product_model.dart';
 import 'package:mirai_app/pages/components/list_item.dart';
+import 'package:mirai_app/services/product_service.dart';
 
 class ProductTileItems extends StatefulWidget {
   ProductTileItems({Key? key}) : super(key: key);
@@ -11,13 +12,13 @@ class ProductTileItems extends StatefulWidget {
 }
 
 class _ProductTileItemsState extends State<ProductTileItems> {
-  late Future<Products> _products;
+  late Future<ProductModel> _products;
 
   // final CollectionReference products =
   @override
   void initState() {
     super.initState();
-    _products = ApiService().getProduct();
+    _products = ProductService().getProduct();
   }
 
   Widget build(BuildContext context) {
@@ -58,7 +59,7 @@ class _ProductTileItemsState extends State<ProductTileItems> {
     // );
     return FutureBuilder(
       future: _products,
-      builder: (context, AsyncSnapshot<Products> snapshot) {
+      builder: (context, AsyncSnapshot<ProductModel> snapshot) {
         var state = snapshot.connectionState;
         if (state != ConnectionState.done) {
           return Center(

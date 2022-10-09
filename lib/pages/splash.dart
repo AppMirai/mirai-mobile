@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mirai_app/pages/home.dart';
-import 'package:mirai_app/pages/components/navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
+
+import '../pages/home.dart';
+import '../pages/components/navbar.dart';
+import '../routes/route_name.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -24,9 +27,11 @@ class _SplashState extends State<Splash> {
     print(token);
 
     if (token != null) {
-      Navigator.pushReplacementNamed(context, '/navbar');
+      Get.toNamed(RouteName.navbar);
+      // Navigator.pushReplacementNamed(context, '/navbar');
     } else {
-      Navigator.pushReplacementNamed(context, '/login');
+      Get.toNamed(RouteName.login);
+      // Navigator.pushReplacementNamed(context, '/login');
     }
   }
 

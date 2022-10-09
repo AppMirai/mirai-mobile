@@ -1,20 +1,22 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mirai_app/api/strings.dart';
 import 'package:mirai_app/model/login_model.dart';
 import 'package:mirai_app/model/profile_user_model.dart';
+import 'package:mirai_app/model/register_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   Future<bool> userRegister(Map<String, dynamic> data) async {
     var dataRegister = <String, dynamic>{
-      'name': data['name'],
+      'full_name': data['full_name'],
       'email': data['email'],
       'password': data['password'],
     };
 
-    var response = await http.post(Uri.parse(baseURLAPI + "register"),
+    var response = await http.post(Uri.parse(baseURLAPI + "/users/register"),
         body: jsonEncode(dataRegister),
         headers: {
           'Accept': 'application/json',
@@ -27,21 +29,21 @@ class UserService {
     return true;
   }
 
-  Future<UserModel?> userLogin(Map<String, dynamic> data) async {
+  Future<RegisterDataModel?> userLogin(Map<String, dynamic> data) async {
     try {
       var dataLogin = <String, String>{
         'email': data['email'],
         'password': data['password'],
       };
 
-      var response = await http.post(Uri.parse(baseURLAPI + "login"),
+      var response = await http.post(Uri.parse(baseURLAPI + "/users/login"),
           body: jsonEncode(dataLogin),
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           });
-      if (response.statusCode == 200) {
-        return UserModel.fromJson(jsonDecode(response.body));
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return RegisterDataModel.fromJson(jsonDecode(response.body)['data']);
       }
     } catch (e) {
       rethrow;
@@ -52,7 +54,8 @@ class UserService {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
 
-    var response = await http.get(Uri.parse(baseURLAPI + "user"), headers: {
+    var response =
+        await http.get(Uri.parse(baseURLAPI + "/users/profile"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': "Bearer $token",
     });
@@ -68,10 +71,11 @@ class UserService {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
     var updateUser = <String, String>{
-      'name': data['name'],
+      'full_name': data['full_name'],
     };
 
-    var response = await http.post(Uri.parse(baseURLAPI + "update-profile"),
+    var response = await http.post(
+        Uri.parse(baseURLAPI + "/users/update-profile"),
         body: jsonEncode(updateUser),
         headers: {
           'Accept': 'application/json',
