@@ -133,6 +133,16 @@ class _RegisterState extends State<Register> {
                                     },
                                   ),
                                 )),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "* Password harus terdiri dari minimal 8 huruf",
+                              style: TextStyle(
+                                color: greyColor,
+                                fontSize: 12,
+                              ),
+                            )
                           ]),
                     ),
                     SizedBox(
@@ -141,7 +151,7 @@ class _RegisterState extends State<Register> {
                       child: TextButton(
                           onPressed: () {
                             var data = <String, dynamic>{
-                              'name': nameTextController.text,
+                              'full_name': nameTextController.text,
                               'email': emailTextController.text,
                               'password': passwordTextController.text,
                             };
@@ -167,7 +177,7 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 22.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
