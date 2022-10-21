@@ -28,7 +28,7 @@ class _LikeListItemState extends State<LikeListItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(RouteName.detail, arguments: widget.item);
+        Get.toNamed(RouteName.detail, arguments: widget.item.product);
       },
       child: Container(
         margin: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
@@ -64,7 +64,8 @@ class _LikeListItemState extends State<LikeListItem> {
                   ),
                   Text(
                     "Rp. " + widget.item.product.price.toString(),
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w600),
                   )
                 ],
               ),

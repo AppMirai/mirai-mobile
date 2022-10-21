@@ -19,10 +19,11 @@ class _DetailProductState extends State<DetailProduct> {
   bool isPressed = false;
   final item = Get.arguments;
 
-  launchURL(String url) async {
-    if (await canLaunchUrlString(url)) {
-      await launchURL(url);
-    } else {
+  Future<void> launchURL(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
       throw 'Could not launch $url';
     }
   }
@@ -222,7 +223,7 @@ class _DetailProductState extends State<DetailProduct> {
                   ),
                 ),
                 onPressed: () async {
-                  await launchURL(item.linkTokopedia);
+                  await launchURL(Uri.parse(item.linkTokopedia));
                 },
                 child: const Text(
                   "TOKOPEDIA",
@@ -233,13 +234,7 @@ class _DetailProductState extends State<DetailProduct> {
               ),
             ),
             onTap: () async {
-              final url = item.linkTokopedia;
-
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url);
-              } else {
-                throw 'Could not launch $url';
-              }
+              await launchURL(Uri.parse(item.linkTokopedia));
             },
           ),
           const SizedBox(
@@ -257,8 +252,8 @@ class _DetailProductState extends State<DetailProduct> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                onPressed: () {
-                  launchURL(item.linkShopee);
+                onPressed: () async {
+                  await launchURL(Uri.parse(item.linkShopee));
                 },
                 child: const Text(
                   "SHOPEE",
@@ -269,13 +264,7 @@ class _DetailProductState extends State<DetailProduct> {
               ),
             ),
             onTap: () async {
-              final url = item.linkShopee;
-
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url);
-              } else {
-                throw 'Could not launch $url';
-              }
+              await launchURL(Uri.parse(item.linkShopee));
             },
           ),
           const SizedBox(
