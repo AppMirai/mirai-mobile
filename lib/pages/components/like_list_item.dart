@@ -2,22 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:mirai_app/model/like_list_model.dart';
 
 import '../../api/strings.dart';
 import '../../model/product_model.dart';
 import '../../routes/route_name.dart';
+import '../../services/like_product_service.dart';
 import '../../shared/theme.dart';
 
-class LikeListItem extends StatelessWidget {
-  const LikeListItem({Key? key, required this.item}) : super(key: key);
+class LikeListItem extends StatefulWidget {
+  LikeListItem({Key? key, required this.item}) : super(key: key);
 
-  final ProductData item;
+  final LikeProductDataModel item;
+
+  @override
+  State<LikeListItem> createState() => _LikeListItemState();
+}
+
+class _LikeListItemState extends State<LikeListItem> {
+  bool isPressed = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(RouteName.detail, arguments: item);
+        Get.toNamed(RouteName.detail, arguments: widget.item);
         // Navigator.pushNamed(context, '/detail', arguments: item);
       },
       child: Container(
@@ -35,7 +49,8 @@ class LikeListItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(baseURLHOST + item.productImageUrl),
+                  image: NetworkImage(
+                      baseURLHOST + widget.item.product.productImageUrl),
                 ),
               ),
             ),
@@ -44,7 +59,7 @@ class LikeListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.name,
+                    widget.item.product.name,
                     style: TextStyle(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -52,15 +67,76 @@ class LikeListItem extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    item.price.toString(),
+                    "Rp. " + widget.item.product.price.toString(),
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   )
                 ],
               ),
             ),
+            Expanded(
+                child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    icon: Icon(Icons.delete),
+                    color: greyColor,
+                    onPressed: () {
+                      showAlertDialog(context, () async {
+                        await LikeProductService.unlikeProduct(
+                                widget.item.productId)
+                            .then((value) {
+                          setState(() {
+                            Get.offNamedUntil(
+                              RouteName.navbar,
+                              (route) => false,
+                            );
+                          });
+                        });
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ))
           ],
         ),
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, Function() onTap) {
+  Widget cancelButton = TextButton(
+    child: Text(
+      "Tidak",
+      style: TextStyle(color: blackColor),
+    ),
+    onPressed: () {
+      Get.back();
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text(
+      "Hapus",
+      style: TextStyle(color: primaryColor),
+    ),
+    onPressed: onTap,
+  );
+
+  AlertDialog alert = AlertDialog(
+    title: const Text("Unlike Produk"),
+    content: const Text("Apa kamu yakin mau hapus like produk ini? :("),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

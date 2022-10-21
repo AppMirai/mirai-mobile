@@ -50,7 +50,7 @@ class ListItem extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    item.price.toString(),
+                    "Rp. " + item.price.toString(),
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   )
                 ],

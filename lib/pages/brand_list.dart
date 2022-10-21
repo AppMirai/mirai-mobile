@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mirai_app/api/strings.dart';
 import 'package:mirai_app/shared/theme.dart';
 
-import '../widget/brand_image.dart';
+import '../model/brand_model.dart';
+import '../routes/route_name.dart';
+import '../services/brand_service.dart';
 
 class BrandListScreen extends StatefulWidget {
   const BrandListScreen({Key? key}) : super(key: key);
@@ -11,11 +15,16 @@ class BrandListScreen extends StatefulWidget {
 }
 
 class _BrandListScreenState extends State<BrandListScreen> {
+  late Future<BrandModel> _brands;
+
+  @override
+  void initState() {
+    _brands = BrandService.getBrand();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final double itemHeight = 190;
-    final double itemWidth = 155;
-    List<BrandImage> imageItems = items;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,29 +38,61 @@ class _BrandListScreenState extends State<BrandListScreen> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: GridView.count(
-              padding: EdgeInsets.only(right: 24, left: 24, bottom: 60),
-              shrinkWrap: true,
-              controller: ScrollController(
-                keepScrollOffset: false,
-              ),
-              crossAxisCount: 2,
-              childAspectRatio: (itemWidth / itemHeight),
-              children: List.generate(imageItems.length, (index) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    margin: EdgeInsets.only(right: 8, top: 16),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(imageItems[index].urlImage),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+          child: FutureBuilder(
+            future: _brands,
+            builder: (context, AsyncSnapshot<BrandModel> snapshot) {
+              var state = snapshot.connectionState;
+              if (state != ConnectionState.done) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              })),
+              } else {
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 24),
+                    child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 4 / 3,
+                          crossAxisSpacing: 20,
+                          mainAxisExtent: 200,
+                          mainAxisSpacing: 20,
+                        ),
+                        itemCount: snapshot.data?.data.length,
+                        itemBuilder: (BuildContext context, index) {
+                          var item = snapshot.data?.data[index];
+                          return GestureDetector(
+                              onTap: () {
+                                Get.toNamed(RouteName.productsbrandpage,
+                                    arguments: item);
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Container(
+                                    // margin:
+                                    //     const EdgeInsets.only(right: 8, top: 16),
+                                    decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        baseURLHOST + item!.brandImageUrl),
+                                    fit: BoxFit.cover,
+                                  ),
+                                )),
+                              ));
+                        }),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const Text('');
+                }
+              }
+            },
+          ),
         ),
       ),
     );

@@ -20,15 +20,15 @@ class _ProfileState extends State<Profile> {
   bool isLoading = true;
 
   UserProfileModel user = UserProfileModel(
-      message: "",
-      data: Data(
+    message: "",
+    data: Data(
         id: 0,
-          fullName: "",
-          email: "",
-          photoUserUrl: "",
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now()
-      ),);
+        fullName: "",
+        email: "",
+        photoUserUrl: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now()),
+  );
 
   @override
   void initState() {
@@ -210,13 +210,8 @@ class _ProfileState extends State<Profile> {
                 width: double.infinity,
                 height: 48,
                 child: TextButton(
-                  onPressed: () async {
-                    final prefs = await SharedPreferences.getInstance();
-
-                    prefs.remove("token");
-                    Get.offNamedUntil(RouteName.login, (route) => false);
-                    // Navigator.pushNamedAndRemoveUntil(
-                    //     context, '/login', (route) => false);
+                  onPressed: () {
+                    showAlertDialog(context);
                   },
                   style: TextButton.styleFrom(
                       backgroundColor: redColor,
@@ -237,4 +232,44 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context) {
+  Widget cancelButton = TextButton(
+    child: Text(
+      "Tidak",
+      style: TextStyle(color: blackColor),
+    ),
+    onPressed: () {
+      Get.back();
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text(
+      "Logout",
+      style: TextStyle(color: primaryColor),
+    ),
+    onPressed: () async {
+      final prefs = await SharedPreferences.getInstance();
+
+      prefs.remove("token");
+      Get.offNamedUntil(RouteName.login, (route) => false);
+    },
+  );
+
+  AlertDialog alert = AlertDialog(
+    title: const Text("Ingin Keluar?"),
+    content: const Text("Apa kamu yakin mau Logout dari aplikasi ini? :("),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

@@ -7,21 +7,6 @@ import 'package:mirai_app/routes/page_route.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:get/get.dart';
 
-import 'package:mirai_app/pages/ar_camera.dart';
-import 'package:mirai_app/pages/brand_list.dart';
-import 'package:mirai_app/pages/category_list.dart';
-import 'package:mirai_app/pages/detail_product.dart';
-import 'package:mirai_app/pages/edit_profile.dart';
-import 'package:mirai_app/pages/home.dart';
-import 'package:mirai_app/pages/like.dart';
-import 'package:mirai_app/pages/login.dart';
-import 'package:mirai_app/pages/onboarding.dart';
-import 'package:mirai_app/pages/profile.dart';
-import 'package:mirai_app/pages/register.dart';
-import 'package:mirai_app/pages/splash.dart';
-import 'package:mirai_app/pages/upload_photo.dart';
-import 'package:mirai_app/pages/components/navbar.dart';
-
 List<CameraDescription> cameras = [];
 
 void main() async {

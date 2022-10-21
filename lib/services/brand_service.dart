@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../api/strings.dart';
 
 class BrandService {
-  Future<BrandModel> getBrand() async {
+  static Future<BrandModel> getBrand() async {
     final response = await http.get(Uri.parse(baseURLAPI + "/brands"));
 
     if (response.statusCode == 200) {

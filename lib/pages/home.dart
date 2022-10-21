@@ -26,13 +26,13 @@ class _HomeState extends State<Home> {
   UserProfileModel user = UserProfileModel(
     message: "",
     data: Data(
-      id: 0,
-          fullName: "",
-          email: "",
-          photoUserUrl: "",
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now()
-    ),);
+        id: 0,
+        fullName: "",
+        email: "",
+        photoUserUrl: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now()),
+  );
 
   @override
   void initState() {
@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                                     color: Colors.pink[200],
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  margin: EdgeInsets.only(top: 10),
+                                  margin: const EdgeInsets.only(top: 10),
                                 ),
                               )
                             : Text(
@@ -111,7 +111,7 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(
                             left: 24, top: 30, right: 24, bottom: 30),
                         child: IconButton(
-                          icon: Icon(Icons.favorite_border),
+                          icon: const Icon(Icons.favorite_border),
                           color: whiteColor,
                           onPressed: () {
                             Get.toNamed(RouteName.like);

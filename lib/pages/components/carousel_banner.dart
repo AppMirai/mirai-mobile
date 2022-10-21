@@ -7,28 +7,24 @@ class CarouselBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CarouselSlider(
-        options: CarouselOptions(
-          autoPlay: true,
-          aspectRatio: 2.8,
-          enlargeCenterPage: true,
-        ),
-        items: imgList
-            .map((item) => Container(
-          child: Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Image.network(item, fit: BoxFit.cover, width: 1000.0)
-                  ],
-                )),
-          ),
-        ))
-            .toList(),
+    return CarouselSlider(
+      options: CarouselOptions(
+        autoPlay: true,
+        aspectRatio: 2.8,
+        enlargeCenterPage: true,
       ),
+      items: imgList
+          .map((item) => Container(
+                margin: const EdgeInsets.all(5.0),
+                child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                    child: Stack(
+                      children: <Widget>[
+                        Image.network(item, fit: BoxFit.cover, width: 1000.0)
+                      ],
+                    )),
+              ))
+          .toList(),
     );
   }
 }

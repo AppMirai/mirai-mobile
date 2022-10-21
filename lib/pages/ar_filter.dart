@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mirai_app/routes/route_name.dart';
 import 'package:mirai_app/shared/theme.dart';
 
 class ArFilter extends StatelessWidget {
@@ -10,7 +12,7 @@ class ArFilter extends StatelessWidget {
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Text(
-          'Coba AR',
+          'upload Photo',
           style: blackTextStyle.copyWith(
               fontSize: 24, fontWeight: semiBold, color: primaryColor),
         ),
@@ -27,28 +29,49 @@ class ArFilter extends StatelessWidget {
 
     Widget inputSection() {
       Widget cobaARButton() {
-        return Container(
-          margin: EdgeInsets.only(bottom: 20),
-          width: double.infinity,
-          height: 48,
-          child: OutlinedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/ar');
-              },
-              style: OutlinedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0))),
-              child: Text('COBA AR',
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: semiBold,
-                  ))),
+        return Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              width: double.infinity,
+              height: 48,
+              child: TextButton(
+                  onPressed: () {
+                    Get.offNamed(RouteName.ar);
+                  },
+                  style: TextButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0))),
+                  child: Text('Coba AR',
+                      style: whiteTextStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: semiBold,
+                      ))),
+            ),
+            // Container(
+            //   width: double.infinity,
+            //   height: 48,
+            //   child: OutlinedButton(
+            //       onPressed: () {
+            //         Get.offNamed(RouteName.photofilter);
+            //       },
+            //       style: OutlinedButton.styleFrom(
+            //           side: BorderSide(color: primaryColor),
+            //           shape: RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(8.0))),
+            //       child: Text('Upload Photo',
+            //           style: pinkTextStyle.copyWith(
+            //             fontSize: 14,
+            //             fontWeight: semiBold,
+            //           ))),
+            // ),
+          ],
         );
       }
 
       return Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 20),
           child: Column(
             children: [cobaARButton()],
           ));
@@ -57,7 +80,7 @@ class ArFilter extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           children: [
             title(),
             imageHero(),

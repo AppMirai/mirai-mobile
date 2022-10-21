@@ -18,7 +18,7 @@ class _ProductTileItemsState extends State<ProductTileItems> {
   @override
   void initState() {
     super.initState();
-    _products = ProductService().getProduct();
+    _products = ProductService.getProduct();
   }
 
   Widget build(BuildContext context) {

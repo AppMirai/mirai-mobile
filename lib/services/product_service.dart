@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../api/strings.dart';
 
 class ProductService {
-  Future<ProductModel> getProduct() async {
+  static Future<ProductModel> getProduct() async {
     final response = await http.get(Uri.parse(baseURLAPI + "/products"));
 
     if (response.statusCode == 200) {

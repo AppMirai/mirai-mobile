@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mirai_app/api/strings.dart';
 
+import '../model/category_model.dart';
 import '../routes/route_name.dart';
+import '../services/category_service.dart';
 import '../shared/theme.dart';
-import '../widget/category_image.dart';
 
-class Explore extends StatelessWidget {
+class Explore extends StatefulWidget {
   const Explore({Key? key}) : super(key: key);
 
   @override
+  State<Explore> createState() => _ExploreState();
+}
+
+class _ExploreState extends State<Explore> {
+  late Future<CategoryModel> _category;
+
+  @override
+  void initState() {
+    _category = CategoryService.getCategory();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final double itemHeight = 190;
-    final double itemWidth = 155;
-    List<CategoryImage> imageItem = items;
 
     return Scaffold(
       appBar: AppBar(
@@ -62,42 +74,58 @@ class Explore extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Container(
-              //   margin: EdgeInsets.only(left: 24, top: 20),
-              //   child: Text(
-              //     'Explore',
-              //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-              //   ),
-              // ),
-              GridView.count(
-                  padding: EdgeInsets.only(right: 24, left: 24, bottom: 60),
-                  shrinkWrap: true,
-                  controller: ScrollController(
-                    keepScrollOffset: false,
-                  ),
-                  crossAxisCount: 2,
-                  childAspectRatio: (itemWidth / itemHeight),
-                  children: List.generate(imageItem.length, (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Get.toNamed(RouteName.productspage);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8, top: 16),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(imageItem[index].urlImage),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
+          child: FutureBuilder(
+            future: _category,
+            builder: (context, AsyncSnapshot<CategoryModel> snapshot) {
+              var state = snapshot.connectionState;
+              if (state != ConnectionState.done) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 24),
+                    child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 4 / 3,
+                          crossAxisSpacing: 20,
+                          mainAxisExtent: 200,
+                          mainAxisSpacing: 20,
                         ),
-                      ),
-                    );
-                  })),
-            ],
+                        itemCount: snapshot.data?.data.length,
+                        itemBuilder: (BuildContext context, index) {
+                          var item = snapshot.data?.data[index];
+                          return GestureDetector(
+                              onTap: () {
+                                Get.toNamed(RouteName.productspage,
+                                    arguments: item);
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        baseURLHOST + item!.categoryImageUrl),
+                                    fit: BoxFit.cover,
+                                  ),
+                                )),
+                              ));
+                        }),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const Text('');
+                }
+              }
+            },
           ),
         ),
       ),

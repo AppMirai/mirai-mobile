@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:mirai_app/pages/photo_filter.dart';
 import 'package:mirai_app/pages/products_page.dart';
+import 'package:mirai_app/pages/profile.dart';
+import '../pages/products_brand_page.dart';
 import '../pages/splash.dart';
 import '../pages/ar_camera.dart';
 import '../pages/brand_list.dart';
@@ -72,6 +75,18 @@ class RoutePage {
     GetPage(
       name: RouteName.productspage,
       page: () => ProductsPage(),
+    ),
+    GetPage(
+      name: RouteName.productsbrandpage,
+      page: () => ProductBrandsPage(),
+    ),
+    GetPage(
+      name: RouteName.profile,
+      page: () => Profile(),
+    ),
+    GetPage(
+      name: RouteName.photofilter,
+      page: () => PhotoFilter(),
     ),
   ];
 }

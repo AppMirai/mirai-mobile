@@ -13,4 +13,7 @@ abstract class RouteName {
   static const like = '/like';
   static const editprofile = '/editprofile';
   static const productspage = '/productspage';
+  static const productsbrandpage = '/productsbrandpage';
+  static const profile = '/profile';
+  static const photofilter = '/photofilter';
 }

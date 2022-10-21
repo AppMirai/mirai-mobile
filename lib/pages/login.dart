@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,14 +25,14 @@ class _LoginState extends State<Login> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 24, right: 24),
+            margin: const EdgeInsets.only(left: 24, right: 24),
             child: Column(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
+                      margin: const EdgeInsets.only(top: 20, bottom: 20),
                       child: Text(
                         'Login',
                         style: blackTextStyle.copyWith(
@@ -45,7 +43,7 @@ class _LoginState extends State<Login> {
                     ),
                     Center(
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 20),
                         child: Image.asset(
                           'assets/images/login_illustration.png',
                           height: 184,
@@ -54,7 +52,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin: const EdgeInsets.only(bottom: 20),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -64,7 +62,7 @@ class _LoginState extends State<Login> {
                               decoration: InputDecoration(
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 16),
                                 labelText: "Email",
                                 hintText: 'Email',
@@ -79,7 +77,7 @@ class _LoginState extends State<Login> {
                           ]),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 30),
+                      margin: const EdgeInsets.only(bottom: 30),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -90,7 +88,7 @@ class _LoginState extends State<Login> {
                                 decoration: InputDecoration(
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 16),
                                   labelText: "Password",
                                   hintText: 'Password',
@@ -130,6 +128,19 @@ class _LoginState extends State<Login> {
                                   .then((response) async {
                                 // if (response.success == true) {
                                 if (response!.accessToken != null) {
+                                  // const snackBar = SnackBar(
+                                  //   content: Text('Anda Berhasil Login'),
+                                  //   backgroundColor: Colors.green,
+                                  // );
+                                  // ScaffoldMessenger.of(context)
+                                  //     .showSnackBar(snackBar);
+                                  Get.snackbar(
+                                      'Login Success', 'Anda Berhasil Login',
+                                      colorText: whiteColor,
+                                      snackPosition: SnackPosition.TOP,
+                                      forwardAnimationCurve: Curves.bounceIn,
+                                      reverseAnimationCurve: Curves.easeOut,
+                                      backgroundColor: Colors.green);
                                   final prefs =
                                       await SharedPreferences.getInstance();
                                   await prefs.setString(
@@ -138,20 +149,22 @@ class _LoginState extends State<Login> {
                                       RouteName.navbar, (route) => false);
                                 }
                               }).catchError((error) {
-                                const snackBar = SnackBar(
-                                  content:
-                                      Text('Email atau Password anda salah'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
+                                Get.snackbar('Login Error',
+                                    'Email atau Password anda salah',
+                                    colorText: whiteColor,
+                                    snackPosition: SnackPosition.TOP,
+                                    forwardAnimationCurve: Curves.bounceIn,
+                                    reverseAnimationCurve: Curves.easeOut,
+                                    backgroundColor: redColor);
                               });
                             } catch (e) {
-                              const snackBar = SnackBar(
-                                content: Text('Email atau Password anda salah'),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                              print(e);
+                              Get.snackbar('Login Error',
+                                  'Email atau Password anda salah',
+                                  colorText: whiteColor,
+                                  snackPosition: SnackPosition.TOP,
+                                  forwardAnimationCurve: Curves.bounceIn,
+                                  reverseAnimationCurve: Curves.easeOut,
+                                  backgroundColor: redColor);
                             }
                           },
                           style: TextButton.styleFrom(
@@ -184,7 +197,7 @@ class _LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("don't have account?"),
+                    const Text("don't have account?"),
                     SizedBox(
                       width: 0.2.h,
                     ),

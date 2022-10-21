@@ -24,7 +24,6 @@ class _SplashState extends State<Splash> {
   void checkToken() async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString("token");
-    print(token);
 
     if (token != null) {
       Get.toNamed(RouteName.navbar);

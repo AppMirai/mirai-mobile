@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:mirai_app/api/strings.dart';
+import 'package:mirai_app/services/like_product_service.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
-import '../model/product_model.dart';
 import '../routes/route_name.dart';
 import '../shared/theme.dart';
 
@@ -17,21 +16,33 @@ class DetailProduct extends StatefulWidget {
 }
 
 class _DetailProductState extends State<DetailProduct> {
-  // void launchURL(String _url) async {
   bool isPressed = false;
+  final item = Get.arguments;
 
   launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrlString(url)) {
+      await launchURL(url);
     } else {
       throw 'Could not launch $url';
     }
   }
 
   @override
+  void initState() {
+    checkLike();
+    super.initState();
+  }
+
+  Future<void> checkLike() async {
+    await LikeProductService.checkProductLike(item.id).then((value) {
+      setState(() {
+        isPressed = value;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // final item = ModalRoute.of(context)?.settings.arguments as DocumentSnapshot;
-    final item = ModalRoute.of(context)?.settings.arguments as ProductData;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -65,7 +76,7 @@ class _DetailProductState extends State<DetailProduct> {
             children: [
               ListTile(
                 title: Text(
-                  item.price.toString(),
+                  "Rp. " + item.price.toString(),
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -76,28 +87,39 @@ class _DetailProductState extends State<DetailProduct> {
                   children: <Widget>[
                     IconButton(
                       onPressed: () {
-                        setState(() {
-                          isPressed = !isPressed;
-                        });
+                        if (isPressed) {
+                          LikeProductService.unlikeProduct(item.id)
+                              .then((value) {
+                            setState(() {
+                              isPressed = false;
+                            });
+                          });
+                        } else {
+                          LikeProductService.likeProduct(item.id).then((value) {
+                            setState(() {
+                              isPressed = true;
+                            });
+                          });
+                        }
                       },
                       icon: Icon(
                         Icons.favorite,
-                        color: (isPressed) ? primaryColor : Color(0xff9A9A9A),
+                        color: (isPressed)
+                            ? primaryColor
+                            : const Color(0xff9A9A9A),
                         size: 24.0,
                       ),
-                      // icon: const Icon(Icons.search),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     ElevatedButton(
-                      child: Text("COBA AR"),
+                      child: const Text("COBA AR"),
                       onPressed: () {
                         Get.toNamed(RouteName.ar);
-                        // Navigator.pushNamed(context, '/ar');
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.pink,
+                        backgroundColor: primaryColor,
                       ),
                     ),
                   ],
@@ -110,7 +132,7 @@ class _DetailProductState extends State<DetailProduct> {
                   )),
             ],
           ),
-          Divider(
+          const Divider(
             height: 23,
             thickness: 8,
             color: Color.fromARGB(255, 233, 233, 233),
@@ -128,27 +150,36 @@ class _DetailProductState extends State<DetailProduct> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 24, right: 24),
-            alignment: Alignment.topLeft,
-            width: 200,
-            height: 45,
-            child: TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(color: greyColor, width: 1),
-                    borderRadius: BorderRadius.circular(8)),
-              ),
-              onPressed: () {},
-              child: Text(
-                item.productShades[0].nameShade,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ),
-          Divider(
+              margin: const EdgeInsets.only(left: 24, right: 24),
+              alignment: Alignment.topLeft,
+              width: 200,
+              height: 45,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(color: greyColor, width: 1),
+                            borderRadius: BorderRadius.circular(8)),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        // item.productShades[0].nameShade,
+                        item.productShades[index].nameShade,
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                itemCount: item.productShades.length,
+              )),
+          const Divider(
             height: 23,
             thickness: 8,
             color: Color.fromARGB(255, 233, 233, 233),
@@ -173,7 +204,7 @@ class _DetailProductState extends State<DetailProduct> {
               style: const TextStyle(fontSize: 16),
             ),
           ),
-          Divider(
+          const Divider(
             height: 23,
             thickness: 8,
             color: Color.fromARGB(255, 233, 233, 233),
@@ -185,15 +216,15 @@ class _DetailProductState extends State<DetailProduct> {
               height: 45,
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 7, 143, 46),
+                  backgroundColor: const Color.fromARGB(255, 7, 143, 46),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                onPressed: () {
-                  launchURL(item.linkTokopedia);
+                onPressed: () async {
+                  await launchURL(item.linkTokopedia);
                 },
-                child: Text(
+                child: const Text(
                   "TOKOPEDIA",
                   style: TextStyle(
                     color: Color(0xffffffff),
@@ -204,14 +235,14 @@ class _DetailProductState extends State<DetailProduct> {
             onTap: () async {
               final url = item.linkTokopedia;
 
-              if (await canLaunch(url)) {
-                await launch(url);
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url);
               } else {
                 throw 'Could not launch $url';
               }
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           InkWell(
@@ -221,7 +252,7 @@ class _DetailProductState extends State<DetailProduct> {
               height: 45,
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 230, 107, 77),
+                  backgroundColor: const Color.fromARGB(255, 230, 107, 77),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -229,7 +260,7 @@ class _DetailProductState extends State<DetailProduct> {
                 onPressed: () {
                   launchURL(item.linkShopee);
                 },
-                child: Text(
+                child: const Text(
                   "SHOPEE",
                   style: TextStyle(
                     color: Color(0xffffffff),
@@ -240,14 +271,14 @@ class _DetailProductState extends State<DetailProduct> {
             onTap: () async {
               final url = item.linkShopee;
 
-              if (await canLaunch(url)) {
-                await launch(url);
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url);
               } else {
                 throw 'Could not launch $url';
               }
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
         ],

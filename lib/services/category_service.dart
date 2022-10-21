@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../api/strings.dart';
 
 class CategoryService {
-  Future<CategoryModel> getCategory() async {
+  static Future<CategoryModel> getCategory() async {
     final response = await http.get(Uri.parse(baseURLAPI + "/categories"));
 
     if (response.statusCode == 200) {
