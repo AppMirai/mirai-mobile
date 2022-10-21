@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Color primaryColor = Color(0xffE66099);
-Color blackColor = Color(0xff343A40);
-Color whiteColor = Color(0xffFFFFFF);
-Color greyColor = Color(0xffAEB0B3);
-Color redColor = Color(0xffF15050);
-Color backgroundColor = Color(0xffFAFAFA);
-Color inactiveColor = Color(0xffCCCECF);
+Color primaryColor = const Color(0xffE66099);
+Color blackColor = const Color(0xff343A40);
+Color whiteColor = const Color(0xffFFFFFF);
+Color greyColor = const Color(0xffAEB0B3);
+Color redColor = const Color(0xffF15050);
+Color backgroundColor = const Color(0xffFAFAFA);
+Color inactiveColor = const Color(0xffCCCECF);
 Color transparentColor = Colors.transparent;
 
 TextStyle blackTextStyle = GoogleFonts.poppins(

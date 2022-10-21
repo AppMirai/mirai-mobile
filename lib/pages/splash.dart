@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
-import '../pages/home.dart';
-import '../pages/components/navbar.dart';
 import '../routes/route_name.dart';
 
 class Splash extends StatefulWidget {
+  const Splash({super.key});
+
   @override
   _SplashState createState() => _SplashState();
 }
@@ -16,7 +16,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       checkToken();
     });
   }
@@ -26,20 +26,19 @@ class _SplashState extends State<Splash> {
     var token = prefs.getString("token");
 
     if (token != null) {
-      Get.toNamed(RouteName.navbar);
-      // Navigator.pushReplacementNamed(context, '/navbar');
+      Get.offNamed(RouteName.navbar);
     } else {
-      Get.toNamed(RouteName.login);
-      // Navigator.pushReplacementNamed(context, '/login');
+      Get.offNamed(RouteName.login);
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomRight,

@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class CategoryImage {
   final String urlImage;
@@ -12,35 +10,35 @@ class CategoryImage {
 }
 
 List<CategoryImage> items = [
-  CategoryImage(
+  const CategoryImage(
     urlImage: 'assets/images/kategori_lipstik.png',
     urlPage: '',
   ),
-  CategoryImage(
+  const CategoryImage(
     urlImage: 'assets/images/kategori_foundation.png',
     urlPage: '',
   ),
-  CategoryImage(
+  const CategoryImage(
     urlImage: 'assets/images/kategori_mascara.png',
     urlPage: '',
   ),
-  CategoryImage(
+  const CategoryImage(
     urlImage: 'assets/images/kategori_blushon.png',
     urlPage: '',
   ),
-  CategoryImage(
+  const CategoryImage(
     urlImage: 'assets/images/kategori_lipmatte.png',
     urlPage: '',
   ),
-  CategoryImage(
+  const CategoryImage(
     urlImage: 'assets/images/kategori_eyebrow.png',
     urlPage: '',
   ),
-  CategoryImage(
+  const CategoryImage(
     urlImage: 'assets/images/kategori_eyeshadow.png',
     urlPage: '',
   ),
-  CategoryImage(
+  const CategoryImage(
     urlImage: 'assets/images/kategori_lipcream.png',
     urlPage: '',
   ),

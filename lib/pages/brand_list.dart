@@ -73,8 +73,6 @@ class _BrandListScreenState extends State<BrandListScreen> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Container(
-                                    // margin:
-                                    //     const EdgeInsets.only(right: 8, top: 16),
                                     decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: NetworkImage(

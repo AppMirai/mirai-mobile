@@ -22,43 +22,43 @@ class RoutePage {
   static final pages = [
     GetPage(
       name: RouteName.splash,
-      page: () => Splash(),
+      page: () => const Splash(),
     ),
     GetPage(
       name: RouteName.onboarding,
-      page: () => Onboarding(),
+      page: () => const Onboarding(),
     ),
     GetPage(
       name: RouteName.navbar,
-      page: () => BottomNavigation(),
+      page: () => const BottomNavigation(),
     ),
     GetPage(
       name: RouteName.home,
-      page: () => Home(),
+      page: () => const Home(),
     ),
     GetPage(
       name: RouteName.detail,
-      page: () => DetailProduct(),
+      page: () => const DetailProduct(),
     ),
     GetPage(
       name: RouteName.ar,
-      page: () => ArCamera(),
+      page: () => const ArCamera(),
     ),
     GetPage(
       name: RouteName.login,
-      page: () => Login(),
+      page: () => const Login(),
     ),
     GetPage(
       name: RouteName.register,
-      page: () => Register(),
+      page: () => const Register(),
     ),
     GetPage(
       name: RouteName.upphoto,
-      page: () => UploadPhoto(),
+      page: () => const UploadPhoto(),
     ),
     GetPage(
       name: RouteName.brand,
-      page: () => BrandListScreen(),
+      page: () => const BrandListScreen(),
     ),
     GetPage(
       name: RouteName.category,
@@ -66,27 +66,27 @@ class RoutePage {
     ),
     GetPage(
       name: RouteName.like,
-      page: () => LikeScreen(),
+      page: () => const LikeScreen(),
     ),
     GetPage(
       name: RouteName.editprofile,
-      page: () => EditProfile(),
+      page: () => const EditProfile(),
     ),
     GetPage(
       name: RouteName.productspage,
-      page: () => ProductsPage(),
+      page: () => const ProductsPage(),
     ),
     GetPage(
       name: RouteName.productsbrandpage,
-      page: () => ProductBrandsPage(),
+      page: () => const ProductBrandsPage(),
     ),
     GetPage(
       name: RouteName.profile,
-      page: () => Profile(),
+      page: () => const Profile(),
     ),
     GetPage(
       name: RouteName.photofilter,
-      page: () => PhotoFilter(),
+      page: () => const PhotoFilter(),
     ),
   ];
 }

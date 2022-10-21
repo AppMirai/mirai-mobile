@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skeleton_text/skeleton_text.dart';
 
 import '../model/profile_user_model.dart';
 import '../routes/route_name.dart';
@@ -52,7 +50,7 @@ class _EditProfileState extends State<EditProfile> {
         backgroundColor: primaryColor,
         elevation: 0,
         iconTheme: IconThemeData(color: whiteColor),
-        title: Text("Edit Profile"),
+        title: const Text("Edit Profile"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -105,10 +103,10 @@ class _EditProfileState extends State<EditProfile> {
                                       spreadRadius: 2,
                                       blurRadius: 10,
                                       color: Colors.black.withOpacity(0.1),
-                                      offset: Offset(0, 10))
+                                      offset: const Offset(0, 10))
                                 ],
                                 shape: BoxShape.circle,
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                     fit: BoxFit.cover,
                                     image: AssetImage(
                                         'assets/images/profile.jpg'))),
@@ -132,7 +130,7 @@ class _EditProfileState extends State<EditProfile> {
                         controller: nameTextController,
                         decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                           labelText: "Full Name",
                           hintText: '${user.data.fullName}',
@@ -147,7 +145,7 @@ class _EditProfileState extends State<EditProfile> {
                               borderSide: BorderSide(color: primaryColor)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       TextFormField(
@@ -155,7 +153,7 @@ class _EditProfileState extends State<EditProfile> {
                         cursorColor: primaryColor,
                         decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                           labelText: "Email",
                           hintText: '${user.data.email}',
@@ -173,7 +171,7 @@ class _EditProfileState extends State<EditProfile> {
                     ],
                   )),
               Container(
-                margin: EdgeInsets.only(top: 100, left: 24, right: 24),
+                margin: const EdgeInsets.only(top: 100, left: 24, right: 24),
                 child: SizedBox(
                   width: double.infinity,
                   height: 48,
@@ -187,7 +185,6 @@ class _EditProfileState extends State<EditProfile> {
                           UserService().updateProfile(data);
 
                           Get.offNamed(RouteName.navbar);
-                          // Navigator.pushReplacementNamed(context, '/navbar');
                         } catch (e) {
                           print(e);
                         }

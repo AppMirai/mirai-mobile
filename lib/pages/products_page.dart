@@ -9,7 +9,6 @@ import '../routes/route_name.dart';
 import '../services/product_service.dart';
 
 class ProductsPage extends StatefulWidget {
-  // const ProductsPage({Key? key, required this.item});
   const ProductsPage({super.key});
 
   @override
@@ -26,11 +25,8 @@ class _ProductsPageState extends State<ProductsPage> {
     super.initState();
   }
 
-  // final Product item;
   @override
   Widget build(BuildContext context) {
-    // final double itemHeight = 190;
-    // final double itemWidth = 155;
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +49,6 @@ class _ProductsPageState extends State<ProductsPage> {
                   color: primaryColor,
                   onPressed: () {
                     Get.toNamed(RouteName.like);
-                    // Navigator.pushNamed(context, '/like');
                   },
                 ),
               ))
@@ -98,7 +93,7 @@ class _ProductsPageState extends State<ProductsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: 200,
                                   height: 130,
                                   child: Image.network(
@@ -128,88 +123,6 @@ class _ProductsPageState extends State<ProductsPage> {
                       .toList(),
                 ),
         )
-            // child: FutureBuilder(
-            //   future: _products,
-            //   builder: (context, AsyncSnapshot<ProductModel> snapshot) {
-            //     var state = snapshot.connectionState;
-            //     if (state != ConnectionState.done) {
-            //       return const Center(
-            //         child: CircularProgressIndicator(),
-            //       );
-            //     } else {
-            //       if (snapshot.hasData) {
-            //         return Padding(
-            //           padding: const EdgeInsets.symmetric(
-            //               horizontal: 24, vertical: 24),
-            //           child: GridView.builder(
-            //               shrinkWrap: true,
-            //               physics: ScrollPhysics(),
-            //               gridDelegate:
-            //                   const SliverGridDelegateWithMaxCrossAxisExtent(
-            //                 maxCrossAxisExtent: 200,
-            //                 childAspectRatio: 4 / 3,
-            //                 crossAxisSpacing: 20,
-            //                 mainAxisExtent: 150,
-            //                 mainAxisSpacing: 20,
-            //               ),
-            //               itemCount: snapshot.data?.data.length,
-            //               itemBuilder: (BuildContext context, index) {
-            //                 var item = snapshot.data?.data[index];
-            //                 return GestureDetector(
-            //                     onTap: () {},
-            //                     child: ClipRRect(
-            //                       borderRadius: BorderRadius.circular(8),
-            //                       child: Container(
-            //                           decoration: BoxDecoration(
-            //                         image: DecorationImage(
-            //                           image: NetworkImage(
-            //                               baseURLHOST + item!.productImageUrl),
-            //                           fit: BoxFit.cover,
-            //                         ),
-            //                       )),
-            //                     ));
-            //               }),
-            //         );
-            //       } else if (snapshot.hasError) {
-            //         return Center(child: Text(snapshot.error.toString()));
-            //       } else {
-            //         return const Text('');
-            //       }
-            //     }
-            //   },
-            // ),
-            // child: Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     GridView.count(
-            //       padding: EdgeInsets.only(right: 24, left: 24, bottom: 60),
-            //       shrinkWrap: true,
-            //       controller: ScrollController(
-            //         keepScrollOffset: false,
-            //       ),
-            //       crossAxisCount: 2,
-            //       childAspectRatio: (itemWidth / itemHeight),
-            //       children: [
-            //         Container(
-            //           margin: EdgeInsets.only(left: 24, right: 24, bottom: 20),
-            //           padding: EdgeInsets.all(10),
-            //           decoration: BoxDecoration(
-            //               color: whiteColor,
-            //               borderRadius: BorderRadius.circular(10)),
-            //           child: Container(
-            //             width: 70,
-            //             height: 70,
-            //             decoration: BoxDecoration(
-            //                 borderRadius: BorderRadius.circular(10),
-            //                 image: DecorationImage(
-            //                     fit: BoxFit.cover,
-            //                     image: NetworkImage(item.image))),
-            //           ),
-            //         ),
-            //       ],
-            //     )
-            //   ],
-            // ),
             ),
       ),
     );

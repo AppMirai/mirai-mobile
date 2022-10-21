@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:mirai_app/model/like_list_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';

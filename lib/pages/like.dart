@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mirai_app/pages/components/like_list_item.dart';
-import 'package:mirai_app/widget/brand_card_image.dart';
 
 import '../model/like_list_model.dart';
 import '../services/like_product_service.dart';
 import '../shared/theme.dart';
-import '../widget/product_tile_items.dart';
 
 class LikeScreen extends StatefulWidget {
   const LikeScreen({Key? key}) : super(key: key);

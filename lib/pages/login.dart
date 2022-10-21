@@ -112,7 +112,7 @@ class _LoginState extends State<Login> {
                                 )),
                           ]),
                     ),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       height: 48,
                       child: TextButton(
@@ -128,12 +128,6 @@ class _LoginState extends State<Login> {
                                   .then((response) async {
                                 // if (response.success == true) {
                                 if (response!.accessToken != null) {
-                                  // const snackBar = SnackBar(
-                                  //   content: Text('Anda Berhasil Login'),
-                                  //   backgroundColor: Colors.green,
-                                  // );
-                                  // ScaffoldMessenger.of(context)
-                                  //     .showSnackBar(snackBar);
                                   Get.snackbar(
                                       'Login Success', 'Anda Berhasil Login',
                                       colorText: whiteColor,
@@ -209,7 +203,6 @@ class _LoginState extends State<Login> {
                           )),
                       onPressed: () {
                         Get.toNamed(RouteName.register);
-                        // Navigator.pushNamed(context, '/register');
                       },
                     ),
                   ],

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:get/get.dart';
@@ -7,7 +7,7 @@ import '../model/profile_user_model.dart';
 import '../pages/components/carousel_banner.dart';
 import '../pages/components/carousel_brand.dart';
 import '../pages/components/carousel_category.dart';
-import '../pages/components/navbar.dart';
+// import '../pages/components/navbar.dart';
 import '../pages/components/product_tile.dart';
 import '../services/user_service.dart';
 import '../shared/theme.dart';

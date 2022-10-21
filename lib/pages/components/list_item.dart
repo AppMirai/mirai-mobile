@@ -16,11 +16,10 @@ class ListItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.toNamed(RouteName.detail, arguments: item);
-        // Navigator.pushNamed(context, '/detail', arguments: item);
       },
       child: Container(
-        margin: EdgeInsets.only(left: 24, right: 24, bottom: 10),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: whiteColor, borderRadius: BorderRadius.circular(10)),
         child: Row(
@@ -28,7 +27,7 @@ class ListItem extends StatelessWidget {
             Container(
               width: 70,
               height: 70,
-              margin: EdgeInsets.only(right: 16),
+              margin: const EdgeInsets.only(right: 16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
@@ -43,15 +42,15 @@ class ListItem extends StatelessWidget {
                 children: [
                   Text(
                     item.name,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     "Rp. " + item.price.toString(),
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   )
                 ],
               ),

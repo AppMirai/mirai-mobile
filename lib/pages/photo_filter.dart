@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:mirai_app/shared/theme.dart';
 
@@ -39,7 +37,7 @@ class PhotoFilter extends StatelessWidget {
     Widget inputSection() {
       Widget cobaARButton() {
         return Container(
-          margin: EdgeInsets.only(bottom: 20),
+          margin: const EdgeInsets.only(bottom: 20),
           width: double.infinity,
           height: 48,
           child: OutlinedButton(
@@ -59,7 +57,7 @@ class PhotoFilter extends StatelessWidget {
       }
 
       return Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 20),
           child: Column(
             children: [cobaARButton()],
           ));
@@ -68,7 +66,7 @@ class PhotoFilter extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           children: [
             title(),
             imageHero(),

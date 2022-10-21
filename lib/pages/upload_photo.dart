@@ -13,7 +13,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
   Widget build(BuildContext context) {
     Widget title() {
       return Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 20),
         child: Text(
           'Upload Photo',
           style: blackTextStyle.copyWith(
@@ -23,19 +23,17 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
 
     Widget imageHero() {
-      return Container(
-        child: Image.asset(
-          'assets/images/up_photo_illustration.png',
-          height: 329,
-          width: 329,
-        ),
+      return Image.asset(
+        'assets/images/up_photo_illustration.png',
+        height: 329,
+        width: 329,
       );
     }
 
     Widget inputSection() {
       Widget addPhotoButton() {
         return Container(
-          margin: EdgeInsets.only(bottom: 20),
+          margin: const EdgeInsets.only(bottom: 20),
           width: double.infinity,
           height: 55,
           child: OutlinedButton(
@@ -71,7 +69,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
       }
 
       return Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 20),
           child: Column(
             children: [addPhotoButton(), capturePhotoButton()],
           ));
@@ -80,7 +78,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           children: [
             title(),
             imageHero(),

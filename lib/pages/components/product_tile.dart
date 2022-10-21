@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mirai_app/shared/theme.dart';
 import 'package:mirai_app/widget/product_tile_items.dart';
 
 class ProductsTile extends StatelessWidget {
@@ -22,16 +21,6 @@ class ProductsTile extends StatelessWidget {
             )),
             Padding(
               padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
-              // child: TextButton(
-              //   child: Text(
-              //     'See all',
-              //     style: TextStyle(
-              //       fontSize: 16,
-              //       color: primaryColor,
-              //     ),
-              //   ),
-              //   onPressed: () {},
-              // ),
             )
           ],
         ),

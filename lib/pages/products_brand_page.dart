@@ -48,7 +48,6 @@ class _ProductBrandsPageState extends State<ProductBrandsPage> {
                   color: primaryColor,
                   onPressed: () {
                     Get.toNamed(RouteName.like);
-                    // Navigator.pushNamed(context, '/like');
                   },
                 ),
               ))
@@ -89,7 +88,7 @@ class _ProductBrandsPageState extends State<ProductBrandsPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
+                              SizedBox(
                                 width: 200,
                                 height: 130,
                                 child: Image.network(

@@ -58,15 +58,14 @@ class _ExploreState extends State<Explore> {
         ),
         actions: [
           Padding(
-              padding: EdgeInsets.only(right: 24),
+              padding: const EdgeInsets.only(right: 24),
               child: GestureDetector(
                 onTap: () {},
                 child: IconButton(
-                  icon: Icon(Icons.favorite_border),
+                  icon: const Icon(Icons.favorite_border),
                   color: primaryColor,
                   onPressed: () {
                     Get.toNamed(RouteName.like);
-                    // Navigator.pushNamed(context, '/like');
                   },
                 ),
               ))

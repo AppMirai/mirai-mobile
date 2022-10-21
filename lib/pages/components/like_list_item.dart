@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:mirai_app/model/like_list_model.dart';
 
 import '../../api/strings.dart';
-import '../../model/product_model.dart';
 import '../../routes/route_name.dart';
 import '../../services/like_product_service.dart';
 import '../../shared/theme.dart';
 
 class LikeListItem extends StatefulWidget {
-  LikeListItem({Key? key, required this.item}) : super(key: key);
+  const LikeListItem({Key? key, required this.item}) : super(key: key);
 
   final LikeProductDataModel item;
 
@@ -32,11 +29,10 @@ class _LikeListItemState extends State<LikeListItem> {
     return InkWell(
       onTap: () {
         Get.toNamed(RouteName.detail, arguments: widget.item);
-        // Navigator.pushNamed(context, '/detail', arguments: item);
       },
       child: Container(
-        margin: EdgeInsets.only(left: 24, right: 24, bottom: 10),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: whiteColor, borderRadius: BorderRadius.circular(10)),
         child: Row(
@@ -44,7 +40,7 @@ class _LikeListItemState extends State<LikeListItem> {
             Container(
               width: 70,
               height: 70,
-              margin: EdgeInsets.only(right: 16),
+              margin: const EdgeInsets.only(right: 16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
@@ -60,15 +56,15 @@ class _LikeListItemState extends State<LikeListItem> {
                 children: [
                   Text(
                     widget.item.product.name,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     "Rp. " + widget.item.product.price.toString(),
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   )
                 ],
               ),
@@ -79,7 +75,7 @@ class _LikeListItemState extends State<LikeListItem> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     color: greyColor,
                     onPressed: () {
                       showAlertDialog(context, () async {

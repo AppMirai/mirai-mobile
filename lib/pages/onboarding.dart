@@ -44,14 +44,14 @@ class _OnboardingState extends State<Onboarding> {
                   return Container(
                     margin: EdgeInsets.only(top: 10.h),
                     child: Padding(
-                      padding: EdgeInsets.all(40),
+                      padding: const EdgeInsets.all(40),
                       child: Column(
                         children: [
                           Image.asset(
                             contents[i].image,
                             height: 300,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 40,
                           ),
                           Text(
@@ -62,7 +62,7 @@ class _OnboardingState extends State<Onboarding> {
                               fontWeight: semiBold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
@@ -89,14 +89,14 @@ class _OnboardingState extends State<Onboarding> {
           Container(
             width: double.infinity,
             height: 55,
-            margin: EdgeInsets.symmetric(vertical: 30, horizontal: 24),
+            margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 24),
             child: TextButton(
                 onPressed: () {
                   if (currentIndex == contents.length - 1) {
                     Navigator.pushNamed(context, '/navbar');
                   }
                   _controller.nextPage(
-                      duration: Duration(milliseconds: 100),
+                      duration: const Duration(milliseconds: 100),
                       curve: Curves.bounceIn);
                 },
                 style: TextButton.styleFrom(
@@ -121,7 +121,7 @@ class _OnboardingState extends State<Onboarding> {
     return Container(
       height: 10,
       width: currentIndex == index ? 20 : 10,
-      margin: EdgeInsets.only(right: 5),
+      margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: primaryColor,

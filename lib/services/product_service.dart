@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mirai_app/model/product_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/strings.dart';
 

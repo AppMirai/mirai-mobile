@@ -22,7 +22,7 @@ class CustomNavbarItems extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(),
+          const SizedBox(),
           Image.asset(
             imageUrl,
             width: 24,

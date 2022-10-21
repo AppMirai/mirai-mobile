@@ -29,7 +29,7 @@ class _CarouselBrandState extends State<CarouselBrand> {
         children: [
           Row(
             children: <Widget>[
-              Expanded(
+              const Expanded(
                   child: Padding(
                 padding:
                     EdgeInsets.only(left: 24, top: 20, right: 24, bottom: 20),
@@ -42,7 +42,7 @@ class _CarouselBrandState extends State<CarouselBrand> {
                 padding:
                     EdgeInsets.only(left: 24, top: 20, right: 24, bottom: 20),
                 child: TextButton(
-                  child: Text(
+                  child: const Text(
                     'See all',
                     style: TextStyle(
                       fontSize: 16,
@@ -57,15 +57,6 @@ class _CarouselBrandState extends State<CarouselBrand> {
               )
             ],
           ),
-          // Container(
-          //   height: 140,
-          //   child: ListView.builder(
-          //     padding: EdgeInsets.only(left: 24, top: 0, right: 24, bottom: 20),
-          //     scrollDirection: Axis.horizontal,
-          //     itemCount: 4,
-          //     itemBuilder: (context, index) => BrandItem(),
-          //   ),
-          // ),
           SizedBox(
             height: 140,
             width: double.infinity,
@@ -74,7 +65,7 @@ class _CarouselBrandState extends State<CarouselBrand> {
               builder: (context, AsyncSnapshot<BrandModel> snapshot) {
                 var state = snapshot.connectionState;
                 if (state != ConnectionState.done) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
@@ -96,7 +87,7 @@ class _CarouselBrandState extends State<CarouselBrand> {
                   } else if (snapshot.hasError) {
                     return Center(child: Text(snapshot.error.toString()));
                   } else {
-                    return Text('');
+                    return const Text('');
                   }
                 }
               },

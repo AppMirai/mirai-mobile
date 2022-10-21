@@ -25,7 +25,7 @@ class _RegisterState extends State<Register> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 24, right: 24),
+            margin: const EdgeInsets.only(left: 24, right: 24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -33,7 +33,7 @@ class _RegisterState extends State<Register> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Text(
                         'Register',
                         style: blackTextStyle.copyWith(
@@ -50,7 +50,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin: const EdgeInsets.only(bottom: 20),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -60,7 +60,7 @@ class _RegisterState extends State<Register> {
                               decoration: InputDecoration(
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 16),
                                 labelText: "Full Name",
                                 hintText: 'Full Name',
@@ -75,7 +75,7 @@ class _RegisterState extends State<Register> {
                           ]),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin: const EdgeInsets.only(bottom: 20),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -85,7 +85,7 @@ class _RegisterState extends State<Register> {
                               decoration: InputDecoration(
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 16),
                                 labelText: "Email",
                                 hintText: 'Email',
@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
                           ]),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 30),
+                      margin: const EdgeInsets.only(bottom: 30),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -111,7 +111,7 @@ class _RegisterState extends State<Register> {
                                 decoration: InputDecoration(
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 16),
                                   labelText: "Password",
                                   hintText: 'Password',
@@ -150,7 +150,6 @@ class _RegisterState extends State<Register> {
                               UserService().userRegister(data);
 
                               Get.offNamed(RouteName.login);
-                              // Navigator.pushReplacementNamed(context, '/login');
                             } catch (e) {
                               print(e);
                             }
@@ -173,7 +172,7 @@ class _RegisterState extends State<Register> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("already have account?"),
+                    const Text("already have account?"),
                     SizedBox(
                       width: 0.2.h,
                     ),
@@ -185,7 +184,6 @@ class _RegisterState extends State<Register> {
                           )),
                       onPressed: () {
                         Get.toNamed(RouteName.login);
-                        // Navigator.pushNamed(context, '/login');
                       },
                     ),
                   ],

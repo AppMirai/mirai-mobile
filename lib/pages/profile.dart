@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
@@ -115,7 +114,7 @@ class _ProfileState extends State<Profile> {
                                     offset: Offset(0, 10))
                               ],
                               shape: BoxShape.circle,
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                   fit: BoxFit.cover,
                                   image:
                                       AssetImage('assets/images/profile.jpg'))),
@@ -136,11 +135,10 @@ class _ProfileState extends State<Profile> {
                               color: primaryColor,
                             ),
                             child: IconButton(
-                              icon: Icon(Icons.edit),
+                              icon: const Icon(Icons.edit),
                               color: Colors.white,
                               onPressed: () {
                                 Get.toNamed(RouteName.editprofile);
-                                // Navigator.pushNamed(context, '/editprofile');
                               },
                             ),
                           ),
@@ -165,7 +163,7 @@ class _ProfileState extends State<Profile> {
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          margin: EdgeInsets.only(top: 10),
+                          margin: const EdgeInsets.only(top: 10),
                         ),
                       )
                     : Text(
@@ -188,7 +186,7 @@ class _ProfileState extends State<Profile> {
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          margin: EdgeInsets.only(top: 10),
+                          margin: const EdgeInsets.only(top: 10),
                         ),
                       )
                     : Text(
@@ -201,12 +199,12 @@ class _ProfileState extends State<Profile> {
                       ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             Center(
               child: Container(
-                margin: EdgeInsets.only(left: 24, right: 24),
+                margin: const EdgeInsets.only(left: 24, right: 24),
                 width: double.infinity,
                 height: 48,
                 child: TextButton(

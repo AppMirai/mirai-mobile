@@ -30,7 +30,7 @@ class _CarouselCategoryState extends State<CarouselCategory> {
         children: [
           Row(
             children: <Widget>[
-              Expanded(
+              const Expanded(
                   child: Padding(
                 padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
                 child: Text(
@@ -39,7 +39,7 @@ class _CarouselCategoryState extends State<CarouselCategory> {
                 ),
               )),
               Padding(
-                padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
+                padding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
                 child: TextButton(
                   child: Text(
                     'See all',
@@ -56,16 +56,6 @@ class _CarouselCategoryState extends State<CarouselCategory> {
               )
             ],
           ),
-          // Container(
-          //   height: 140,
-          //   child: ListView.separated(
-          //     padding: EdgeInsets.only(left: 24, top: 0, right: 24, bottom: 20),
-          //     scrollDirection: Axis.horizontal,
-          //     itemCount: 6,
-          //     separatorBuilder: (context, _) => SizedBox(width: 10),
-          //     itemBuilder: (context, index) => CategoryCard(index: index),
-          //   ),
-          // ),
           SizedBox(
             height: 140,
             width: double.infinity,
@@ -74,7 +64,7 @@ class _CarouselCategoryState extends State<CarouselCategory> {
               builder: (context, AsyncSnapshot<CategoryModel> snapshot) {
                 var state = snapshot.connectionState;
                 if (state != ConnectionState.done) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
@@ -95,7 +85,7 @@ class _CarouselCategoryState extends State<CarouselCategory> {
                   } else if (snapshot.hasError) {
                     return Center(child: Text(snapshot.error.toString()));
                   } else {
-                    return Text('');
+                    return const Text('');
                   }
                 }
               },

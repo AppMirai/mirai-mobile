@@ -4,7 +4,7 @@ import 'package:mirai_app/cubit/page_cubit.dart';
 import 'package:mirai_app/pages/ar_filter.dart';
 import 'package:mirai_app/pages/explore.dart';
 import 'package:mirai_app/pages/profile.dart';
-import 'package:mirai_app/pages/upload_photo.dart';
+// import 'package:mirai_app/pages/upload_photo.dart';
 import 'package:mirai_app/shared/theme.dart';
 import 'package:mirai_app/widget/custom_navbar_items.dart';
 import '../home.dart';
@@ -17,15 +17,15 @@ class BottomNavigation extends StatelessWidget {
     Widget buildContent(int currentIndex) {
       switch (currentIndex) {
         case 0:
-          return Home();
+          return const Home();
         case 1:
-          return Explore();
+          return const Explore();
         case 2:
-          return ArFilter();
+          return const ArFilter();
         case 3:
-          return Profile();
+          return const Profile();
         default:
-          return Home();
+          return const Home();
       }
     }
 
@@ -46,7 +46,7 @@ class BottomNavigation extends StatelessWidget {
           ], color: whiteColor, borderRadius: BorderRadius.circular(18)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+            children: const [
               CustomNavbarItems(index: 0, imageUrl: 'assets/ic_home.png'),
               CustomNavbarItems(index: 1, imageUrl: 'assets/ic_explore.png'),
               CustomNavbarItems(index: 2, imageUrl: 'assets/ic_ar.png'),

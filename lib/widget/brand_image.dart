@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 class BrandImage {
   final String urlImage;
 
@@ -10,16 +7,16 @@ class BrandImage {
 }
 
 List<BrandImage> items = [
-  BrandImage(
+  const BrandImage(
     urlImage: 'assets/images/brand_maybeline.png',
   ),
-  BrandImage(
+  const BrandImage(
     urlImage: 'assets/images/brand_shuuemura.png',
   ),
-  BrandImage(
+  const BrandImage(
     urlImage: 'assets/images/brand_makeover.png',
   ),
-  BrandImage(
+  const BrandImage(
     urlImage: 'assets/images/brand_revlon.png',
   ),
 ];
