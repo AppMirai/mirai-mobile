@@ -46,7 +46,7 @@ class BottomNavigation extends StatelessWidget {
           ], color: whiteColor, borderRadius: BorderRadius.circular(18)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
+            children: [
               CustomNavbarItems(index: 0, imageUrl: 'assets/ic_home.png'),
               CustomNavbarItems(index: 1, imageUrl: 'assets/ic_explore.png'),
               CustomNavbarItems(index: 2, imageUrl: 'assets/ic_ar.png'),

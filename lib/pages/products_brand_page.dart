@@ -81,36 +81,41 @@ class _ProductBrandsPageState extends State<ProductBrandsPage> {
                   crossAxisCount: 2,
                   children: _productBrand.products
                       .map(
-                        (e) => Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 200,
-                                height: 130,
-                                child: Image.network(
-                                  baseURLHOST + e.productImageUrl,
-                                  fit: BoxFit.cover,
+                        (e) => InkWell(
+                          onTap: () {
+                            Get.toNamed(RouteName.detail, arguments: e);
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 200,
+                                  height: 130,
+                                  child: Image.network(
+                                    baseURLHOST + e.productImageUrl,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 16, right: 16, top: 16, bottom: 5),
-                                child: Text(e.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(fontSize: 16)),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(left: 16),
-                                child: Text("Rp. " + e.price.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600)),
-                              )
-                            ],
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 16, right: 16, top: 16, bottom: 5),
+                                  child: Text(e.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(fontSize: 16)),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 16),
+                                  child: Text("Rp. " + e.price.toString(),
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600)),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       )

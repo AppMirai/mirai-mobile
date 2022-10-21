@@ -130,7 +130,7 @@ class _EditProfileState extends State<EditProfile> {
                         controller: nameTextController,
                         decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: const EdgeInsets.symmetric(
+                          contentPadding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                           labelText: "Full Name",
                           hintText: '${user.data.fullName}',
@@ -153,7 +153,7 @@ class _EditProfileState extends State<EditProfile> {
                         cursorColor: primaryColor,
                         decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: const EdgeInsets.symmetric(
+                          contentPadding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                           labelText: "Email",
                           hintText: '${user.data.email}',
@@ -178,7 +178,7 @@ class _EditProfileState extends State<EditProfile> {
                   child: TextButton(
                       onPressed: () {
                         var data = <String, dynamic>{
-                          'name': nameTextController.text,
+                          'full_name': nameTextController.text,
                         };
 
                         try {

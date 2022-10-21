@@ -58,64 +58,6 @@ class _LikeScreenState extends State<LikeScreen> {
                 }
               },
             ),
-            // Container(
-            //   margin: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
-            //   padding: const EdgeInsets.all(10),
-            //   decoration: BoxDecoration(
-            //       color: whiteColor, borderRadius: BorderRadius.circular(10)),
-            //   child: Row(
-            //     children: [
-            //       Container(
-            //         width: 70,
-            //         height: 70,
-            //         margin: const EdgeInsets.only(right: 16),
-            //         decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(10),
-            //           image: const DecorationImage(
-            //             fit: BoxFit.cover,
-            //             image: NetworkImage(
-            //                 "https://www.99.co/blog/indonesia/wp-content/uploads/2021/10/Color-Sensational-Satin.jpg"),
-            //           ),
-            //         ),
-            //       ),
-            //       Expanded(
-            //         child: Column(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: const [
-            //             Text(
-            //               'contoh text',
-            //               style: TextStyle(fontSize: 16),
-            //               overflow: TextOverflow.ellipsis,
-            //             ),
-            //             SizedBox(
-            //               height: 5,
-            //             ),
-            //             Text(
-            //               'Rp. 20.000',
-            //               style: TextStyle(
-            //                   fontSize: 16, fontWeight: FontWeight.w600),
-            //             )
-            //           ],
-            //         ),
-            //       ),
-            //       Expanded(
-            //           child: Column(
-            //         children: [
-            //           Align(
-            //             alignment: Alignment.centerRight,
-            //             child: IconButton(
-            //               icon: Icon(Icons.delete),
-            //               color: greyColor,
-            //               onPressed: () {
-            //                 showAlertDialog(context);
-            //               },
-            //             ),
-            //           ),
-            //         ],
-            //       ))
-            //     ],
-            //   ),
-            // ),
           ],
         ));
   }
