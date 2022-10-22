@@ -1,5 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:mirai_app/shared/theme.dart';
+import '../services/user_service.dart';
+import '../model/profile_user_model.dart';
+
+//Ngambil data user buat UID gambar
+UserProfileModel user = UserProfileModel(
+  message: "",
+  data: Data(
+      id: 0,
+      fullName: "",
+      email: "",
+      photoUserUrl: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now()
+  ),);
+
+void getUserProfile() async {
+  var data = await UserService().userProfile();
+  user = data;
+}
 
 class PhotoFilter extends StatelessWidget {
   const PhotoFilter({super.key});
@@ -27,8 +46,8 @@ class PhotoFilter extends StatelessWidget {
 
     Widget imageHero() {
       return Image.network(
-        // Link dibawah masih static
-        'http://20.89.56.97:8000/uid/postman',
+        // Ngambil ID gambar pake email
+        'http://20.89.56.97:8000/uid/${user.data.email}/',
         height: 329,
         width: 329,
       );
@@ -42,7 +61,7 @@ class PhotoFilter extends StatelessWidget {
           height: 48,
           child: OutlinedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '#');
+                Navigator.pushNamed(context, '#' ); //Push ke upload_photo
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: primaryColor,
