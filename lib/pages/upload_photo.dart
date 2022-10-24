@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mirai_app/routes/route_name.dart';
 import 'package:mirai_app/shared/theme.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -14,7 +16,7 @@ class UploadPhoto extends StatefulWidget {
 }
 
 class _UploadPhotoState extends State<UploadPhoto> {
-File? image;
+  File? image;
 
   UserProfileModel user = UserProfileModel(
     message: "",
@@ -24,8 +26,8 @@ File? image;
         email: "",
         photoUserUrl: "",
         createdAt: DateTime.now(),
-        updatedAt: DateTime.now()
-    ),);
+        updatedAt: DateTime.now()),
+  );
 
   void getUserProfile() async {
     var data = await UserService().userProfile();
@@ -33,6 +35,12 @@ File? image;
     setState(() {
       user = data;
     });
+  }
+
+  @override
+  void initState() {
+    getUserProfile();
+    super.initState();
   }
 
   @override
@@ -63,19 +71,19 @@ File? image;
         image = File(picked!.path);
       });
     }
-    _pyUpload() async{
-      var request = http.MultipartRequest('POST', Uri.parse('http://20.89.56.97:8000/add/'));
-      request.fields.addAll({
-        'uid': user.data.email
-      });
-      request.files.add(await http.MultipartFile.fromPath('images', image!.path));
+
+    _pyUpload() async {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('http://20.89.56.97:8000/add/'));
+      request.fields.addAll({'uid': user.data.email});
+      request.files
+          .add(await http.MultipartFile.fromPath('images', image!.path));
 
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
       }
     }
@@ -131,14 +139,15 @@ File? image;
         );
       }
 
-      Widget startUploadButton(){
+      Widget startUploadButton() {
         return Container(
           margin: const EdgeInsets.only(bottom: 20),
           width: double.infinity,
           height: 55,
           child: OutlinedButton(
               onPressed: () {
-                _pyUpload();
+                // _pyUpload();
+                Get.offNamed(RouteName.photofilter);
               },
               style: OutlinedButton.styleFrom(
                   side: BorderSide(width: 2.0, color: primaryColor),
@@ -155,7 +164,8 @@ File? image;
       return Container(
           margin: const EdgeInsets.only(top: 20),
           child: Column(
-            children: [addPhotoButton(),
+            children: [
+              addPhotoButton(),
               capturePhotoButton(),
               image == null ? Container() : startUploadButton()
             ],

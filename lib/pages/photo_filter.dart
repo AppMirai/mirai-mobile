@@ -4,34 +4,65 @@ import '../services/user_service.dart';
 import '../model/profile_user_model.dart';
 
 //Ngambil data user buat UID gambar
-UserProfileModel user = UserProfileModel(
-  message: "",
-  data: Data(
-      id: 0,
-      fullName: "",
-      email: "",
-      photoUserUrl: "",
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now()
-  ),);
+// UserProfileModel user = UserProfileModel(
+//   message: "",
+//   data: Data(
+//       id: 0,
+//       fullName: "",
+//       email: "",
+//       photoUserUrl: "",
+//       createdAt: DateTime.now(),
+//       updatedAt: DateTime.now()),
+// );
 
-void getUserProfile() async {
-  var data = await UserService().userProfile();
-  user = data;
-}
+// void getUserProfile() async {
+//   var data = await UserService().userProfile();
+//   user = data;
+// }
 
-class PhotoFilter extends StatelessWidget {
+class PhotoFilter extends StatefulWidget {
   const PhotoFilter({super.key});
 
   @override
+  State<PhotoFilter> createState() => _PhotoFilter();
+}
+
+class _PhotoFilter extends State<PhotoFilter> {
+  UserProfileModel user = UserProfileModel(
+    message: "",
+    data: Data(
+        id: 0,
+        fullName: "",
+        email: "",
+        photoUserUrl: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now()),
+  );
+  void getUserProfile() async {
+    var data = await UserService().userProfile();
+
+    setState(() {
+      user = data;
+    });
+  }
+
+  @override
+  void initState() {
+    getUserProfile();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var uid = user.data.email.toString();
     Widget title() {
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Row(
           children: [
             const Icon(
-              IconData(0xe092, fontFamily: 'MaterialIcons', matchTextDirection: true),
+              IconData(0xe092,
+                  fontFamily: 'MaterialIcons', matchTextDirection: true),
               color: Colors.grey,
             ),
             Text(
@@ -44,10 +75,21 @@ class PhotoFilter extends StatelessWidget {
       );
     }
 
+    _uriGet() {
+      print('TESTING ANJ');
+      print(user.data.id);
+      print(user.data.email.toString());
+      print(user.data.email);
+      String uri = 'http://20.89.56.97:8000/uid/${user.data.email.toString()}';
+
+      return uri;
+    }
+
     Widget imageHero() {
       return Image.network(
         // Ngambil ID gambar pake email
-        'http://20.89.56.97:8000/uid/${user.data.email}/',
+        // 'http://20.89.56.97:8000/uid/${user.data.email}',
+        _uriGet(),
         height: 329,
         width: 329,
       );
@@ -61,7 +103,7 @@ class PhotoFilter extends StatelessWidget {
           height: 48,
           child: OutlinedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '#' ); //Push ke upload_photo
+                Navigator.pushNamed(context, '#'); //Push ke upload_photo
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: primaryColor,

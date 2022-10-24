@@ -49,23 +49,23 @@ class ArFilter extends StatelessWidget {
                         fontWeight: semiBold,
                       ))),
             ),
-            // Container(
-            //   width: double.infinity,
-            //   height: 48,
-            //   child: OutlinedButton(
-            //       onPressed: () {
-            //         Get.offNamed(RouteName.photofilter);
-            //       },
-            //       style: OutlinedButton.styleFrom(
-            //           side: BorderSide(color: primaryColor),
-            //           shape: RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(8.0))),
-            //       child: Text('Upload Photo',
-            //           style: pinkTextStyle.copyWith(
-            //             fontSize: 14,
-            //             fontWeight: semiBold,
-            //           ))),
-            // ),
+            Container(
+              width: double.infinity,
+              height: 48,
+              child: OutlinedButton(
+                  onPressed: () {
+                    Get.offNamed(RouteName.upphoto);
+                  },
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: primaryColor),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0))),
+                  child: Text('Upload Photo',
+                      style: pinkTextStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: semiBold,
+                      ))),
+            ),
           ],
         );
       }
