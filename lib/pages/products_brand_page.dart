@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mirai_app/api/strings.dart';
+import 'package:intl/intl.dart';
 
 import '../model/brand_model.dart';
 import '../model/product_model.dart';
@@ -109,7 +110,12 @@ class _ProductBrandsPageState extends State<ProductBrandsPage> {
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(left: 16),
-                                  child: Text("Rp. " + e.price.toString(),
+                                  child: Text(
+                                      NumberFormat.currency(
+                                              locale: 'id',
+                                              symbol: 'Rp ',
+                                              decimalDigits: 0)
+                                          .format(e.price),
                                       style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600)),

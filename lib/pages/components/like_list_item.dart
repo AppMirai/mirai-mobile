@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mirai_app/model/like_list_model.dart';
+import 'package:intl/intl.dart';
 
 import '../../api/strings.dart';
 import '../../routes/route_name.dart';
@@ -63,7 +64,10 @@ class _LikeListItemState extends State<LikeListItem> {
                     height: 5,
                   ),
                   Text(
-                    "Rp. " + widget.item.product.price.toString(),
+                    // "Rp. " + widget.item.product.price.toString(),
+                    NumberFormat.currency(
+                            locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                        .format(widget.item.product.price),
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w600),
                   )

@@ -15,6 +15,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final formkey = GlobalKey<FormState>();
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
   bool visible = true;
@@ -28,60 +29,68 @@ class _LoginState extends State<Login> {
             margin: const EdgeInsets.only(left: 24, right: 24),
             child: Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 20, bottom: 20),
-                      child: Text(
-                        'Login',
-                        style: blackTextStyle.copyWith(
-                            fontSize: 24,
-                            fontWeight: semiBold,
-                            color: primaryColor),
-                      ),
-                    ),
-                    Center(
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 20),
-                        child: Image.asset(
-                          'assets/images/login_illustration.png',
-                          height: 184,
-                          width: 184,
+                Form(
+                  key: formkey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 20, bottom: 20),
+                        child: Text(
+                          'Login',
+                          style: blackTextStyle.copyWith(
+                              fontSize: 24,
+                              fontWeight: semiBold,
+                              color: primaryColor),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextFormField(
-                              cursorColor: primaryColor,
-                              controller: emailTextController,
-                              decoration: InputDecoration(
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 16),
-                                labelText: "Email",
-                                hintText: 'Email',
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide:
-                                        BorderSide(color: primaryColor)),
+                      Center(
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          child: Image.asset(
+                            'assets/images/login_illustration.png',
+                            height: 184,
+                            width: 184,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextFormField(
+                                cursorColor: primaryColor,
+                                controller: emailTextController,
+                                decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 16),
+                                  labelText: "Email",
+                                  hintText: 'Email',
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderSide:
+                                          BorderSide(color: primaryColor)),
+                                ),
+                                validator: (value) {
+                                  if (!GetUtils.isEmail(value!))
+                                    return "Email tidak valid";
+                                  else
+                                    return null;
+                                },
                               ),
-                            ),
-                          ]),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 30),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextFormField(
+                            ]),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 30),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextFormField(
                                 cursorColor: primaryColor,
                                 controller: passwordTextController,
                                 obscureText: visible,
@@ -100,8 +109,10 @@ class _LoginState extends State<Login> {
                                           BorderSide(color: primaryColor)),
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      Icons.remove_red_eye,
-                                      color: primaryColor,
+                                      visible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: visible ? primaryColor : greyColor,
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -109,81 +120,79 @@ class _LoginState extends State<Login> {
                                       });
                                     },
                                   ),
-                                )),
-                          ]),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: TextButton(
-                          onPressed: () {
-                            try {
-                              var data = <String, dynamic>{
-                                'email': emailTextController.text,
-                                'password': passwordTextController.text
-                              };
+                                ),
+                                validator: (value) {
+                                  if (!GetUtils.isLengthGreaterThan(value!, 8))
+                                    return "Password tidak valid";
+                                  else
+                                    return null;
+                                },
+                              ),
+                            ]),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: TextButton(
+                            onPressed: () {
+                              // if(formkey.currentState!.validate()){}
+                              try {
+                                formkey.currentState!.validate();
+                                var data = <String, dynamic>{
+                                  'email': emailTextController.text,
+                                  'password': passwordTextController.text
+                                };
 
-                              UserService()
-                                  .userLogin(data)
-                                  .then((response) async {
-                                // if (response.success == true) {
-                                if (response!.accessToken != null) {
-                                  Get.snackbar(
-                                      'Login Success', 'Anda Berhasil Login',
-                                      colorText: whiteColor,
-                                      snackPosition: SnackPosition.TOP,
-                                      forwardAnimationCurve: Curves.bounceIn,
-                                      reverseAnimationCurve: Curves.easeOut,
-                                      backgroundColor: Colors.green);
-                                  final prefs =
-                                      await SharedPreferences.getInstance();
-                                  await prefs.setString(
-                                      'token', response.accessToken);
-                                  Get.offNamedUntil(
-                                      RouteName.navbar, (route) => false);
-                                }
-                              }).catchError((error) {
-                                Get.snackbar('Login Error',
-                                    'Email atau Password anda salah',
-                                    colorText: whiteColor,
-                                    snackPosition: SnackPosition.TOP,
-                                    forwardAnimationCurve: Curves.bounceIn,
-                                    reverseAnimationCurve: Curves.easeOut,
-                                    backgroundColor: redColor);
-                              });
-                            } catch (e) {
-                              Get.snackbar('Login Error',
-                                  'Email atau Password anda salah',
-                                  colorText: whiteColor,
-                                  snackPosition: SnackPosition.TOP,
-                                  forwardAnimationCurve: Curves.bounceIn,
-                                  reverseAnimationCurve: Curves.easeOut,
-                                  backgroundColor: redColor);
-                            }
-                          },
-                          style: TextButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0))),
-                          child: Text('LOGIN',
-                              style: whiteTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: semiBold,
-                              ))),
-                    ),
-                    // Center(
-                    //   child: Container(
-                    //     child: TextButton(
-                    //       child: Text('Forgot Password ?',
-                    //           style: pinkTextStyle.copyWith(
-                    //             fontSize: 14,
-                    //             fontWeight: regular,
-                    //           )),
-                    //       onPressed: () {},
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
+                                UserService()
+                                    .userLogin(data)
+                                    .then((response) async {
+                                  // if (response.success == true) {
+                                  if (response!.accessToken != null) {
+                                    Get.snackbar(
+                                        'Login Success', 'Anda Berhasil Login',
+                                        colorText: whiteColor,
+                                        snackPosition: SnackPosition.TOP,
+                                        forwardAnimationCurve: Curves.bounceIn,
+                                        reverseAnimationCurve: Curves.easeOut,
+                                        backgroundColor: Colors.green);
+                                    final prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.setString(
+                                        'token', response.accessToken);
+                                    Get.offNamedUntil(
+                                        RouteName.navbar, (route) => false);
+                                  }
+                                }).catchError((error) {
+                                  print(error);
+                                });
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                            style: TextButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0))),
+                            child: Text('Login',
+                                style: whiteTextStyle.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: semiBold,
+                                ))),
+                      ),
+                      // Center(
+                      //   child: Container(
+                      //     child: TextButton(
+                      //       child: Text('Forgot Password ?',
+                      //           style: pinkTextStyle.copyWith(
+                      //             fontSize: 14,
+                      //             fontWeight: regular,
+                      //           )),
+                      //       onPressed: () {},
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 28.h,

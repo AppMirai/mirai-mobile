@@ -88,5 +88,9 @@ class RoutePage {
       name: RouteName.photofilter,
       page: () => const PhotoFilter(),
     ),
+    GetPage(
+      name: RouteName.uploadphoto,
+      page: () => const UploadPhoto(),
+    ),
   ];
 }

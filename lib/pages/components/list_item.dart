@@ -3,6 +3,7 @@ import 'package:mirai_app/api/strings.dart';
 import 'package:mirai_app/model/product_model.dart';
 import 'package:mirai_app/shared/theme.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../routes/route_name.dart';
 
@@ -49,8 +50,12 @@ class ListItem extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    "Rp. " + item.price.toString(),
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    // "Rp. " + item.price.toString(),
+                    NumberFormat.currency(
+                            locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                        .format(item.price),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w600),
                   )
                 ],
               ),

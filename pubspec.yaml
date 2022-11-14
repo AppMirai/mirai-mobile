@@ -40,8 +40,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   google_fonts: ^2.3.1
   url_launcher: ^6.0.3
-  firebase_core: ^1.15.0
-  cloud_firestore: ^3.1.13
+  # firebase_core: ^1.15.0
+  # cloud_firestore: ^3.1.13
   camera: ^0.9.4+21
   google_ml_kit: ^0.11.0
   image_picker: ^0.8.5
@@ -51,6 +51,8 @@ dependencies:
   skeleton_text: ^3.0.0
   provider: ^6.0.3
   get: ^4.6.5
+  intl: ^0.17.0
+  readmore: ^2.2.0
 
 flutter_icons:
   android: true

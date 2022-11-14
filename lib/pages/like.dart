@@ -32,33 +32,35 @@ class _LikeScreenState extends State<LikeScreen> {
             style: TextStyle(color: blackColor),
           ),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FutureBuilder(
-              future: _products,
-              builder: (context, AsyncSnapshot<LikeProductModel> snapshot) {
-                var state = snapshot.connectionState;
-                if (state != ConnectionState.done) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  if (snapshot.hasData) {
-                    return Column(
-                      children: snapshot.data!.data
-                          .map((item) => LikeListItem(item: item))
-                          .toList(),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FutureBuilder(
+                future: _products,
+                builder: (context, AsyncSnapshot<LikeProductModel> snapshot) {
+                  var state = snapshot.connectionState;
+                  if (state != ConnectionState.done) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text(snapshot.error.toString()));
                   } else {
-                    return const Text('');
+                    if (snapshot.hasData) {
+                      return Column(
+                        children: snapshot.data!.data
+                            .map((item) => LikeListItem(item: item))
+                            .toList(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text(snapshot.error.toString()));
+                    } else {
+                      return const Text('');
+                    }
                   }
-                }
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ));
   }
 }

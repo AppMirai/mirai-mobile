@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mirai_app/api/strings.dart';
 import 'package:mirai_app/model/category_model.dart';
 import 'package:mirai_app/shared/theme.dart';
+import 'package:intl/intl.dart';
 
 import '../model/product_model.dart';
 import '../routes/route_name.dart';
@@ -27,7 +28,6 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: whiteColor,
@@ -110,7 +110,12 @@ class _ProductsPageState extends State<ProductsPage> {
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(left: 16),
-                                  child: Text("Rp. " + e.price.toString(),
+                                  child: Text(
+                                      NumberFormat.currency(
+                                              locale: 'id',
+                                              symbol: 'Rp ',
+                                              decimalDigits: 0)
+                                          .format(e.price),
                                       style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600)),
@@ -122,8 +127,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       )
                       .toList(),
                 ),
-        )
-            ),
+        )),
       ),
     );
   }

@@ -2,8 +2,10 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mirai_app/api/strings.dart';
 import 'package:mirai_app/services/like_product_service.dart';
+import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:intl/intl.dart';
 
 import '../routes/route_name.dart';
 import '../shared/theme.dart';
@@ -17,6 +19,7 @@ class DetailProduct extends StatefulWidget {
 
 class _DetailProductState extends State<DetailProduct> {
   bool isPressed = false;
+  bool isReadMore = false;
   final item = Get.arguments;
 
   Future<void> launchURL(Uri url) async {
@@ -76,11 +79,17 @@ class _DetailProductState extends State<DetailProduct> {
           Column(
             children: [
               ListTile(
-                title: Text(
-                  "Rp. " + item.price.toString(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+                title: Container(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    // "Rp. " + item.price.toString(),
+                    NumberFormat.currency(
+                            locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                        .format(item.price),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 trailing: Row(
@@ -127,9 +136,11 @@ class _DetailProductState extends State<DetailProduct> {
                 ),
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 24, right: 24, top: 10),
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 10, bottom: 10),
                   child: Text(
                     item.name,
+                    style: const TextStyle(fontSize: 16),
                   )),
             ],
           ),
@@ -151,7 +162,7 @@ class _DetailProductState extends State<DetailProduct> {
             ),
           ),
           Container(
-              margin: const EdgeInsets.only(left: 24, right: 24),
+              margin: const EdgeInsets.only(left: 24, bottom: 10),
               alignment: Alignment.topLeft,
               width: 200,
               height: 45,
@@ -172,8 +183,7 @@ class _DetailProductState extends State<DetailProduct> {
                         // item.productShades[0].nameShade,
                         item.productShades[index].nameShade,
                         style: const TextStyle(
-                          color: Colors.black,
-                        ),
+                            color: Colors.black, fontWeight: FontWeight.w400),
                       ),
                     ),
                   );
@@ -198,13 +208,11 @@ class _DetailProductState extends State<DetailProduct> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 24, right: 24),
-            child: Text(
-              item.description,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(fontSize: 16),
-            ),
-          ),
+              padding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
+              // child: Text(
+              //   item.description,
+              // ),
+              child: buildText(item.description)),
           const Divider(
             height: 23,
             thickness: 8,
@@ -272,6 +280,31 @@ class _DetailProductState extends State<DetailProduct> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget buildButton() => ElevatedButton(
+        onPressed: () => setState(() => isReadMore = !isReadMore),
+        child: Text(isReadMore ? 'Read Less' : 'Read More'),
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+          textStyle: TextStyle(fontSize: 16),
+        ),
+      );
+
+  Widget buildText(String text) {
+    final styleButton =
+        TextStyle(fontSize: 14, color: primaryColor, fontWeight: semiBold);
+
+    return ReadMoreText(
+      text,
+      trimLines: 5,
+      trimMode: TrimMode.Line,
+      trimCollapsedText: 'Read More',
+      trimExpandedText: 'Read Less',
+      style: TextStyle(fontSize: 14),
+      lessStyle: styleButton,
+      moreStyle: styleButton,
     );
   }
 }

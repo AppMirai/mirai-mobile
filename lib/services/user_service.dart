@@ -21,10 +21,10 @@ class UserService {
           'Content-Type': 'application/json'
         });
 
-    if (response.statusCode != 201) {
-      return false;
+    if (response.statusCode == 201) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   Future<RegisterDataModel?> userLogin(Map<String, dynamic> data) async {

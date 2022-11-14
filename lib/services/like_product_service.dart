@@ -50,22 +50,30 @@ class LikeProductService {
   }
 
   static Future<bool> likeProduct(id) async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("token");
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString("token");
 
-    final response = await http.post(Uri.parse(baseURLAPI + "/products/like"),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer $token",
-        },
-        body: jsonEncode(<String, dynamic>{
-          'product_id': id!,
-        }));
+      final response = await http.post(Uri.parse(baseURLAPI + "/products/like"),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': "Bearer $token",
+          },
+          body: jsonEncode(<String, dynamic>{
+            'product_id': id!,
+          }));
 
-    if (response.statusCode == 201) {
-      return true;
-    } else {
-      throw Exception('Failed to load get product');
+      if (response.statusCode >= 200 && response.statusCode < 401) {
+        print(response.statusCode);
+        print("======================");
+        return true;
+      } else {
+        print(response.statusCode);
+        print("======================");
+        throw Exception('Failed to load get product');
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
