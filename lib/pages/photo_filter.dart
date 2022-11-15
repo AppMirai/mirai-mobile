@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:mirai_app/routes/route_name.dart';
 import 'package:mirai_app/shared/theme.dart';
 import '../services/user_service.dart';
 import '../model/profile_user_model.dart';
-
-//Ngambil data user buat UID gambar
-// UserProfileModel user = UserProfileModel(
-//   message: "",
-//   data: Data(
-//       id: 0,
-//       fullName: "",
-//       email: "",
-//       photoUserUrl: "",
-//       createdAt: DateTime.now(),
-//       updatedAt: DateTime.now()),
-// );
-
-// void getUserProfile() async {
-//   var data = await UserService().userProfile();
-//   user = data;
-// }
+import 'package:http/http.dart' as http;
 
 class PhotoFilter extends StatefulWidget {
   const PhotoFilter({super.key});
@@ -38,6 +25,7 @@ class _PhotoFilter extends State<PhotoFilter> {
         createdAt: DateTime.now(),
         updatedAt: DateTime.now()),
   );
+
   void getUserProfile() async {
     var data = await UserService().userProfile();
 
@@ -54,7 +42,6 @@ class _PhotoFilter extends State<PhotoFilter> {
 
   @override
   Widget build(BuildContext context) {
-    var uid = user.data.email.toString();
     Widget title() {
       return Container(
         margin: const EdgeInsets.only(top: 20),
@@ -76,23 +63,38 @@ class _PhotoFilter extends State<PhotoFilter> {
     }
 
     _uriGet() {
-      print('TESTING ANJ');
-      print(user.data.id);
-      print(user.data.email.toString());
-      print(user.data.email);
-      String uri = 'http://20.89.56.97:8000/uid/${user.data.email.toString()}';
+      print('TESTING');
+      String uri = 'http://20.89.56.97:8000/uid/${user.data.email}';
+      print(uri);
+      //10.0.2.2 Local
+      //20.89.56.97 Non Local
 
       return uri;
     }
 
+    _deleteImage() async {
+      var request = http.Request('DELETE', Uri.parse('http://20.89.56.97:8000/delete/${user.data.email}'));
+      //10.0.2.2 Local
+      //20.89.56.97 Non Local
+
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+
+    }
+
     Widget imageHero() {
-      return Image.network(
-        // Ngambil ID gambar pake email
-        // 'http://20.89.56.97:8000/uid/${user.data.email}',
-        _uriGet(),
-        height: 329,
-        width: 329,
-      );
+        return Image.network(
+          _uriGet(),
+          height: 494,
+          width: 494,
+        );
     }
 
     Widget inputSection() {
@@ -103,7 +105,9 @@ class _PhotoFilter extends State<PhotoFilter> {
           height: 48,
           child: OutlinedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '#'); //Push ke upload_photo
+                // Navigator.pushNamed(context, '#'); //Push ke upload_photo
+                _deleteImage();
+                Get.toNamed(RouteName.uploadphoto);
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: primaryColor,

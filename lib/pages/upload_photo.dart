@@ -17,6 +17,8 @@ class UploadPhoto extends StatefulWidget {
 
 class _UploadPhotoState extends State<UploadPhoto> {
   File? image;
+  var pressAttention = '0xffF15050';
+  var tipeMakeup = 'lips';
 
   UserProfileModel user = UserProfileModel(
     message: "",
@@ -57,7 +59,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
 
     Future getCameraImage() async {
-      final picked = await ImagePicker().pickImage(source: ImageSource.camera);
+      final picked = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 25);
 
       setState(() {
         image = File(picked!.path);
@@ -65,7 +67,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
 
     Future getGalleryImage() async {
-      var picked = await ImagePicker().pickImage(source: ImageSource.gallery);
+      var picked = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 25);
 
       setState(() {
         image = File(picked!.path);
@@ -75,7 +77,25 @@ class _UploadPhotoState extends State<UploadPhoto> {
     _pyUpload() async {
       var request = http.MultipartRequest(
           'POST', Uri.parse('http://20.89.56.97:8000/add/'));
-      request.fields.addAll({'uid': user.data.email});
+      //10.0.2.2 Local
+      //20.89.56.97 Non Local
+      
+      var color = Color(int.parse(pressAttention));
+
+      print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(user.data.email);
+      print(tipeMakeup);
+      print(color.red);
+      print(color.green);
+      print(color.blue);
+      print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      request.fields.addAll({
+        'uid': user.data.email,
+        'tipeMakeup': tipeMakeup,
+        'colorR': color.red.toString(),
+        'colorG': color.green.toString(),
+        'colorB': color.blue.toString()
+      });
       request.files
           .add(await http.MultipartFile.fromPath('images', image!.path));
 
@@ -89,87 +109,143 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
 
     Widget imageHero() {
-      return Image.asset(
-        'assets/images/up_photo_illustration.png',
-        height: 329,
-        width: 329,
-      );
+      if (image == null) {
+        return Image.asset(
+          'assets/images/up_photo_illustration.png',
+          height: 329,
+          width: 329,
+        );
+      } else {
+        return Image.file(
+          image!,
+          height: 329,
+          width: 329,
+        );
+      }
     }
 
     Widget inputSection() {
-      Widget addPhotoButton() {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          width: double.infinity,
-          height: 55,
-          child: OutlinedButton(
-              onPressed: () {
-                getGalleryImage();
-              },
-              style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 2.0, color: primaryColor),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0))),
-              child: Text('ADD PHOTO',
-                  style: pinkTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: semiBold,
-                  ))),
-        );
-      }
-
-      Widget capturePhotoButton() {
-        return SizedBox(
-          width: double.infinity,
-          height: 55,
-          child: TextButton(
-              onPressed: () {
-                getCameraImage();
-                //Ke
-              },
-              style: TextButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0))),
-              child: Text('CAPTURE PHOTO',
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: semiBold,
-                  ))),
-        );
-      }
-
-      Widget startUploadButton() {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          width: double.infinity,
-          height: 55,
-          child: OutlinedButton(
-              onPressed: () {
-                // _pyUpload();
-                Get.offNamed(RouteName.photofilter);
-              },
-              style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 2.0, color: primaryColor),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0))),
-              child: Text('TRY NOW',
-                  style: pinkTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: semiBold,
-                  ))),
-        );
-      }
-
       return Container(
           margin: const EdgeInsets.only(top: 20),
-          child: Column(
-            children: [
-              addPhotoButton(),
-              capturePhotoButton(),
-              image == null ? Container() : startUploadButton()
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    getGalleryImage();
+                  },
+                  backgroundColor: primaryColor,
+                  child: const Icon(Icons.image),
+                ),
+              ),
+              Expanded(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    getCameraImage();
+                  },
+                  backgroundColor: whiteColor,
+                  child: const Icon(Icons.camera_alt, color: Color(0xffE66099),),
+                ),
+              ),
             ],
           ));
+    }
+
+    Widget startUploadButton() {
+      return Container(
+        margin: const EdgeInsets.only(bottom: 20, top: 20),
+        width: double.infinity,
+        height: 55,
+        child: OutlinedButton(
+            onPressed: () {
+              _pyUpload();
+              Get.offNamed(RouteName.photofilter);
+            },
+            style: OutlinedButton.styleFrom(
+                side: BorderSide(width: 2.0, color: primaryColor),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0))),
+            child: Text('TRY NOW',
+                style: pinkTextStyle.copyWith(
+                  fontSize: 14,
+                  fontWeight: semiBold,
+                ))),
+      );
+    }
+
+    Widget makeUpChooser(){
+      return Container(
+        margin: const EdgeInsets.only(top: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: FloatingActionButton(
+                    onPressed: () => setState(() => pressAttention = '0xffF15050'),
+                    backgroundColor: pressAttention == '0xffF15050' ? primaryColor : whiteColor,
+                    child: const Icon(
+                      color: Color(0xffF15050),
+                      size: 55,
+                      Icons.circle_rounded
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: FloatingActionButton(
+                    onPressed: () => setState(() {
+                      pressAttention = '0xff673AB7';
+                    }),
+                    backgroundColor: pressAttention == '0xff673AB7' ? primaryColor : whiteColor,
+                    child: const Icon(
+                        color: Color(0xff673AB7),
+                        size: 55,
+                        Icons.circle_rounded
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: FloatingActionButton(
+                    onPressed: () => setState(() => pressAttention = '0xffFFDBAC'),
+                    backgroundColor: pressAttention == '0xffFFDBAC' ? primaryColor : whiteColor,
+                    child: const Icon(
+                        color: Color(0xffFFDBAC),
+                        size: 55,
+                        Icons.circle_rounded
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(width: 30,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: FloatingActionButton.extended(
+                    onPressed: () => setState(() {
+                      tipeMakeup = 'lips';
+                    }),
+                    backgroundColor: tipeMakeup == 'lips' ? primaryColor : whiteColor,
+                    label: tipeMakeup == 'lips' ? Text('Lips', style: TextStyle(color: whiteColor)) : Text('Lips', style: TextStyle(color: primaryColor))
+                  ),
+                ),
+                Expanded(
+                  child: FloatingActionButton.extended(
+                    onPressed: () => setState(() {
+                      tipeMakeup = 'pipi';
+                    }),
+                    backgroundColor: tipeMakeup == 'pipi' ? primaryColor : whiteColor,
+                    label: tipeMakeup == 'pipi' ? Text('Pipi', style: TextStyle(color: whiteColor)) : Text('Pipi', style: TextStyle(color: primaryColor))
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
     }
 
     return Scaffold(
@@ -180,6 +256,10 @@ class _UploadPhotoState extends State<UploadPhoto> {
             title(),
             imageHero(),
             inputSection(),
+            image == null ? Container() : makeUpChooser(),
+            image == null ? Container() : startUploadButton(),
+            // makeUpChooser(),
+            // startUploadButton(),
           ],
         ),
       ),

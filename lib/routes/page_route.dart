@@ -92,5 +92,9 @@ class RoutePage {
       name: RouteName.uploadphoto,
       page: () => const UploadPhoto(),
     ),
+    GetPage(
+      name: RouteName.uploadphoto,
+      page: () => const UploadPhoto(),
+    )
   ];
 }
