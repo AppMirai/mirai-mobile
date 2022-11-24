@@ -85,7 +85,7 @@ class RoutePage {
       page: () => const Profile(),
     ),
     GetPage(
-      name: RouteName.photofilter,
+      name: RouteName.photofilter + '/:uid',
       page: () => const PhotoFilter(),
     ),
     GetPage(

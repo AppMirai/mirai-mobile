@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import '../services/user_service.dart';
 import '../model/profile_user_model.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'dart:io';
 
 class UploadPhoto extends StatefulWidget {
@@ -33,6 +34,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
   void getUserProfile() async {
     var data = await UserService().userProfile();
+    print(data);
 
     setState(() {
       user = data;
@@ -76,22 +78,15 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
     _pyUpload() async {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('http://20.89.56.97:8000/add/'));
+          'POST', Uri.parse('http://10.0.2.2:8000/add/'));
       //10.0.2.2 Local
       //20.89.56.97 Non Local
-      
+
       var color = Color(int.parse(pressAttention));
 
-      print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-      print(user.data.email);
-      print(tipeMakeup);
-      print(color.red);
-      print(color.green);
-      print(color.blue);
-      print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       request.fields.addAll({
         'uid': user.data.email,
-        'tipeMakeup': tipeMakeup,
+        'tipeMakeUp': tipeMakeup,
         'colorR': color.red.toString(),
         'colorG': color.green.toString(),
         'colorB': color.blue.toString()
@@ -101,8 +96,17 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
       http.StreamedResponse response = await request.send();
 
+      print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(user.data.email);
+      print(tipeMakeup);
+      print(color.red);
+      print(color.green);
+      print(color.blue);
+      print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
+        return response;
       } else {
         print(response.reasonPhrase);
       }
@@ -158,9 +162,14 @@ class _UploadPhotoState extends State<UploadPhoto> {
         width: double.infinity,
         height: 55,
         child: OutlinedButton(
-            onPressed: () {
-              _pyUpload();
-              Get.offNamed(RouteName.photofilter);
+            onPressed: () async {
+              context.loaderOverlay.show();
+              final flag = await _pyUpload();
+              if(flag?.statusCode == 200){
+                context.loaderOverlay.hide();
+                var route = RouteName.photofilter + '/' + user.data.email.toString();
+                Get.offNamed(route);
+              }
             },
             style: OutlinedButton.styleFrom(
                 side: BorderSide(width: 2.0, color: primaryColor),
@@ -184,18 +193,22 @@ class _UploadPhotoState extends State<UploadPhoto> {
               children: <Widget>[
                 Expanded(
                   child: FloatingActionButton(
-                    onPressed: () => setState(() => pressAttention = '0xffF15050'),
+                    onPressed: () => setState(() {
+                      tipeMakeup = tipeMakeup;
+                      pressAttention = '0xffF15050';
+                    }),
                     backgroundColor: pressAttention == '0xffF15050' ? primaryColor : whiteColor,
                     child: const Icon(
-                      color: Color(0xffF15050),
-                      size: 55,
-                      Icons.circle_rounded
+                        color: Color(0xffF15050),
+                        size: 55,
+                        Icons.circle_rounded
                     ),
                   ),
                 ),
                 Expanded(
                   child: FloatingActionButton(
                     onPressed: () => setState(() {
+                      tipeMakeup = tipeMakeup;
                       pressAttention = '0xff673AB7';
                     }),
                     backgroundColor: pressAttention == '0xff673AB7' ? primaryColor : whiteColor,
@@ -208,7 +221,10 @@ class _UploadPhotoState extends State<UploadPhoto> {
                 ),
                 Expanded(
                   child: FloatingActionButton(
-                    onPressed: () => setState(() => pressAttention = '0xffFFDBAC'),
+                    onPressed: () => setState(() {
+                      tipeMakeup = tipeMakeup;
+                      pressAttention = '0xffFFDBAC';
+                    }),
                     backgroundColor: pressAttention == '0xffFFDBAC' ? primaryColor : whiteColor,
                     child: const Icon(
                         color: Color(0xffFFDBAC),
@@ -225,20 +241,22 @@ class _UploadPhotoState extends State<UploadPhoto> {
               children: <Widget>[
                 Expanded(
                   child: FloatingActionButton.extended(
-                    onPressed: () => setState(() {
-                      tipeMakeup = 'lips';
-                    }),
-                    backgroundColor: tipeMakeup == 'lips' ? primaryColor : whiteColor,
-                    label: tipeMakeup == 'lips' ? Text('Lips', style: TextStyle(color: whiteColor)) : Text('Lips', style: TextStyle(color: primaryColor))
+                      onPressed: () => setState(() {
+                        pressAttention = pressAttention;
+                        tipeMakeup = 'lips';
+                      }),
+                      backgroundColor: tipeMakeup == 'lips' ? primaryColor : whiteColor,
+                      label: tipeMakeup == 'lips' ? Text('Lips', style: TextStyle(color: whiteColor)) : Text('Lips', style: TextStyle(color: primaryColor))
                   ),
                 ),
                 Expanded(
                   child: FloatingActionButton.extended(
-                    onPressed: () => setState(() {
-                      tipeMakeup = 'pipi';
-                    }),
-                    backgroundColor: tipeMakeup == 'pipi' ? primaryColor : whiteColor,
-                    label: tipeMakeup == 'pipi' ? Text('Pipi', style: TextStyle(color: whiteColor)) : Text('Pipi', style: TextStyle(color: primaryColor))
+                      onPressed: () => setState(() {
+                        pressAttention = pressAttention;
+                        tipeMakeup = 'pipi';
+                      }),
+                      backgroundColor: tipeMakeup == 'pipi' ? primaryColor : whiteColor,
+                      label: tipeMakeup == 'pipi' ? Text('Pipi', style: TextStyle(color: whiteColor)) : Text('Pipi', style: TextStyle(color: primaryColor))
                   ),
                 ),
               ],
@@ -250,17 +268,20 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          children: [
-            title(),
-            imageHero(),
-            inputSection(),
-            image == null ? Container() : makeUpChooser(),
-            image == null ? Container() : startUploadButton(),
-            // makeUpChooser(),
-            // startUploadButton(),
-          ],
+        child: LoaderOverlay(
+          overlayOpacity: 0.8,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            children: [
+              title(),
+              imageHero(),
+              inputSection(),
+              image == null ? Container() : makeUpChooser(),
+              image == null ? Container() : startUploadButton(),
+              // makeUpChooser(),
+              // startUploadButton(),
+            ],
+          ),
         ),
       ),
     );

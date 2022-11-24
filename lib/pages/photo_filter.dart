@@ -64,16 +64,18 @@ class _PhotoFilter extends State<PhotoFilter> {
 
     _uriGet() {
       print('TESTING');
-      String uri = 'http://20.89.56.97:8000/uid/${user.data.email}';
+      var uid = Get.parameters['uid'];
+      print(uid);
+      String uri = 'http://10.0.2.2:8000/uid/' + uid!;
       print(uri);
       //10.0.2.2 Local
       //20.89.56.97 Non Local
-
       return uri;
     }
 
     _deleteImage() async {
-      var request = http.Request('DELETE', Uri.parse('http://20.89.56.97:8000/delete/${user.data.email}'));
+      var uri = 'http://10.0.2.2:8000/delete/' + Get.parameters['uid']!;
+      var request = http.Request('DELETE', Uri.parse(uri));
       //10.0.2.2 Local
       //20.89.56.97 Non Local
 
