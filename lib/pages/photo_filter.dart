@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mirai_app/routes/route_name.dart';
 import 'package:mirai_app/shared/theme.dart';
-import '../services/user_service.dart';
-import '../model/profile_user_model.dart';
 import 'package:http/http.dart' as http;
 
 class PhotoFilter extends StatefulWidget {
@@ -15,28 +13,8 @@ class PhotoFilter extends StatefulWidget {
 }
 
 class _PhotoFilter extends State<PhotoFilter> {
-  UserProfileModel user = UserProfileModel(
-    message: "",
-    data: Data(
-        id: 0,
-        fullName: "",
-        email: "",
-        photoUserUrl: "",
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now()),
-  );
-
-  void getUserProfile() async {
-    var data = await UserService().userProfile();
-
-    setState(() {
-      user = data;
-    });
-  }
-
   @override
   void initState() {
-    getUserProfile();
     super.initState();
   }
 
@@ -66,7 +44,7 @@ class _PhotoFilter extends State<PhotoFilter> {
       print('TESTING');
       var uid = Get.parameters['uid'];
       print(uid);
-      String uri = 'http://10.0.2.2:8000/uid/' + uid!;
+      String uri = 'http://20.89.56.97:8000/uid/' + uid!;
       print(uri);
       //10.0.2.2 Local
       //20.89.56.97 Non Local
@@ -74,7 +52,7 @@ class _PhotoFilter extends State<PhotoFilter> {
     }
 
     _deleteImage() async {
-      var uri = 'http://10.0.2.2:8000/delete/' + Get.parameters['uid']!;
+      var uri = 'http://20.89.56.97:8000/delete/' + Get.parameters['uid']!;
       var request = http.Request('DELETE', Uri.parse(uri));
       //10.0.2.2 Local
       //20.89.56.97 Non Local

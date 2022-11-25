@@ -78,7 +78,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
     _pyUpload() async {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('http://10.0.2.2:8000/add/'));
+          'POST', Uri.parse('http://20.89.56.97:8000/add/'));
       //10.0.2.2 Local
       //20.89.56.97 Non Local
 
