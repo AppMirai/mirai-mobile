@@ -120,18 +120,6 @@ class _DetailProductState extends State<DetailProduct> {
                         size: 24.0,
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    ElevatedButton(
-                      child: const Text("COBA AR"),
-                      onPressed: () {
-                        Get.toNamed(RouteName.ar);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
-                      ),
-                    ),
                   ],
                 ),
               ),

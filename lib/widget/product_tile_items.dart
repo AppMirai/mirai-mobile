@@ -33,6 +33,7 @@ class _ProductTileItemsState extends State<ProductTileItems> {
           if (snapshot.hasData) {
             return Column(
               children: snapshot.data!.data
+                  .sublist(0, 5)
                   .map((item) => ListItem(item: item))
                   .toList(),
             );

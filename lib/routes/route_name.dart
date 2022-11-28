@@ -4,7 +4,6 @@ abstract class RouteName {
   static const navbar = '/navbar';
   static const home = '/home';
   static const detail = '/detail';
-  static const ar = '/ar';
   static const login = '/login';
   static const register = '/register';
   static const upphoto = '/upphoto';
@@ -17,4 +16,5 @@ abstract class RouteName {
   static const profile = '/profile';
   static const photofilter = '/photofilter';
   static const uploadphoto = '/uploadphoto';
+  static const productlist = '/productlist';
 }

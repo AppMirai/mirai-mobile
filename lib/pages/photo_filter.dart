@@ -66,7 +66,7 @@ class _PhotoFilter extends State<PhotoFilter> {
       print('TESTING');
       var uid = Get.parameters['uid'];
       print(uid);
-      String uri = 'http://10.0.2.2:8000/uid/' + uid!;
+      String uri = 'http://20.89.56.97:8000/uid/' + uid!;
       print(uri);
       //10.0.2.2 Local
       //20.89.56.97 Non Local

@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:mirai_app/pages/photo_filter.dart';
+import 'package:mirai_app/pages/product_list.dart';
 import 'package:mirai_app/pages/products_page.dart';
 import 'package:mirai_app/pages/profile.dart';
 import '../pages/products_brand_page.dart';
 import '../pages/splash.dart';
-import '../pages/ar_camera.dart';
 import '../pages/brand_list.dart';
 import '../pages/category_list.dart';
 import '../pages/components/navbar.dart';
@@ -39,10 +39,6 @@ class RoutePage {
     GetPage(
       name: RouteName.detail,
       page: () => const DetailProduct(),
-    ),
-    GetPage(
-      name: RouteName.ar,
-      page: () => const ArCamera(),
     ),
     GetPage(
       name: RouteName.login,
@@ -95,6 +91,10 @@ class RoutePage {
     GetPage(
       name: RouteName.uploadphoto,
       page: () => const UploadPhoto(),
+    ),
+    GetPage(
+      name: RouteName.productlist,
+      page: () => const ProductList(),
     )
   ];
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mirai_app/widget/product_tile_items.dart';
+
+import '../../routes/route_name.dart';
+import '../../shared/theme.dart';
 
 class ProductsTile extends StatelessWidget {
   const ProductsTile({Key? key}) : super(key: key);
@@ -10,8 +14,8 @@ class ProductsTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const <Widget>[
-            Expanded(
+          children: <Widget>[
+            const Expanded(
                 child: Padding(
               padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
               child: Text(
@@ -20,7 +24,20 @@ class ProductsTile extends StatelessWidget {
               ),
             )),
             Padding(
-              padding: EdgeInsets.only(left: 24, right: 24, bottom: 20),
+              padding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
+              child: TextButton(
+                child: Text(
+                  'See all',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: primaryColor,
+                  ),
+                ),
+                onPressed: () {
+                  Get.toNamed(RouteName.productlist);
+                  // Navigator.pushNamed(context, '/category');
+                },
+              ),
             )
           ],
         ),

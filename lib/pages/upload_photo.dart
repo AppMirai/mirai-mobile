@@ -52,16 +52,27 @@ class _UploadPhotoState extends State<UploadPhoto> {
     Widget title() {
       return Container(
         margin: const EdgeInsets.only(top: 20),
-        child: Text(
-          'Upload Photo',
-          style: blackTextStyle.copyWith(
-              fontSize: 24, fontWeight: semiBold, color: primaryColor),
+        child: Row(
+          children: [
+            // IconButton(
+            //   icon: Icon(Icons.arrow_back),
+            //   onPressed: () {
+            //     Get.offNamed(RouteName.navbar);
+            //   },
+            // ),
+            Text(
+              'Virtual Makeup',
+              style: blackTextStyle.copyWith(
+                  fontSize: 24, fontWeight: semiBold, color: primaryColor),
+            ),
+          ],
         ),
       );
     }
 
     Future getCameraImage() async {
-      final picked = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 25);
+      final picked = await ImagePicker()
+          .pickImage(source: ImageSource.camera, imageQuality: 25);
 
       setState(() {
         image = File(picked!.path);
@@ -69,16 +80,35 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
 
     Future getGalleryImage() async {
-      var picked = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 25);
+      var picked = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, imageQuality: 25);
 
       setState(() {
         image = File(picked!.path);
       });
     }
 
+    _deleteImage() async {
+      var uri = 'http://20.89.56.97:8000/delete/${user.data.email}';
+      debugPrint('===============');
+      debugPrint(user.data.email);
+      debugPrint('===============');
+      var request = http.Request('DELETE', Uri.parse(uri));
+      //10.0.2.2 Local
+      //20.89.56.97 Non Local
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      } else {
+        print(await response.reasonPhrase);
+      }
+    }
+
     _pyUpload() async {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('http://10.0.2.2:8000/add/'));
+          'POST', Uri.parse('http://20.89.56.97:8000/add/'));
       //10.0.2.2 Local
       //20.89.56.97 Non Local
 
@@ -96,13 +126,15 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
       http.StreamedResponse response = await request.send();
 
-      print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(
+          '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       print(user.data.email);
       print(tipeMakeup);
       print(color.red);
       print(color.green);
       print(color.blue);
-      print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(
+          '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
@@ -115,7 +147,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
     Widget imageHero() {
       if (image == null) {
         return Image.asset(
-          'assets/images/up_photo_illustration.png',
+          'assets/images/up_photo_illustration 2.png',
           height: 329,
           width: 329,
         );
@@ -129,45 +161,98 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
 
     Widget inputSection() {
-      return Container(
-          margin: const EdgeInsets.only(top: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: FloatingActionButton(
+      // return Container(
+      //     margin: const EdgeInsets.only(top: 20),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: <Widget>[
+      //         Expanded(
+      //           child: FloatingActionButton(
+      //             heroTag: "btn1",
+      //             onPressed: () {
+      //               getGalleryImage();
+      //             },
+      //             backgroundColor: primaryColor,
+      //             child: const Icon(Icons.image),
+      //           ),
+      //         ),
+      //         Expanded(
+      //           child: FloatingActionButton(
+      //             heroTag: "btn2",
+      //             onPressed: () {
+      //               getCameraImage();
+      //             },
+      //             backgroundColor: whiteColor,
+      //             child: const Icon(
+      //               Icons.camera_alt,
+      //               color: Color(0xffE66099),
+      //             ),
+      //           ),
+      //         ),
+      //       ],
+      //     ));
+      return Row(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(top: 20, bottom: 20),
+              width: double.infinity,
+              height: 48,
+              child: TextButton(
                   onPressed: () {
                     getGalleryImage();
                   },
-                  backgroundColor: primaryColor,
-                  child: const Icon(Icons.image),
-                ),
-              ),
-              Expanded(
-                child: FloatingActionButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0))),
+                  child: Text('Upload Photo',
+                      style: whiteTextStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: semiBold,
+                      ))),
+            ),
+          ),
+          const SizedBox(
+            width: 30,
+          ),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              height: 48,
+              child: OutlinedButton(
                   onPressed: () {
                     getCameraImage();
                   },
-                  backgroundColor: whiteColor,
-                  child: const Icon(Icons.camera_alt, color: Color(0xffE66099),),
-                ),
-              ),
-            ],
-          ));
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: primaryColor),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0))),
+                  child: Text('Camera',
+                      style: pinkTextStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: semiBold,
+                      ))),
+            ),
+          ),
+        ],
+      );
     }
 
     Widget startUploadButton() {
       return Container(
-        margin: const EdgeInsets.only(bottom: 20, top: 20),
+        margin: const EdgeInsets.only(bottom: 120, top: 20),
         width: double.infinity,
         height: 55,
         child: OutlinedButton(
             onPressed: () async {
               context.loaderOverlay.show();
+              await _deleteImage();
               final flag = await _pyUpload();
-              if(flag?.statusCode == 200){
+              if (flag?.statusCode == 200) {
                 context.loaderOverlay.hide();
-                var route = RouteName.photofilter + '/' + user.data.email.toString();
+                var route =
+                    RouteName.photofilter + '/' + user.data.email.toString();
                 Get.offNamed(route);
               }
             },
@@ -183,81 +268,104 @@ class _UploadPhotoState extends State<UploadPhoto> {
       );
     }
 
-    Widget makeUpChooser(){
+    Widget makeUpChooser() {
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: FloatingActionButton(
-                    onPressed: () => setState(() {
-                      tipeMakeup = tipeMakeup;
-                      pressAttention = '0xffF15050';
-                    }),
-                    backgroundColor: pressAttention == '0xffF15050' ? primaryColor : whiteColor,
-                    child: const Icon(
-                        color: Color(0xffF15050),
-                        size: 55,
-                        Icons.circle_rounded
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: FloatingActionButton(
+                      heroTag: "btn3",
+                      onPressed: () => setState(() {
+                        tipeMakeup = tipeMakeup;
+                        pressAttention = '0xffF15050';
+                      }),
+                      backgroundColor: pressAttention == '0xffF15050'
+                          ? primaryColor
+                          : whiteColor,
+                      child: const Icon(
+                          color: Color(0xffF15050),
+                          size: 55,
+                          Icons.circle_rounded),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: FloatingActionButton(
-                    onPressed: () => setState(() {
-                      tipeMakeup = tipeMakeup;
-                      pressAttention = '0xff673AB7';
-                    }),
-                    backgroundColor: pressAttention == '0xff673AB7' ? primaryColor : whiteColor,
-                    child: const Icon(
-                        color: Color(0xff673AB7),
-                        size: 55,
-                        Icons.circle_rounded
+                  Expanded(
+                    child: FloatingActionButton(
+                      heroTag: "btn4",
+                      onPressed: () => setState(() {
+                        tipeMakeup = tipeMakeup;
+                        pressAttention = '0xff673AB7';
+                      }),
+                      backgroundColor: pressAttention == '0xff673AB7'
+                          ? primaryColor
+                          : whiteColor,
+                      child: const Icon(
+                          color: Color(0xff673AB7),
+                          size: 55,
+                          Icons.circle_rounded),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: FloatingActionButton(
-                    onPressed: () => setState(() {
-                      tipeMakeup = tipeMakeup;
-                      pressAttention = '0xffFFDBAC';
-                    }),
-                    backgroundColor: pressAttention == '0xffFFDBAC' ? primaryColor : whiteColor,
-                    child: const Icon(
-                        color: Color(0xffFFDBAC),
-                        size: 55,
-                        Icons.circle_rounded
+                  Expanded(
+                    child: FloatingActionButton(
+                      heroTag: "btn5",
+                      onPressed: () => setState(() {
+                        tipeMakeup = tipeMakeup;
+                        pressAttention = '0xffFFDBAC';
+                      }),
+                      backgroundColor: pressAttention == '0xffFFDBAC'
+                          ? primaryColor
+                          : whiteColor,
+                      child: const Icon(
+                          color: Color(0xffFFDBAC),
+                          size: 55,
+                          Icons.circle_rounded),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            SizedBox(width: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
                   child: FloatingActionButton.extended(
+                      heroTag: "btn6",
                       onPressed: () => setState(() {
-                        pressAttention = pressAttention;
-                        tipeMakeup = 'lips';
-                      }),
-                      backgroundColor: tipeMakeup == 'lips' ? primaryColor : whiteColor,
-                      label: tipeMakeup == 'lips' ? Text('Lips', style: TextStyle(color: whiteColor)) : Text('Lips', style: TextStyle(color: primaryColor))
-                  ),
+                            pressAttention = pressAttention;
+                            tipeMakeup = 'lips';
+                          }),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)),
+                      backgroundColor:
+                          tipeMakeup == 'lips' ? primaryColor : whiteColor,
+                      label: tipeMakeup == 'lips'
+                          ? Text('Lips', style: TextStyle(color: whiteColor))
+                          : Text('Lips',
+                              style: TextStyle(color: primaryColor))),
+                ),
+                SizedBox(
+                  width: 30,
                 ),
                 Expanded(
                   child: FloatingActionButton.extended(
+                      heroTag: "btn7",
                       onPressed: () => setState(() {
-                        pressAttention = pressAttention;
-                        tipeMakeup = 'pipi';
-                      }),
-                      backgroundColor: tipeMakeup == 'pipi' ? primaryColor : whiteColor,
-                      label: tipeMakeup == 'pipi' ? Text('Pipi', style: TextStyle(color: whiteColor)) : Text('Pipi', style: TextStyle(color: primaryColor))
-                  ),
+                            pressAttention = pressAttention;
+                            tipeMakeup = 'pipi';
+                          }),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)),
+                      backgroundColor:
+                          tipeMakeup == 'pipi' ? primaryColor : whiteColor,
+                      label: tipeMakeup == 'pipi'
+                          ? Text('Pipi', style: TextStyle(color: whiteColor))
+                          : Text('Pipi',
+                              style: TextStyle(color: primaryColor))),
                 ),
               ],
             )
