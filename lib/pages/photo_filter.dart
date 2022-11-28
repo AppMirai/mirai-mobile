@@ -60,19 +60,17 @@ class _PhotoFilter extends State<PhotoFilter> {
 
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
-      }
-      else {
+      } else {
         print(response.reasonPhrase);
       }
-
     }
 
     Widget imageHero() {
-        return Image.network(
-          _uriGet(),
-          height: 494,
-          width: 494,
-        );
+      return Image.network(
+        _uriGet(),
+        height: 494,
+        width: 494,
+      );
     }
 
     Widget inputSection() {
@@ -84,7 +82,7 @@ class _PhotoFilter extends State<PhotoFilter> {
           child: OutlinedButton(
               onPressed: () {
                 _deleteImage();
-                Get.toNamed(RouteName.uploadphoto);
+                Get.toNamed(RouteName.navbar);
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: primaryColor,
