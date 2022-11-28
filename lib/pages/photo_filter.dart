@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mirai_app/routes/route_name.dart';
 import 'package:mirai_app/shared/theme.dart';
-import '../services/user_service.dart';
-import '../model/profile_user_model.dart';
 import 'package:http/http.dart' as http;
 
 class PhotoFilter extends StatefulWidget {
