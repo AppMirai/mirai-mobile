@@ -15,28 +15,8 @@ class PhotoFilter extends StatefulWidget {
 }
 
 class _PhotoFilter extends State<PhotoFilter> {
-  UserProfileModel user = UserProfileModel(
-    message: "",
-    data: Data(
-        id: 0,
-        fullName: "",
-        email: "",
-        photoUserUrl: "",
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now()),
-  );
-
-  void getUserProfile() async {
-    var data = await UserService().userProfile();
-
-    setState(() {
-      user = data;
-    });
-  }
-
   @override
   void initState() {
-    getUserProfile();
     super.initState();
   }
 
@@ -63,7 +43,6 @@ class _PhotoFilter extends State<PhotoFilter> {
     }
 
     _uriGet() {
-      print('TESTING');
       var uid = Get.parameters['uid'];
       print(uid);
       String uri = 'http://20.89.56.97:8000/uid/' + uid!;
@@ -74,11 +53,10 @@ class _PhotoFilter extends State<PhotoFilter> {
     }
 
     _deleteImage() async {
-      var uri = 'http://10.0.2.2:8000/delete/' + Get.parameters['uid']!;
+      var uri = 'http://20.89.56.97:8000/delete/' + Get.parameters['uid']!;
       var request = http.Request('DELETE', Uri.parse(uri));
       //10.0.2.2 Local
       //20.89.56.97 Non Local
-
 
       http.StreamedResponse response = await request.send();
 
@@ -100,14 +78,13 @@ class _PhotoFilter extends State<PhotoFilter> {
     }
 
     Widget inputSection() {
-      Widget cobaARButton() {
+      Widget cobaUlangButton() {
         return Container(
           margin: const EdgeInsets.only(bottom: 20),
           width: double.infinity,
           height: 48,
           child: OutlinedButton(
               onPressed: () {
-                // Navigator.pushNamed(context, '#'); //Push ke upload_photo
                 _deleteImage();
                 Get.toNamed(RouteName.uploadphoto);
               },
@@ -126,7 +103,7 @@ class _PhotoFilter extends State<PhotoFilter> {
       return Container(
           margin: const EdgeInsets.only(top: 20),
           child: Column(
-            children: [cobaARButton()],
+            children: [cobaUlangButton()],
           ));
     }
 
