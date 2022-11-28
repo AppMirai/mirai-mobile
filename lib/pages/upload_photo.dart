@@ -126,16 +126,6 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
       http.StreamedResponse response = await request.send();
 
-      print(
-          '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-      print(user.data.email);
-      print(tipeMakeup);
-      print(color.red);
-      print(color.green);
-      print(color.blue);
-      print(
-          '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Test Data Masuk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
         return response;
