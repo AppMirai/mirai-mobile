@@ -89,7 +89,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
 
     _deleteImage() async {
-      var uri = 'http://20.89.56.97:8000/delete/${user.data.email}';
+      var uri = 'https://api-vmu.miraiapp.site/delete/${user.data.email}';
       debugPrint('===============');
       debugPrint(user.data.email);
       debugPrint('===============');
@@ -108,7 +108,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
     _pyUpload() async {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('http://20.89.56.97:8000/add/'));
+          'POST', Uri.parse('https://api-vmu.miraiapp.site/add/'));
       //10.0.2.2 Local
       //20.89.56.97 Non Local
 

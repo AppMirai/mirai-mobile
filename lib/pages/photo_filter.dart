@@ -43,7 +43,7 @@ class _PhotoFilter extends State<PhotoFilter> {
     _uriGet() {
       var uid = Get.parameters['uid'];
       print(uid);
-      String uri = 'http://20.89.56.97:8000/uid/' + uid!;
+      String uri = 'https://api-vmu.miraiapp.site/uid/' + uid!;
       print(uri);
       //10.0.2.2 Local
       //20.89.56.97 Non Local
@@ -51,7 +51,7 @@ class _PhotoFilter extends State<PhotoFilter> {
     }
 
     _deleteImage() async {
-      var uri = 'http://20.89.56.97:8000/delete/' + Get.parameters['uid']!;
+      var uri = 'https://api-vmu.miraiapp.site/delete/' + Get.parameters['uid']!;
       var request = http.Request('DELETE', Uri.parse(uri));
       //10.0.2.2 Local
       //20.89.56.97 Non Local
