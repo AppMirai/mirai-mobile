@@ -1,46 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CategoryItem {
-  final String urlImage;
+import '../api/strings.dart';
+import '../model/category_model.dart';
 
-  const CategoryItem({
-    required this.urlImage,
-  });
-}
+class CategoryItem extends StatelessWidget {
+  const CategoryItem({super.key, required this.item});
+  final CategoryData item;
 
-List<CategoryItem> items = [
-  CategoryItem(
-    urlImage: 'assets/images/kategori_lipstik.png',
-  ),
-  CategoryItem(
-    urlImage: 'assets/images/kategori_foundation.png',
-  ),
-  CategoryItem(
-    urlImage: 'assets/images/kategori_mascara.png',
-  ),
-  CategoryItem(
-    urlImage: 'assets/images/kategori_blushon.png',
-  ),
-  CategoryItem(
-    urlImage: 'assets/images/kategori_lipmatte.png',
-  ),
-  CategoryItem(
-    urlImage: 'assets/images/kategori_eyebrow.png',
-  ),
-];
-
-Widget categoryCard({required CategoryItem item}) => Container(
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 10),
       width: 100,
-      child: Column(
-        children: [
-          Expanded(
-            child: AspectRatio(
-                aspectRatio: 4 / 3,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(item.urlImage, fit: BoxFit.cover))),
-          )
-        ],
+      child: AspectRatio(
+        aspectRatio: 4 / 3,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(baseURLHOST + item.categoryImageUrl,
+              fit: BoxFit.cover),
+        ),
       ),
     );
+  }
+}

@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Color kPrimaryColor = Color(0xffE66099);
-Color kBlackColor = Color(0xff343A40);
-Color kWhiteColor = Color(0xffFFFFFF);
-Color kGreyColor = Color(0xffAEB0B3);
-Color kBackgroundColor = Color(0xffFAFAFA);
-Color kInactiveColor = Color(0xffCCCECF);
-Color kTransparentColor = Colors.transparent;
+Color primaryColor = const Color(0xffE66099);
+Color blackColor = const Color(0xff343A40);
+Color whiteColor = const Color(0xffFFFFFF);
+Color greyColor = const Color(0xffAEB0B3);
+Color redColor = const Color(0xffF15050);
+Color backgroundColor = const Color(0xffFAFAFA);
+Color inactiveColor = const Color(0xffCCCECF);
+Color transparentColor = Colors.transparent;
 
 TextStyle blackTextStyle = GoogleFonts.poppins(
-  color: kBlackColor,
+  color: blackColor,
 );
 TextStyle whiteTextStyle = GoogleFonts.poppins(
-  color: kWhiteColor,
+  color: whiteColor,
 );
 TextStyle greyTextStyle = GoogleFonts.poppins(
-  color: kGreyColor,
+  color: greyColor,
+);
+TextStyle pinkTextStyle = GoogleFonts.poppins(
+  color: primaryColor,
 );
 
 FontWeight light = FontWeight.w300;

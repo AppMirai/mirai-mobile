@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "771880687215",
-    "project_id": "miraiapp-62dc2",
-    "storage_bucket": "miraiapp-62dc2.appspot.com"
+    "project_number": "716275390790",
+    "project_id": "mirai-app-a6bf3",
+    "storage_bucket": "mirai-app-a6bf3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:771880687215:android:495cb6ff5b82e8c85d9f9a",
+        "mobilesdk_app_id": "1:716275390790:android:363ead047406f27077ad47",
         "android_client_info": {
-          "package_name": "com.company.mirai"
+          "package_name": "com.mirai.mirai_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "771880687215-f4le8m9rvk6lcv7ne35ifsif5tns6o7n.apps.googleusercontent.com",
+          "client_id": "716275390790-m2tv7vc6mptodr0eosr45ndeb28bpqps.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDz8sDb2xhKarLH1mpwFT7maAE10_ojxnQ"
+          "current_key": "AIzaSyDzJ9_UD6d504cHvCh7pztNjGONxYNmTlo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "771880687215-f4le8m9rvk6lcv7ne35ifsif5tns6o7n.apps.googleusercontent.com",
+              "client_id": "716275390790-m2tv7vc6mptodr0eosr45ndeb28bpqps.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

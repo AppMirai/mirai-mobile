@@ -22,22 +22,22 @@ class CustomNavbarItems extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(),
+          const SizedBox(),
           Image.asset(
             imageUrl,
             width: 24,
             height: 24,
             color: context.read<PageCubit>().state == index
-                ? kPrimaryColor
-                : kGreyColor,
+                ? primaryColor
+                : greyColor,
           ),
           Container(
             width: 30,
             height: 2,
             decoration: BoxDecoration(
                 color: context.read<PageCubit>().state == index
-                    ? kPrimaryColor
-                    : kTransparentColor,
+                    ? primaryColor
+                    : transparentColor,
                 borderRadius: BorderRadius.circular(18)),
           )
         ],
