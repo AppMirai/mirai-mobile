@@ -25,10 +25,11 @@ class _PhotoFilter extends State<PhotoFilter> {
         margin: const EdgeInsets.only(top: 20),
         child: Row(
           children: [
-            const Icon(
-              IconData(0xe092,
-                  fontFamily: 'MaterialIcons', matchTextDirection: true),
-              color: Colors.grey,
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Get.offNamed(RouteName.navbar);
+              },
             ),
             Text(
               "Kembali",
@@ -82,7 +83,7 @@ class _PhotoFilter extends State<PhotoFilter> {
           child: OutlinedButton(
               onPressed: () {
                 _deleteImage();
-                Get.toNamed(RouteName.navbar);
+                Get.offNamed(RouteName.navbar);
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: primaryColor,

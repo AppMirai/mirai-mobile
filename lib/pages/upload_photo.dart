@@ -151,36 +151,6 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
 
     Widget inputSection() {
-      // return Container(
-      //     margin: const EdgeInsets.only(top: 20),
-      //     child: Row(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: <Widget>[
-      //         Expanded(
-      //           child: FloatingActionButton(
-      //             heroTag: "btn1",
-      //             onPressed: () {
-      //               getGalleryImage();
-      //             },
-      //             backgroundColor: primaryColor,
-      //             child: const Icon(Icons.image),
-      //           ),
-      //         ),
-      //         Expanded(
-      //           child: FloatingActionButton(
-      //             heroTag: "btn2",
-      //             onPressed: () {
-      //               getCameraImage();
-      //             },
-      //             backgroundColor: whiteColor,
-      //             child: const Icon(
-      //               Icons.camera_alt,
-      //               color: Color(0xffE66099),
-      //             ),
-      //           ),
-      //         ),
-      //       ],
-      //     ));
       return Row(
         children: <Widget>[
           Expanded(
